@@ -14,8 +14,11 @@ function App() {
       })
       .catch((err) => console.log(err))
   }, [])
+
   return (
-    <h1>{data}</h1>
+    <>
+      <h1>{data}</h1>
+    </>
   );
 }
 
