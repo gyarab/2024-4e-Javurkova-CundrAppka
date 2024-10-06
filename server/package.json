@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/mongoose": "^5.11.96",
     "@types/morgan": "^1.9.9",
     "dotenv": "^16.4.5",
     "morgan": "^1.10.0",

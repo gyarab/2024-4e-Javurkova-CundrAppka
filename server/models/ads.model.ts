@@ -6,5 +6,5 @@ const adSchema = new Schema({
   title: String
 })
 
-const Ad = model('Ad', adSchema);
+const Ad = model('Ad', adSchema)
 export default Ad

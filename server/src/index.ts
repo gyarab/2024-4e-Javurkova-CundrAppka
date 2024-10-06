@@ -1,10 +1,10 @@
 // import modules
-import express from 'express';
-import mongoose from 'mongoose';
-import morgan from 'morgan';
-import cors from 'cors';
-import dotenv from 'dotenv';
-dotenv.config();
+import express from 'express'
+import mongoose from 'mongoose'
+import morgan from 'morgan'
+import cors from 'cors'
+import dotenv from 'dotenv'
+dotenv.config()
 
 import adRoutes from '../routes/ads.route'
 
@@ -18,12 +18,27 @@ app.use(express.json())
 
 // routes
 app.use('/api/ads', adRoutes)
+// API test
+app.get('/test', (req, res) => {
+  res.json({message: 'Test API is working'})
+})
 
 // port
-const PORT = process.env.PORT || 8000
+const PORT: number = parseInt(process.env.PORT || '8000', 10)
 
 // db and listener
-mongoose.connect(process.env.MONGO_URI!).then(() => {
-    console.log('DB connected')
-    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
-}).catch(err => console.log('DB connection error', err))
+const MONGO_URI = process.env.MONGO_URI
+if (!MONGO_URI) {
+  console.error('URI databáze není defonovano v .env')
+  process.exit(1)
+}
+
+mongoose
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log('Databáze připojena')
+    app.listen(PORT, () => console.log(`Server běží na portu ${PORT}`))
+  })
+  .catch((err) => {
+    console.error('Nastala chyba při připojování databáze: ', err.message)
+})
