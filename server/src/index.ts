@@ -6,7 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import Ad from '../models/Ad'
+import adRoutes from '../routes/ads.route'
 
 // app
 const app = express()
@@ -17,16 +17,7 @@ app.use(cors())
 app.use(express.json())
 
 // routes
-import testRoutes from '../routes/test';
-app.use('/', testRoutes)
-app.post('/ad', async (req, res) => {
-    console.log(req.body)
-    const newAd = new Ad({
-        title: req.body.title
-    })
-    const createdAd = await newAd.save()
-    res.json(createdAd)
-})
+app.use('/api/ads', adRoutes)
 
 // port
 const PORT = process.env.PORT || 8000
