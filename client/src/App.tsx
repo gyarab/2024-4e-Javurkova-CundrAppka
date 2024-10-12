@@ -1,23 +1,22 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 import './App.css';
-import {useState, useEffect} from 'react'
+import HomePage from './pages/HomePage'
+import AdsPage from './pages/AdsPage'
 
 // functions
-import { getTest } from './functions/test'
+
 
 function App() {
-  const [data, setData] = useState('Ahoj Svete')
-
-  useEffect(() => {
-    getTest()
-      .then((res) => {
-        setData(res.message)
-      })
-      .catch((err) => console.log(err))
-  }, [])
 
   return (
     <>
-      <h1>{data}</h1>
+      <Router>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/inzeraty' element={<AdsPage />} />
+        </Routes>
+      </Router>
     </>
   );
 }
