@@ -14,7 +14,7 @@ export const getAds = async (req, res) => {
 export const createAd = async (req, res) => {
     const data = req.body
 
-    if (!data.name) {
+    if (!data.title) {
 		return res.status(400).json({ success: false, message: 'Vyplňte všechny pole' })
 	}
     const newAd = new Ad(data)
