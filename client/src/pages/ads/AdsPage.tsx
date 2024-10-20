@@ -22,6 +22,7 @@ function AdsPage() {
             ) : (
                 <p>Nejsou zveřejněny žádné inzeráty</p>
             )}
+            <a href='/inzeraty/zverejnit'>Vytvorit</a>
             <a href='/'>Domu</a>
         </div>
     )
