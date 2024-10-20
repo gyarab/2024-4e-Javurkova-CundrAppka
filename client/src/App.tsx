@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import './App.css';
-import HomePage from './pages/HomePage'
-import AdsPage from './pages/AdsPage'
+import 'App.css';
+import HomePage from 'pages/HomePage'
+import AdsPage from 'pages/ads/AdsPage'
 
 // functions
 

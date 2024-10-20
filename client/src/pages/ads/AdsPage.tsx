@@ -1,4 +1,4 @@
-import useFetchAds from '../hooks/useFetchAds'
+import useFetchAds from 'hooks/ads/useFetchAds'
 
 interface Ad {
     title: string

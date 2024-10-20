@@ -18,10 +18,6 @@ app.use(express.json())
 
 // routes
 app.use('/api/ads', adRoutes)
-// API test
-app.get('/test', (req, res) => {
-  res.json({message: 'Test API is working'})
-})
 
 // port
 const PORT: number = parseInt(process.env.PORT || '8000', 10)
@@ -29,7 +25,7 @@ const PORT: number = parseInt(process.env.PORT || '8000', 10)
 // db and listener
 const MONGO_URI = process.env.MONGO_URI
 if (!MONGO_URI) {
-  console.error('URI databáze není defonovano v .env')
+  console.error('URI databáze není definováno v .env')
   process.exit(1)
 }
 
@@ -40,5 +36,5 @@ mongoose
     app.listen(PORT, () => console.log(`Server běží na portu ${PORT}`))
   })
   .catch((err) => {
-    console.error('Nastala chyba při připojování databáze: ', err.message)
+    console.error('Nastala chyba při připojování k databázi: ', err.message)
 })
