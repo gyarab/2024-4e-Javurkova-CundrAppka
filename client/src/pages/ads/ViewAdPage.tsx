@@ -6,11 +6,14 @@ function ViewAdPage() {
     const { ad, loading } = useFetchSingleAd(id!)
 
     if (loading) {
-        return <p>Načítání...</p>;
+        return <p>Načítání...</p>
     }
     
     if (!ad) {
-        return <p>Inzerát nenalezen.</p>;
+        return <>
+            <p>Inzerát nenalezen.</p>
+            <p><a href="/inzeraty">Zpatky</a></p>
+        </>
     }
       
   return (

@@ -15,7 +15,7 @@ const useFetchSingleAd = (id: string) => {
         fetch(`/api/ads/${id}`, { method: 'GET' })
             .then(res => {
                 if (!res.ok) {
-                throw new Error('Nastal problém při načítání inzerátu.')
+                    throw new Error('Nastal problém při načítání inzerátu.')
                 }
                 return res.json()
             })
@@ -27,6 +27,10 @@ const useFetchSingleAd = (id: string) => {
                 }
                 setLoading(false)
             })
+            .catch(() => {
+                setLoading(false)
+                setAd(null)
+              })
         }, [id])
     
     return { ad, loading }
