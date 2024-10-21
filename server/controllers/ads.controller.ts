@@ -11,6 +11,19 @@ export const getAds = async (req, res) => {
     }
 }
 
+export const getAd = async (req, res) => {
+    const { id } = req.params
+    try {
+        const ad = await Ad.findById(id)
+        if (!ad) {
+          return res.status(404).json({ success: false, message: 'Inzerát neexistuje' })
+        }
+        res.json({ success: true, data: ad })
+      } catch (error) {
+        res.status(500).json({ success: false, message: 'Při načítání inzerátu nastala chyba' })
+    }
+}
+
 export const createAd = async (req, res) => {
     const data = req.body
 

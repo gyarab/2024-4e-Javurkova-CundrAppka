@@ -1,6 +1,7 @@
 import useFetchAds from 'hooks/ads/useFetchAds'
 
 interface Ad {
+    _id: string
     title: string
 }
 
@@ -17,13 +18,13 @@ function AdsPage() {
             <h1>Tady budu inzeraty:</h1>
             {ads.length > 0 ? (
                 ads.map((ad: Ad, index) => (
-                    <h4 key={ index }>{ ad.title }</h4>
+                    <p><a href={`/inzeraty/${ad._id}`} key={ index }>{ ad.title }</a></p>
                 ))
             ) : (
                 <p>Nejsou zveřejněny žádné inzeráty</p>
             )}
-            <a href='/inzeraty/zverejnit'>Vytvorit</a>
-            <a href='/'>Domu</a>
+            <p><a className="btn btn-primary"href='/inzeraty/zverejnit'>Vytvorit</a></p>
+            <p><a href='/'>Domu</a></p>
         </div>
     )
 }
