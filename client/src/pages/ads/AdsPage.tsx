@@ -18,7 +18,7 @@ function AdsPage() {
             <h1>Tady budu inzeraty:</h1>
             {ads.length > 0 ? (
                 ads.map((ad: Ad, index) => (
-                    <p><a href={`/inzeraty/${ad._id}`} key={ index }>{ ad.title }</a></p>
+                    <p key={ index }><a href={`/inzeraty/${ad._id}`}>{ ad.title }</a></p>
                 ))
             ) : (
                 <p>Nejsou zveřejněny žádné inzeráty</p>

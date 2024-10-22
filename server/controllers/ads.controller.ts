@@ -68,6 +68,6 @@ export const deleteAd = async (req, res) => {
         await Ad.findByIdAndDelete(id)
         res.status(200).json({ success: true, message: 'Inzerát úspěšně smazán' })
     } catch (error) {
-        res.status(200).json({ success: false, message: 'Inzerát se nepodařilo smazat' })
+        res.status(500).json({ success: false, message: 'Inzerát se nepodařilo smazat' })
     }
 }
