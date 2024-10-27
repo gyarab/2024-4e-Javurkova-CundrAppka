@@ -32,6 +32,7 @@ function ViewAdPage() {
   return (
     <div>
       <h1>{ad.title}</h1>
+      <p><a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>Upravit</a></p>
       <p><button onClick={handleDelete}>Smazat</button></p>
       <p><a href="/inzeraty">Zpatky</a></p>
     </div>

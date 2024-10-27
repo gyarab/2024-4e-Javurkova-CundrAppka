@@ -8,7 +8,7 @@ function CreateAdPage() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!title.trim()) {
             alert('Vyplnte nazev inzeratu')

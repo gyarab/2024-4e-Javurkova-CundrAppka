@@ -22,7 +22,7 @@ const useDeleteAd = () => {
                 return { success: false }
             }
         } catch (err) {
-            return { success: true }
+            return { success: false }
         } finally {
             setLoading(false)
         }

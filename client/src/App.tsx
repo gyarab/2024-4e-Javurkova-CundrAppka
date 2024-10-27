@@ -6,6 +6,7 @@ import HomePage from 'pages/HomePage'
 import AdsPage from 'pages/ads/AdsPage'
 import CreateAdPage from 'pages/ads/CreateAdPage'
 import ViewAdPage from 'pages/ads/ViewAdPage'
+import UpdateAdPage from 'pages/ads/UpdateAdPage'
 
 // functions
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='/inzeraty' element={<AdsPage />} />
           <Route path='/inzeraty/zverejnit' element={<CreateAdPage />} />
           <Route path='/inzeraty/:id' element={<ViewAdPage />} />
+          <Route path='/inzeraty/upravit/:id' element={<UpdateAdPage />} />
         </Routes>
       </Router>
     </>
