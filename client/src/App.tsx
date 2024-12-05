@@ -8,8 +8,9 @@ import CreateAdPage from 'pages/ads/CreateAdPage'
 import ViewAdPage from 'pages/ads/ViewAdPage'
 import UpdateAdPage from 'pages/ads/UpdateAdPage'
 
-// functions
-
+import RegistrationPage from 'pages/users/RegisterUserPage'
+import LoginUserPage from 'pages/users/LoginUserPage'
+import ViewAccountPage from 'pages/users/ViewAccountPage'
 
 function App() {
 
@@ -22,6 +23,9 @@ function App() {
           <Route path='/inzeraty/zverejnit' element={<CreateAdPage />} />
           <Route path='/inzeraty/:id' element={<ViewAdPage />} />
           <Route path='/inzeraty/upravit/:id' element={<UpdateAdPage />} />
+          <Route path='/registrace' element={<RegistrationPage />} />
+          <Route path='/prihlaseni' element={<LoginUserPage />} />
+          <Route path='/muj-ucet' element={<ViewAccountPage />} />
         </Routes>
       </Router>
     </>

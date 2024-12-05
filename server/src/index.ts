@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import adRoutes from '../routes/ads.route'
+import userRoutes from '../routes/users.route'
 
 // app
 const app = express()
@@ -18,6 +19,7 @@ app.use(express.json())
 
 // routes
 app.use('/api/ads', adRoutes)
+app.use('/api/users', userRoutes)
 
 // port
 const PORT: number = parseInt(process.env.PORT || '8000', 10)
