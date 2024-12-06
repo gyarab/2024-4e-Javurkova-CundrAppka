@@ -1,20 +1,20 @@
 import mongoose from 'mongoose'
 import User from '../models/users.model'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
-export const registerUser = async (req, res) => {
-    const data = req.body
-
-    if (!data.name || !data.password) {
-		return res.status(400).json({ success: false, message: 'Vyplňte všechny pole' })
-	}
-    const newUser = new User(data)
-
-    try {
-        await newUser.save()
-        res.status(201).json({ success: true, data: newUser })
-    } catch (error) {
-        console.log('Nastal error: ', error.message)
-        res.status(500).json({ success: false, message: 'Při vytváření účtu nastala chyba' })
-    }
+export const getUser = async (req, res) => {
+    res.json({message: 'Muj profil'})
 }
 
+export const registerUser = async (req, res) => {
+    res.json({message: 'Registrace'})
+}
+
+export const loginUser = async (req, res) => {
+    res.json({message: 'Prihlaseni'})
+}
+
+export const logoutUser = async (req, res) => {
+    res.json({message: 'Odhlaseni'})   
+}

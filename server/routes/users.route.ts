@@ -2,11 +2,14 @@ import express from 'express'
 const router = express.Router()
 
 // import controllers
-import { registerUser } from '../controllers/users.controller'
+import { getUser, registerUser, loginUser, logoutUser } from '../controllers/users.controller'
 
 // import middlewares
 
 // api routes
-router.post('/', registerUser)
+router.get('/:id', getUser)
+router.post('/register', registerUser)
+router.post('/login', loginUser)
+router.post('/logout', logoutUser)
 
 export default router
