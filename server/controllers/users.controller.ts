@@ -3,6 +3,7 @@ import User from '../models/users.model'
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { Request, Response, NextFunction } from 'express'
 import asyncHandler from 'express-async-handler'
 
 // @route POST /api/users/register
@@ -27,18 +28,37 @@ export const registerUser = asyncHandler(async (req, res) => {
     })
 
     if(newUser){
-        res.status(200).json({ success: true, message: `Uzivatel s id ${newUser.id} byl uspesne vytvoren` })
+        res.status(200).json({
+            success: true, 
+            _id: newUser.id, 
+            username: newUser.username, 
+            token: generateToken(newUser._id) 
+        })
         return
     }
-    else{
-        res.status(500).json({ success: false, message: `Pri registraci nastala chyba` })
-        return
-    }
+    res.status(500).json({ success: false, message: `Pri registraci nastala chyba` })
 })
 
 // @route POST /api/users/login
 export const loginUser = asyncHandler(async (req, res) => {
-    res.json({message: 'Prihlaseni'})
+    const { username, password } = req.body
+    if(!username || !password){
+        res.status(400).json({ success: false, message: 'Vyplňte všechny pole' })
+        return
+    }
+
+    const user = await User.findOne({username})
+
+    if(user && await bcrypt.compare(password, user.password)){
+        res.status(200).json({
+            success: true, 
+            _id: user.id, 
+            username: user.username, 
+            token: generateToken(user._id) 
+        })
+        return
+    }
+    res.status(400).json({ success: false, message: 'Nespravne zadane udaje' })
 })
 
 // @route POST /api/users/logout
@@ -47,6 +67,11 @@ export const logoutUser = asyncHandler(async (req, res) => {
 })
 
 // @route GET /api/users/me
-export const getUser = asyncHandler(async (req, res) => {
-    res.json({message: 'Muj profil'})
+export const getUser = asyncHandler(async (req: Request, res) => {
+    const { _id, username } = await User.findById(req.user._id)
+
 })
+
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' })
+}
