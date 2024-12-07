@@ -39,6 +39,7 @@ function ViewAdPage() {
       <p><button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button></p>
       <p><a href="/inzeraty">Zpatky</a></p>
       <DeleteConfirmComp
+        message="Opravdu chcete inzerat smazat?"
         show={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         onConfirm={() => {
