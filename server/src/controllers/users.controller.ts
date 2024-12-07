@@ -93,6 +93,17 @@ export const logoutUser = asyncHandler(async (req, res) => {
 })
 
 // @route GET /api/users/me
-export const getUser = asyncHandler(async (req, res) => {
-    res.json({message: 'Muj porfil'})  
-})
+export const getUser: RequestHandler = async (req, res, next) => {
+    const authenticatedUserId = req.session.userId
+    console.log(`tady jsou ${authenticatedUserId}`)
+
+    try {
+        if(!authenticatedUserId){
+            throw createHttpError(401, 'Nejste prihlasenyi')
+        }
+        const user = await User.findById(authenticatedUserId).select('+email').exec()
+        res.status(200).json({user, message: `Jste prihlasen jako ${user!.username}`})
+    } catch (error) {
+        next(error)
+    }
+}
