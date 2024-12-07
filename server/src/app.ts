@@ -1,14 +1,16 @@
 // import modules
 import express from 'express'
-import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import createHttpError from "http-errors";
 dotenv.config()
 
+import { connectDB } from './config/db'
 import adRoutes from './routes/ads.route'
 import userRoutes from './routes/users.route'
+
+// connecting db
+connectDB()
 
 // app
 const app = express()
@@ -21,30 +23,13 @@ app.use(express.json())
 // routes
 app.use('/api/ads', adRoutes)
 app.use('/api/users', userRoutes)
+// page not found
 app.use((req, res, next) => {
-  next(createHttpError(404, "Endpoint neexistuje"));
+  res.status(400).json({ message: 'Endpoint neexistuje' })
 });
 
-
-
-// port
+// listening on port
 const PORT: number = parseInt(process.env.PORT || '8000', 10)
-
-// db and listener
-const MONGO_URI = process.env.MONGO_URI
-if (!MONGO_URI) {
-  console.error('URI databáze není definováno v .env')
-  process.exit(1)
-}
-
-mongoose
-  .connect(MONGO_URI)
-  .then(() => {
-    console.log('Databáze připojena')
-    app.listen(PORT, () => console.log(`Server běží na portu ${PORT}`))
-  })
-  .catch((err) => {
-    console.error('Nastala chyba při připojování k databázi: ', err.message)
-})
+app.listen(PORT, () => console.log(`Server běží na portu ${PORT}`))
 
 export default app
