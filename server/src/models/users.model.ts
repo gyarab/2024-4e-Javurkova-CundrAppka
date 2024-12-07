@@ -1,12 +1,5 @@
-import mongoose, { Document, ObjectId } from 'mongoose'
-
-const { Schema, model } = mongoose
-
-export interface UserDocument extends Document {
-  _id: ObjectId
-  username: string
-  password: string
-}
+// TODO: osetrit nevalidni emaily
+import { InferSchemaType, model, Schema } from "mongoose";
 
 const userSchema = new Schema({
   username: {
@@ -14,11 +7,19 @@ const userSchema = new Schema({
     required: true,
     unique: true
   },
+  email: { 
+    type: String, 
+    required: true, 
+    unique: true, 
+    select: false 
+  },
   password: {
     type: String,
-    required: true
+    required: true,
+    select: false
   }
 })
 
-const User = model('User', userSchema)
-export default User
+type User = InferSchemaType<typeof userSchema>;
+
+export default model<User>("User", userSchema);

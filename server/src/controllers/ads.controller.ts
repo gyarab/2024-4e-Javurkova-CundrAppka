@@ -1,3 +1,5 @@
+// TODO: osetrit errory.. treba middlewarem
+
 import mongoose from 'mongoose'
 import { Request, Response, RequestHandler } from 'express'
 import asyncHandler from 'express-async-handler'

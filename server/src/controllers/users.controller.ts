@@ -1,64 +1,90 @@
+// TODO: osetrit errory.. treba middlewarem
 import User from '../models/users.model'
 
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction, RequestHandler } from 'express'
 import asyncHandler from 'express-async-handler'
+import createHttpError from 'http-errors'
+
+interface RegisterBody {
+    username?: string,
+    email?: string,
+    password?: string
+}
+
 
 // @route POST /api/users/register
-export const registerUser = asyncHandler(async (req, res) => {
-    const { username, password } = req.body
-    if(!username || !password){
-        res.status(400).json({ success: false, message: 'Vyplňte všechny pole' })
-        return
-    }
+export const registerUser: RequestHandler<unknown, unknown, RegisterBody, unknown> = async (req, res, next) => {
+    const { username, email } = req.body
+    const rawPassword = req.body.password
+    
+    try {
+        if(!username || !email || !rawPassword){
+            throw createHttpError(400, 'Prosim vyplnte vsechna pole')
+        }
 
-    const foundUser = await User.findOne({username})
-    if(foundUser){
-        res.status(400).json({ success: false, message: 'Uzivatel s timto username jiz existuje' })
-        return
-    }
+        const usernameExists = await User.findOne({username: username}).exec()
+        const emailExists = await User.findOne({email: email}).exec()
+        if(usernameExists){
+            throw createHttpError(409, 'Uzivatel s timto username jiz existuje')
+        }
+        if(emailExists){
+            throw createHttpError(409, 'Uzivatel s timto emailem jiz existuje')
+        }
 
-    const salt = await bcrypt.genSalt(10)
-    const hashedpassword = await bcrypt.hash(password, salt)
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(rawPassword, salt)
 
-    const newUser = await User.create({
-        username, password: hashedpassword
-    })
+        const newUser = await User.create({
+            username: username,
+            email: email, 
+            password: hashedPassword
+        })
 
-    if(newUser){
+        req.session.userId = newUser._id
+
+
+
         res.status(200).json({
             success: true, 
-            _id: newUser.id, 
-            username: newUser.username, 
-            token: generateToken(newUser._id) 
+            newUser: newUser
         })
-        return
+    } catch (error) {
+        next(error)
     }
-    res.status(500).json({ success: false, message: `Pri registraci nastala chyba` })
-})
+}
+
+interface LoginBody {
+    username?: string,
+    password?: string
+}
 
 // @route POST /api/users/login
-export const loginUser = asyncHandler(async (req, res) => {
+export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = asyncHandler(async (req, res, next) => {
     const { username, password } = req.body
-    if(!username || !password){
-        res.status(400).json({ success: false, message: 'Vyplňte všechny pole' })
-        return
-    }
 
-    const user = await User.findOne({username})
+    try {
+        if(!username || !password){
+            throw createHttpError(400, 'Vyplňte všechny pole')
+        }
 
-    if(user && await bcrypt.compare(password, user.password)){
-        res.status(200).json({
-            success: true, 
-            _id: user.id, 
-            username: user.username, 
-            token: generateToken(user._id) 
-        })
-        return
+        const user = await User.findOne({username: username}).select('+email +password').exec()
+        if(!user){
+            throw createHttpError(401, 'Nespravne zadane udaje')
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password)
+
+        if(!passwordMatch){
+            throw createHttpError(401, 'Nespravne zadane udaje')
+        }
+        
+        req.session.userId = user._id
+        res.status(200).json({user, message: "Prihlaseni probehlo uspesne"})
+    } catch (error) {
+        next(error)
     }
-    res.status(400).json({ success: false, message: 'Nespravne zadane udaje' })
 })
 
 // @route POST /api/users/logout
@@ -67,11 +93,6 @@ export const logoutUser = asyncHandler(async (req, res) => {
 })
 
 // @route GET /api/users/me
-export const getUser = asyncHandler(async (req: Request, res) => {
-    const { _id, username } = await User.findById(req.user._id)
-
+export const getUser = asyncHandler(async (req, res) => {
+    res.json({message: 'Muj porfil'})  
 })
-
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' })
-}
