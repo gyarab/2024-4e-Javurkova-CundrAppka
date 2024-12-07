@@ -4,10 +4,11 @@ import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import createHttpError from "http-errors";
 dotenv.config()
 
-import adRoutes from '../routes/ads.route'
-import userRoutes from '../routes/users.route'
+import adRoutes from './routes/ads.route'
+import userRoutes from './routes/users.route'
 
 // app
 const app = express()
@@ -20,6 +21,11 @@ app.use(express.json())
 // routes
 app.use('/api/ads', adRoutes)
 app.use('/api/users', userRoutes)
+app.use((req, res, next) => {
+  next(createHttpError(404, "Endpoint neexistuje"));
+});
+
+
 
 // port
 const PORT: number = parseInt(process.env.PORT || '8000', 10)
@@ -40,3 +46,5 @@ mongoose
   .catch((err) => {
     console.error('Nastala chyba při připojování k databázi: ', err.message)
 })
+
+export default app

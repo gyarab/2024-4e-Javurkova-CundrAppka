@@ -1,24 +1,28 @@
 {
     "compilerOptions": {
-      "target": "ES6",                      // Target ECMAScript version
-      "module": "commonjs",                 // Use CommonJS module system (for Node.js)
-      "strict": true,                       // Enable strict mode (strong typing, etc.)
-      "esModuleInterop": true,              // Enable interop for ES6 imports and CommonJS
-      "skipLibCheck": true,                 // Skip type checking for declaration files
-      "forceConsistentCasingInFileNames": true, // Ensure file name casing consistency
-      "outDir": "./dist",                   // Output compiled JavaScript files to 'dist' folder
-      "rootDir": "./src",                   // Root directory of your source files (since you have `src/` inside `server/`)
-      "resolveJsonModule": true,            // Allow importing JSON modules
-      "baseUrl": "./",                      // Base directory for resolving non-relative modules
-      "typeRoots": ["./node_modules/@types", "./src/types"], // Add your custom types folder
-      "noImplicitAny": false,                // Disable the `any` warning for implicit types (optional)
-    },
-    "include": [
-      "src/**/*",                           // Include all files inside 'src' folder
-      "src/types/**/*"                      // Include custom types folder
-    ],
-    "exclude": [
-      "node_modules"                        // Exclude 'node_modules' folder
-    ]
-  }
-  
+
+        /* Language and Environment */
+        "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+
+        /* Modules */
+        "module": "commonjs",                                /* Specify what module code is generated. */
+        "typeRoots": [
+            "node_modules/@types",
+            "@types"
+        ],                                                   /* Specify multiple folders that act like './node_modules/@types'. */
+
+        /* Emit */
+        "outDir": "./dist",                                  /* Specify an output folder for all emitted files. */
+
+        /* Interop Constraints */
+        "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+        "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+
+        /* Type Checking */
+        "strict": true,                                      /* Enable all strict type-checking options. */
+
+        /* Completeness */
+        "skipLibCheck": true                                /* Skip type checking all .d.ts files. */
+        
+    }
+}

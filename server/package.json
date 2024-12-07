@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --watch . --ext \"ts,json,js,css,html\" --ignore \"node_modules/**\" --ignore \"dist/**\" --exec \"tsx src/index.ts\""
+    "start": "nodemon --watch . --ext \"ts,json,js,css,html\" --ignore \"node_modules/**\" --ignore \"dist/**\" --exec \"tsx src/app.ts\""
   },
   "keywords": [],
   "author": "Sabina Javurkova",
@@ -19,6 +19,7 @@
     "mongoose": "^8.7.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/mongoose": "^5.11.96",
     "@types/morgan": "^1.9.9",
