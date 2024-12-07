@@ -1,73 +1,82 @@
 import mongoose from 'mongoose'
+import { Request, Response, RequestHandler } from 'express'
+import asyncHandler from 'express-async-handler'
+
 import Ad from '../models/ads.model'
 
-export const getAds = async (req, res) => {
-    try {
-        const ads = await Ad.find({})
+export const getAds: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+    const ads = await Ad.find({})
+    if(ads){
         res.status(200).json({ success: true, data: ads })
-    } catch (error) {
-        console.log('Nastal error: ', error.message)
-        res.status(500).json({ success: false, message: 'Při načítání inzerátů nastala chyba' })
+        return
     }
-}
+    res.status(500).json({ success: false, message: 'Při načítání inzerátů nastala chyba' })
+})
 
-export const getAd = async (req, res) => {
+export const getAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params
-    try {
-        const ad = await Ad.findById(id)
-        if (!ad) {
-          return res.status(404).json({ success: false, message: 'Inzerát neexistuje' })
-        }
-        res.json({ success: true, data: ad })
-      } catch (error) {
-        res.status(500).json({ success: false, message: 'Při načítání inzerátu nastala chyba' })
-    }
-}
 
-export const createAd = async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+		res.status(404).json({ success: false, message: 'Inzerát se zadaným ID neexistuje' })
+        return
+	}
+ 
+    const ad = await Ad.findById({_id: id})
+
+    if(ad){
+        res.json({ success: true, data: ad })
+        return
+    }
+    res.status(500).json({ success: false, message: 'Při načítání inzerátu nastala chyba' })
+})
+
+export const createAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
     const data = req.body
 
     if (!data.title) {
-		return res.status(400).json({ success: false, message: 'Vyplňte všechny pole' })
+		res.status(400).json({ success: false, message: 'Vyplňte všechny pole' })
+        return
 	}
-    const newAd = new Ad(data)
+    const newAd = await Ad.create({ title: data.title })
 
-    try {
-        await newAd.save()
+    if(newAd){
         res.status(201).json({ success: true, data: newAd })
-    } catch (error) {
-        console.log('Nastal error: ', error.message)
-        res.status(500).json({ success: false, message: 'Při vytváření inzerátu nastala chyba' })
+        return
     }
-}
+    res.status(500).json({ success: false, message: 'Při vytváření inzerátu nastala chyba' })
+})
 
-export const updateAd = async (req, res) => {
+export const updateAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params
     const ad = req.body
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(404).json({ success: false, message: 'Inzerát se zadaným ID neexistuje' })
+		res.status(404).json({ success: false, message: 'Inzerát se zadaným ID neexistuje' })
+        return
 	}
 
-    try {
-        const updatedAd = await Ad.findByIdAndUpdate(id, ad, { new: true })
-        res.status(200).json({ success: true, data: updatedAd })
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Při úpravě inzerátu nastala chyba' })
-    }
-}
+    const updatedAd = await Ad.findByIdAndUpdate(id, ad, { new: true })
 
-export const deleteAd = async (req, res) => {
+    if(updatedAd){
+        res.status(200).json({ success: true, data: updatedAd })
+        return
+    }
+    res.status(500).json({ success: false, message: 'Při úpravě inzerátu nastala chyba' })
+})
+
+export const deleteAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params
 
 	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(404).json({ message: 'Inzerát se zadaným ID neexistuje' })
+		res.status(404).json({ message: 'Inzerát se zadaným ID neexistuje' })
+        return
 	}
 
-    try {
-        await Ad.findByIdAndDelete(id)
+    const deletedAd = await Ad.findByIdAndDelete(id)
+
+    if(deletedAd){
         res.status(200).json({ success: true, message: 'Inzerát úspěšně smazán' })
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Inzerát se nepodařilo smazat' })
+        return
     }
-}
+    res.status(500).json({ success: false, message: 'Inzerát se nepodařilo smazat' })
+})
