@@ -88,11 +88,18 @@ export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = a
 })
 
 // @route POST /api/users/logout
-export const logoutUser = asyncHandler(async (req, res) => {
-    res.json({message: 'Odhlaseni'})   
-})
+export const logoutUser: RequestHandler = async (req, res, next) => {
+    req.session.destroy(error => {
+        if(error){
+            next(error)
+        }
+        else{
+            res.status(200).json({message: "Byli jste odhlaseni"})
+        }
+    })
+}
 
-// @route GET /api/users/me
+// @route GET /api/users
 export const getUser: RequestHandler = async (req, res, next) => {
     const authenticatedUserId = req.session.userId
     console.log(`tady jsou ${authenticatedUserId}`)
