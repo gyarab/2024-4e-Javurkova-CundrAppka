@@ -114,3 +114,10 @@ export const getUser: RequestHandler = async (req, res, next) => {
         next(error)
     }
 }
+
+
+// @route GET /api/status
+export const getStatus: RequestHandler = async (req, res, next) => {
+    const isLoggedIn = !!req.session.userId;
+    res.status(200).json({ isLoggedIn });
+}
