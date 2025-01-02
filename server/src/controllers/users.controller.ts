@@ -109,7 +109,7 @@ export const getUser: RequestHandler = async (req, res, next) => {
             throw createHttpError(401, 'Nejste prihlasenyi')
         }
         const user = await User.findById(authenticatedUserId).select('+email').exec()
-        res.status(200).json({user, message: `Jste prihlasen jako ${user!.username}`})
+        res.status(200).json({user, success: true, message: `Jste prihlasen jako ${user!.username}`})
     } catch (error) {
         next(error)
     }

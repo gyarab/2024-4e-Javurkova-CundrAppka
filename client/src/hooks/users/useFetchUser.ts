@@ -1,7 +1,21 @@
-import { User } from '../../models/user'
-import { fetchData } from 'hooks/fetchData'
+const useFetchUser = () => {
 
-export async function useFetchUser(): Promise<User> {
-    const response = await fetchData('/api/users', { method: 'GET' })
-    return response.json()
+    const fetchUser = async () => {
+    
+        try {
+            const response = await fetch('/api/users', {
+                method: 'GET',
+                credentials: 'include', // Ensure cookies are sent
+            })
+            const data = await response.json()
+            return data
+        } catch (err) {
+            alert('Při zobrazovani účtu nastala chyba')
+            return
+        }
+
+    }
+    return { fetchUser }
 }
+
+export default useFetchUser

@@ -10,7 +10,7 @@ import UpdateAdPage from 'pages/ads/UpdateAdPage'
 
 import RegistrationPage from 'pages/users/RegisterUserPage'
 import LoginUserPage from 'pages/users/LoginUserPage'
-import ViewAccountPage from 'pages/users/ViewAccountPage'
+import UserProfilePage from 'pages/users/UserProfilePage'
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
           <Route path='/inzeraty/upravit/:id' element={<UpdateAdPage />} />
           <Route path='/registrace' element={<RegistrationPage />} />
           <Route path='/prihlaseni' element={<LoginUserPage />} />
-          <Route path='/muj-ucet' element={<ViewAccountPage />} />
+          <Route path='/muj-ucet' element={<UserProfilePage />} />
         </Routes>
       </Router>
     </>
