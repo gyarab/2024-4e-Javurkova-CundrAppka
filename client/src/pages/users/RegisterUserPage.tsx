@@ -7,6 +7,7 @@ function RegisterUserPage() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false)
   const { registerUser } = useRegisterUser()
@@ -33,6 +34,10 @@ function RegisterUserPage() {
       return <p>Inzerat se vytvari...</p>
     }
 
+    const toggleVisibility = () => {
+      setShowPassword(!showPassword);
+    }
+
   return (
     <div>
       <h1>Registrace</h1>
@@ -42,21 +47,32 @@ function RegisterUserPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
+                placeholder='Uživatelské jméno'
             />
         <input
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                placeholder='Email'
             />
         <input
-                type="text"
+                id='password'
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                placeholder='Heslo'
             />
+        <button
+                type="button"
+                onClick={toggleVisibility}
+                aria-label="Toggle password visibility"
+            >
+                {showPassword ? "Hide" : "Show"}
+            </button>
 
-        <button type="submit">Vytvorit inzerat</button>
+        <button type="submit">Vytvorit Ucet</button>
       </form>
       <p><a href='/'>Domu</a></p>
     </div>

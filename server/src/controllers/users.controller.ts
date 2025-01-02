@@ -81,7 +81,7 @@ export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = a
         }
         
         req.session.userId = user._id
-        res.status(200).json({user, message: "Prihlaseni probehlo uspesne"})
+        res.status(200).json({user, success: true, message: "Prihlaseni probehlo uspesne"})
     } catch (error) {
         next(error)
     }
