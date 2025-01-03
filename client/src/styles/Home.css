@@ -1,0 +1,154 @@
+/* Home.css */
+
+/* Root Colors */
+:root {
+  --beige: #f5f5dc;
+  --dark-brown: #6b4226;
+  --accent-red: #d97759;
+  --muted-green: #a8bfa1;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Cormorant Garamond', serif; /* Vintage-inspired font */
+  background-color: var(--beige);
+  color: var(--dark-brown);
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--dark-brown);
+}
+
+a:hover {
+  color: var(--accent-red);
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--beige);
+  border-bottom: 2px solid var(--dark-brown);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.navbar-brand img {
+  height: 40px;
+}
+
+.nav-link {
+  color: var(--dark-brown);
+  font-weight: 600;
+  margin-right: 15px;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: var(--accent-red);
+}
+
+/* Hero Section */
+.hero-section {
+  height: 75vh;
+  background-image: url('../assets/images/vintage-paper.jpg'); /* Beige paper texture */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+.hero-icon {
+  width: 80px;
+  margin-bottom: 20px;
+  filter: sepia(50%);
+  animation: slow-spin 10s linear infinite;
+}
+
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hero-title {
+  font-size: 3rem;
+  color: var(--dark-brown);
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-text {
+  font-size: 1.2rem;
+  color: var(--dark-brown);
+  margin-bottom: 20px;
+}
+
+.btn-custom {
+  background-color: var(--accent-red);
+  color: var(--beige);
+  border: 2px solid var(--dark-brown);
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-custom:hover {
+  background-color: var(--dark-brown);
+  transform: scale(1.05);
+  color: var(--beige);
+}
+
+/* Footer */
+footer {
+  background-color: var(--beige);
+  text-align: center;
+  padding: 20px;
+  border-top: 2px solid var(--dark-brown);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+footer p {
+  margin: 0;
+  color: var(--dark-brown);
+  font-size: 1rem;
+}
+
+/* Ensure that html and body take up full height and have no extra padding/margin */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Use flexbox for the body layout */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the body fills the viewport */
+}
+
+/* Main content area, ensuring it takes available space */
+main {
+  flex: 1;
+}
+
+/* Footer Styles */
+footer {
+  background-color: var(--beige);  /* Beige background */
+  color: #333;  /* Dark text */
+  text-align: center;
+  padding: 12px 20px;  /* Reduced padding to avoid extra white space */
+  font-family: 'Cormorant Garamond', serif;
+  border-top: 2px solid var(--dark-brown);
+  width: 100%;
+  margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Ensure no body overflow or unwanted space */
+* {
+  box-sizing: border-box; /* Ensure padding doesn't add to element size */
+}
