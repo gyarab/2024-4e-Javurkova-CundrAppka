@@ -12,6 +12,8 @@ import RegistrationPage from 'pages/users/RegisterUserPage'
 import LoginUserPage from 'pages/users/LoginUserPage'
 import UserProfilePage from 'pages/users/UserProfilePage'
 
+import MapPage from 'pages/MapPage'
+
 function App() {
 
   return (
@@ -26,6 +28,7 @@ function App() {
           <Route path='/registrace' element={<RegistrationPage />} />
           <Route path='/prihlaseni' element={<LoginUserPage />} />
           <Route path='/muj-ucet' element={<UserProfilePage />} />
+          <Route path='/mapa' element={<MapPage />} />
         </Routes>
       </Router>
     </>

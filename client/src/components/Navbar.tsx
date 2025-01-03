@@ -44,7 +44,7 @@ const Navbar = ({ setShowLogoutModal }: { setShowLogoutModal: React.Dispatch<Rea
       <div className="container-fluid">
         {/* Left Side Links */}
         <a className="navbar-brand vintage-brand" href="/">
-          Travel App
+          ČundrAppka
         </a>
 
         {/* Navbar Toggler for mobile collapse */}
