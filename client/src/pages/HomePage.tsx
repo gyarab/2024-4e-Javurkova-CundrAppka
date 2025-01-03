@@ -7,56 +7,40 @@ import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
 import 'styles/Home.css'
 
 function HomePage() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [loading, setLoading] = useState(true)
   const [showLogoutModal, setShowLogoutModal] = useState(false)
-  const navigate = useNavigate()
+    const navigate = useNavigate()
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  useEffect(() => {
-    const checkAuthStatus = async () => {
+    const handleLogout = async () => {
       try {
-        const response = await fetch('/api/users/status', {
-          method: 'GET',
+        const response = await fetch('/api/users/logout', {
+          method: 'POST',
           credentials: 'include',
         })
-        const data = await response.json()
-        setIsLoggedIn(data.isLoggedIn)
+        if (response.ok) {
+          setIsLoggedIn(false)
+          window.location.reload();
+        } else {
+          alert('Logout failed. Please try again.')
+        }
       } catch (error) {
-        console.error('Error fetching auth status:', error)
-      } finally {
-        setLoading(false)
+        console.error('Error logging out:', error)
+        alert('Error logging out. Please try again.')
       }
     }
-    checkAuthStatus()
-  }, [])
-
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/users/logout', {
-        method: 'POST',
-        credentials: 'include',
-      })
-      setIsLoggedIn(false)
-      navigate('/')
-    } catch (error) {
-      console.error('Error logging out:', error)
-    }
-  }
-
-  if (loading) return <p>Loading...</p>
 
   return (
     <>
-      <Navbar isLoggedIn={isLoggedIn} onLogout={() => setShowLogoutModal(true)} />
+      <Navbar setShowLogoutModal={setShowLogoutModal} />
       <LogoutConfirmComp
-        message="Are you sure you want to log out?"
-        show={showLogoutModal}
-        onClose={() => setShowLogoutModal(false)}
-        onConfirm={() => {
-          setShowLogoutModal(false)
-          handleLogout()
-        }}
-      />
+                message="Are you sure you want to log out?"
+                show={showLogoutModal}
+                onClose={() => setShowLogoutModal(false)}
+                onConfirm={() => {
+                setShowLogoutModal(false)
+                handleLogout() // Perform logout after confirmation
+                }}
+            />
       <HeroSection />
       <Footer />
     </>

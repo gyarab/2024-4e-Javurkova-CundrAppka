@@ -1,0 +1,91 @@
+/* Full page background */
+body {
+    background-image: url('../assets/images/vintage-paper.jpg');  /* Vintage paper as full background */
+    background-size: cover;  /* Ensures the background covers the entire page */
+    background-position: center center;  /* Centers the background image */
+    background-repeat: no-repeat;  /* Prevents repetition of the background */
+    margin: 0;
+    padding: 0;
+    font-family: 'Cormorant Garamond', serif;  /* Your chosen font */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  /* Makes sure the content takes at least the full height of the viewport */
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #3b2d22;  /* Dark brown color for the navbar */
+    color: #f5f1e0;  /* Light color for text */
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    position: sticky;  /* Makes the navbar sticky */
+    top: 0;
+    width: 100%;
+    z-index: 10;  /* Ensures the navbar stays on top */
+    text-align: center;
+}
+
+/* Navbar links */
+.navbar a {
+    color: #f5f1e0;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #3b2d22;  /* Dark brown footer */
+    color: #f5f1e0;  /* Light text */
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 1rem;
+}
+
+/* Ads Container */
+.ads-container {
+    display: flex;
+    flex-wrap: wrap;  /* Allows the ads to wrap into multiple rows */
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 20px;  /* Space around the ads */
+    flex: 1 0 auto;  /* Allows the content to grow and take the remaining space */
+}
+
+/* Style for each ad box */
+.vintage-paper-box {
+    background-color: #f1e0b3;  /* Light, old paper background color */
+    border: 2px solid #c8b99d;  /* Soft brown border */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.1);  /* Slight shadow to make the box pop */
+    font-size: 1.1rem;
+    line-height: 1.6;
+    width: 300px;  /* Adjust width for the boxes */
+    min-height: 200px;  /* Adjust the height for the boxes */
+    color: #4b3a2e;  /* Dark brownish text color */
+    font-style: italic;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+.vintage-paper-box:hover {
+    transform: scale(1.05);  /* Slight zoom effect when hovering */
+}
+
+/* Heading style inside each box */
+.vintage-paper-box h2 {
+    margin-top: 0;
+    color: #3b2d22;  /* Slightly darker brown for the title */
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* Description inside the ad box */
+.vintage-paper-box p {
+    font-size: 1rem;
+    text-align: left;
+    color: #4b3a2e;
+}

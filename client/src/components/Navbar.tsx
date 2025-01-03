@@ -1,42 +1,96 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'styles/Navbar.css'
 
-interface NavbarProps {
-  isLoggedIn: boolean
-  onLogout: () => void
-}
-
-function Navbar({ isLoggedIn, onLogout }: NavbarProps) {
+const Navbar = ({ setShowLogoutModal }: { setShowLogoutModal: React.Dispatch<React.SetStateAction<boolean>> }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const navigate = useNavigate()
 
+  // Check auth status when the component mounts
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await fetch('/api/users/status', {
+          method: 'GET',
+          credentials: 'include',
+        })
+        const data = await response.json()
+        setIsLoggedIn(data.isLoggedIn)
+      } catch (error) {
+        console.error('Error fetching auth status:', error)
+      }
+    }
+
+    checkAuthStatus()
+  }, [])
+
+  // Logout function
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/users/logout', {
+        method: 'POST',
+        credentials: 'include',
+      })
+      setIsLoggedIn(false)
+      alert('Successfully logged out.')
+      navigate('/')
+    } catch (error) {
+      console.error('Error logging out:', error)
+    }
+  }
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
-        <a className="navbar-brand" href="/">
-          <img src="/assets/images/logo.png" alt="Logo" height="40" />
+    <nav className="navbar navbar-expand-lg custom-navbar">
+      <div className="container-fluid">
+        {/* Left Side Links */}
+        <a className="navbar-brand vintage-brand" href="/">
+          Travel App
         </a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+        {/* Navbar Toggler for mobile collapse */}
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
+
+        {/* Navbar Links (Collapsible part) */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item"><a className="nav-link" href="/inzeraty">Ads</a></li>
-            <li className="nav-item"><a className="nav-link" href="/cestovni-balicky">Travel Packages</a></li>
-            <li className="nav-item"><a className="nav-link" href="/mapa">Map</a></li>
-            <li className="nav-item"><a className="nav-link" href="/forum">Forum</a></li>
+          <div className="navbar-nav">
+            <a className="nav-link vintage-link" href="/inzeraty">
+              Inzeraty
+            </a>
+            <a className="nav-link vintage-link" href="/mapa">
+              Mapa
+            </a>
+            <a className="nav-link vintage-link" href="/komunitni-forum">
+              Komunitni Forum
+            </a>
+            <a className="nav-link vintage-link" href="/cestovni-balicky">
+              Cestovni Balicky
+            </a>
+          </div>
+
+          {/* Right Side Links (Login/Register or My Account/Logout) */}
+          <div className="navbar-nav ml-auto">
             {isLoggedIn ? (
               <>
-                <li className="nav-item"><button className="btn btn-primary me-2" onClick={() => navigate('/muj-ucet')}>My Account</button></li>
-                <li className="nav-item"><button className="btn btn-outline-danger" onClick={onLogout}>Logout</button></li>
+                <a className="nav-link vintage-link" href="/muj-ucet">
+                  My Account
+                </a>
+                <button className="btn vintage-btn" onClick={() => setShowLogoutModal(true)}>
+                  Logout
+                </button>
               </>
             ) : (
               <>
-                <li className="nav-item"><button className="btn btn-success me-2" onClick={() => navigate('/prihlaseni')}>Login</button></li>
-                <li className="nav-item"><button className="btn btn-outline-primary" onClick={() => navigate('/registrace')}>Register</button></li>
+                <a className="nav-link vintage-link" href="/prihlaseni">
+                  Login
+                </a>
+                <a className="nav-link vintage-link" href="/registrace">
+                  Register
+                </a>
               </>
             )}
-          </ul>
+          </div>
         </div>
       </div>
     </nav>

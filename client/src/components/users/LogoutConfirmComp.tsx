@@ -9,10 +9,10 @@ function DeleteConfirmComp({ message, show, onClose, onConfirm, }: { message:str
       </Modal.Header>
       <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="light" onClick={onClose}>
           Zustat prihlasena
         </Button>
-        <Button variant="danger" onClick={onConfirm}>
+        <Button variant="dark" onClick={onConfirm}>
           Odhlasit
         </Button>
       </Modal.Footer>
