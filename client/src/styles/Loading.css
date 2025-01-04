@@ -1,0 +1,50 @@
+/* LoadingPage.css */
+
+/* Full-screen loading container */
+.loading-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(120deg, #ffecd2, #fcb69f); /* Warm travel-inspired colors */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOut 2s forwards; /* Fade out animation */
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Content container */
+.loading-content {
+  text-align: center;
+  opacity: 1;
+}
+
+/* Backpack jumping animation */
+.backpack-icon {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  animation: jump 1s ease-in-out infinite; /* Backpack jumps up and down */
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); } /* Make the backpack "jump" */
+}
+
+/* Loading message styling */
+.loading-message {
+  font-size: 1.8rem;
+  color: #333;
+  margin-top: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}

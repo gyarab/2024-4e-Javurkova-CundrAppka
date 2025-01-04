@@ -21,7 +21,8 @@ function LoginUserPage() {
         setLoading(true)
         const success = await loginUser({ username, password })
         if (success) {
-            navigate('/muj-ucet')
+          navigate('/')
+          window.location.reload();
         } else {
             alert('Nastal problém při prihlasovani')
         }

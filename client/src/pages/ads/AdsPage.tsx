@@ -5,6 +5,7 @@ import Navbar from 'components/Navbar'
 import { useEffect, useState } from 'react';
 import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from 'pages/LoadingPage';
 
 interface Ad {
     _id: string;
@@ -17,9 +18,9 @@ function AdsPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const { ads, loading } = useFetchAds();
 
-    if (loading) {
-        return <p>Načítání...</p>;
-    }
+    //if (loading) {
+        //return <LoadingPage message="Nacitani..." />;
+    //}
       
     const handleLogout = async () => {
         try {
@@ -37,11 +38,10 @@ function AdsPage() {
           console.error('Error logging out:', error)
           alert('Error logging out. Please try again.')
         }
-      }
+    }
 
     return (
         <>
-            <Navbar setShowLogoutModal={setShowLogoutModal} />
             <LogoutConfirmComp
                 message="Are you sure you want to log out?"
                 show={showLogoutModal}
@@ -65,11 +65,6 @@ function AdsPage() {
                     <p>No ads available.</p>
                 )}
             </div>
-
-            {/* Footer */}
-            <footer className="footer">
-                <p>&copy; 2025 Your Website | All rights reserved</p>
-            </footer>
         </>
     )
 }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GoogleMap, LoadScript } from "@react-google-maps/api"
 import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
+import LoadingPage from './LoadingPage'
 
 function MapPage() {
 
@@ -41,8 +42,7 @@ function MapPage() {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "";
   return (
     <>
-      <Navbar setShowLogoutModal={setShowLogoutModal} />
-      <LoadScript googleMapsApiKey={apiKey} loadingElement={<p>Loading map...</p>}>
+      <LoadScript googleMapsApiKey={apiKey} loadingElement={<LoadingPage message="Nacitani..." />}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -51,7 +51,6 @@ function MapPage() {
         {/* You can add markers or other components here */}
       </GoogleMap>
       </LoadScript>
-      <Footer/>
     </>
   )
 }

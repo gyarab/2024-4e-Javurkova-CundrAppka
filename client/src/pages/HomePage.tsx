@@ -31,7 +31,6 @@ function HomePage() {
 
   return (
     <>
-      <Navbar setShowLogoutModal={setShowLogoutModal} />
       <LogoutConfirmComp
                 message="Are you sure you want to log out?"
                 show={showLogoutModal}
@@ -42,7 +41,6 @@ function HomePage() {
                 }}
             />
       <HeroSection />
-      <Footer />
     </>
   )
 }

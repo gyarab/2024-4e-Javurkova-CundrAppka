@@ -1,43 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import 'styles/Navbar.css'
+import LoadingPage from 'pages/LoadingPage';
 
-const Navbar = ({ setShowLogoutModal }: { setShowLogoutModal: React.Dispatch<React.SetStateAction<boolean>> }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const navigate = useNavigate()
-
-  // Check auth status when the component mounts
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        const response = await fetch('/api/users/status', {
-          method: 'GET',
-          credentials: 'include',
-        })
-        const data = await response.json()
-        setIsLoggedIn(data.isLoggedIn)
-      } catch (error) {
-        console.error('Error fetching auth status:', error)
-      }
-    }
-
-    checkAuthStatus()
-  }, [])
-
-  // Logout function
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/users/logout', {
-        method: 'POST',
-        credentials: 'include',
-      })
-      setIsLoggedIn(false)
-      alert('Successfully logged out.')
-      navigate('/')
-    } catch (error) {
-      console.error('Error logging out:', error)
-    }
-  }
+const Navbar = ({ isLoggedIn, setShowLogoutModal }: { isLoggedIn: boolean, setShowLogoutModal: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
   return (
     <nav className="navbar navbar-expand-lg custom-navbar">
