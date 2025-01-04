@@ -1,24 +1,41 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import 'styles/Navbar.css'
-import LoadingPage from 'pages/LoadingPage';
 
-const Navbar = ({ isLoggedIn, setShowLogoutModal }: { isLoggedIn: boolean, setShowLogoutModal: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const Navbar = ({ setShowLogoutModal }: { setShowLogoutModal: React.Dispatch<React.SetStateAction<boolean>> }) => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+      setLoading(true)
+      const checkAuthStatus = async () => {
+      try {
+        const response = await fetch('/api/users/status', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const data = await response.json();
+        setIsLoggedIn(data.isLoggedIn);
+      } catch (error) {
+        console.error('Error fetching auth status:', error);
+      } finally {
+        setLoading(false); // Set loading to false once everything is loaded
+      }
+    };
+    checkAuthStatus();
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container-fluid">
-        {/* Left Side Links */}
         <a className="navbar-brand vintage-brand" href="/">
           ČundrAppka
         </a>
 
-        {/* Navbar Toggler for mobile collapse */}
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Navbar Links (Collapsible part) */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <div className="navbar-nav">
             <a className="nav-link vintage-link" href="/inzeraty">
@@ -35,27 +52,34 @@ const Navbar = ({ isLoggedIn, setShowLogoutModal }: { isLoggedIn: boolean, setSh
             </a>
           </div>
 
-          {/* Right Side Links (Login/Register or My Account/Logout) */}
           <div className="navbar-nav ml-auto">
-            {isLoggedIn ? (
-              <>
-                <a className="nav-link vintage-link" href="/muj-ucet">
-                  My Account
-                </a>
-                <button className="btn vintage-btn" onClick={() => setShowLogoutModal(true)}>
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <a className="nav-link vintage-link" href="/prihlaseni">
-                  Login
-                </a>
-                <a className="nav-link vintage-link" href="/registrace">
-                  Register
-                </a>
-              </>
-            )}
+          {loading ? (
+            <>
+              <p>Načítání..</p>
+            </>
+          ) : (
+            <>
+              {isLoggedIn ? (
+                <>
+                  <a className="nav-link vintage-link" href="/muj-ucet">
+                    My Account
+                  </a>
+                  <button className="btn vintage-btn" onClick={() => setShowLogoutModal(true)}>
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <a className="nav-link vintage-link" href="/prihlaseni">
+                    Login
+                  </a>
+                  <a className="nav-link vintage-link" href="/registrace">
+                    Register
+                  </a>
+                </>
+              )}
+            </>
+          )}
           </div>
         </div>
       </div>

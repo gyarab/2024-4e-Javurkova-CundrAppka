@@ -24,7 +24,8 @@ function RegisterUserPage() {
       const success = await registerUser({ username, email, password })
 
       if (success) {
-          navigate('/muj-ucet')
+        navigate('/')
+        window.location.reload();
       } else {
           alert('Nastal problém při vytváření uctu')
       }

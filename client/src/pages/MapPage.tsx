@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GoogleMap, LoadScript } from "@react-google-maps/api"
 import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
-import LoadingPage from './LoadingPage'
+import LoadingCircle from 'components/LoadingCircle'
 
 function MapPage() {
 
@@ -42,7 +42,7 @@ function MapPage() {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "";
   return (
     <>
-      <LoadScript googleMapsApiKey={apiKey} loadingElement={<LoadingPage message="Nacitani..." />}>
+      <LoadScript googleMapsApiKey={apiKey} loadingElement={<LoadingCircle/>}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}

@@ -1,0 +1,27 @@
+/* LoadingCircle.css */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Center the loader on the page */
+    background-image: url('assets/images/vintage-paper.jpg'); /* Beige paper texture */
+  }
+  
+  .loading-circle {
+    border: 8px solid #e0c4a0; /* Light brownish color for the background */
+    border-top: 8px solid #7f5f4d; /* Darker brown for the spinning top border */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Spin animation */
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
