@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh; /* Center the loader on the page */
-    background-image: url('assets/images/vintage-paper.jpg'); /* Beige paper texture */
+    background-color: #d8b289; /* Light beige background for a vintage feel */
   }
   
   .loading-circle {

@@ -1,7 +1,7 @@
 // TODO: osetrit errory.. treba middlewarem
 
 import mongoose from 'mongoose'
-import { Request, Response, RequestHandler } from 'express'
+import { Request, Response, RequestHandler, NextFunction } from 'express'
 import asyncHandler from 'express-async-handler'
 
 import Ad from '../models/ads.model'
@@ -32,21 +32,39 @@ export const getAd: RequestHandler = asyncHandler(async (req: Request, res: Resp
     res.status(500).json({ success: false, message: 'Při načítání inzerátu nastala chyba' })
 })
 
-export const createAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
-    const data = req.body
-
-    if (!data.title) {
-		res.status(400).json({ success: false, message: 'Vyplňte všechny pole' })
-        return
-	}
-    const newAd = await Ad.create({ title: data.title })
-
-    if(newAd){
-        res.status(201).json({ success: true, data: newAd })
-        return
-    }
-    res.status(500).json({ success: false, message: 'Při vytváření inzerátu nastala chyba' })
-})
+export const createAd = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        // Extract data from the request body
+        const { title, description, contactInfo, destination, date, preferences, flexibility } = req.body
+    
+        // Validate the required fields
+        if (!title || !description || !contactInfo || !contactInfo.name) {
+          res.status(400).json({ message: 'Title, description, and contact name are required' })
+          return
+        }
+    
+        // Create a new ad instance with the provided data
+        const newAd = new Ad({
+          title,
+          description,
+          contactInfo,
+          destination,
+          date,
+          preferences,
+          flexibility,
+        })
+    
+        // Save the ad to the database
+        const savedAd = await newAd.save()
+    
+        // Return the saved ad as a response
+        res.status(201).json(savedAd)
+      } catch (err) {
+        console.error(err)
+        res.status(500).json({ message: 'Error creating ad' })
+        next(err) // Pass the error to the error handling middleware
+      }
+}
 
 export const updateAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params
