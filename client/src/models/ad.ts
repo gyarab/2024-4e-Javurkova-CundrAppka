@@ -1,9 +1,7 @@
 export interface Ad {
-    id: string
     title: string
     description: string
     contactInfo: {
-      name: string
       email?: string
       phone?: string
     }
@@ -11,9 +9,9 @@ export interface Ad {
     date?: string
     preferences?: {
       gender?: "Muž" | "Žena"
-      ageRange?: [number, number]
+      minAge?: number
+      maxAge?: number
       languages?: string[]
-      interests?: string[]
       smokingPreference?: "Kuřák" | "Nekuřák"
     }
     flexibility?: {
@@ -21,4 +19,6 @@ export interface Ad {
       ageRange: boolean
       languages: boolean
     }
+    createdAt: string
+    updatedAt: string
   }

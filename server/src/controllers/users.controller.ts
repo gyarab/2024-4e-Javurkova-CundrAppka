@@ -1,26 +1,18 @@
 // TODO: osetrit errory.. treba middlewarem
-import User from '../models/users.model'
+import User, { IUser } from '../models/users.model'
 
-import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-import { Request, Response, NextFunction, RequestHandler } from 'express'
+import { RequestHandler } from 'express'
 import asyncHandler from 'express-async-handler'
 import createHttpError from 'http-errors'
 
-interface RegisterBody {
-    username?: string,
-    email?: string,
-    password?: string
-}
-
-
 // @route POST /api/users/register
-export const registerUser: RequestHandler<unknown, unknown, RegisterBody, unknown> = async (req, res, next) => {
-    const { username, email } = req.body
+export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = async (req, res, next) => {
+    const { username, first_name, middle_name, last_name, birthday, email, ads  } = req.body
     const rawPassword = req.body.password
     
     try {
-        if(!username || !email || !rawPassword){
+        if(!username || !first_name || !last_name || !birthday || !email || !rawPassword){
             throw createHttpError(400, 'Prosim vyplnte vsechna pole')
         }
 
@@ -36,15 +28,19 @@ export const registerUser: RequestHandler<unknown, unknown, RegisterBody, unknow
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(rawPassword, salt)
 
-        const newUser = await User.create({
+        const newUser: IUser = await User.create({
             username: username,
-            email: email, 
-            password: hashedPassword
+            first_name: first_name,
+            middle_name: middle_name,
+            last_name: last_name,
+            birthday: birthday,
+            email: email,
+            password: hashedPassword,
+            ads: ads
         })
 
-        req.session.userId = newUser._id
-
-
+        // TODO: prubezne toto smazat aby user po registraci nebyl prihlasen
+        req.session.userId = newUser.id
 
         res.status(200).json({
             success: true, 
@@ -56,31 +52,36 @@ export const registerUser: RequestHandler<unknown, unknown, RegisterBody, unknow
 }
 
 interface LoginBody {
-    username?: string,
-    password?: string
+    username: string,
+    email: string,
+    password: string
 }
 
 // @route POST /api/users/login
 export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = asyncHandler(async (req, res, next) => {
-    const { username, password } = req.body
+    const { username, email, password } = req.body
 
     try {
-        if(!username || !password){
+        if( ( !username && !email ) || !password){
             throw createHttpError(400, 'Vyplňte všechny pole')
         }
 
-        const user = await User.findOne({username: username}).select('+email +password').exec()
-        if(!user){
+        const user1 = await User.findOne({username: username}).select('+email +password').exec()
+        const user2 = await User.findOne({email: email}).select('+email +password').exec()
+        if(!user1 && !user2){
             throw createHttpError(401, 'Nespravne zadane udaje')
         }
+        var user
+        if(!user1) {user = user2}
+        else {user = user1}
 
-        const passwordMatch = await bcrypt.compare(password, user.password)
+        const passwordMatch = await bcrypt.compare(password, user!.password)
 
         if(!passwordMatch){
             throw createHttpError(401, 'Nespravne zadane udaje')
         }
         
-        req.session.userId = user._id
+        req.session.userId = user!.id
         res.status(200).json({user, success: true, message: "Prihlaseni probehlo uspesne"})
     } catch (error) {
         next(error)
@@ -102,7 +103,6 @@ export const logoutUser: RequestHandler = async (req, res, next) => {
 // @route GET /api/users
 export const getUser: RequestHandler = async (req, res, next) => {
     const authenticatedUserId = req.session.userId
-    console.log(`tady jsou ${authenticatedUserId}`)
 
     try {
         if(!authenticatedUserId){
