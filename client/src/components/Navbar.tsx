@@ -73,9 +73,6 @@ const Navbar = ({ setShowLogoutModal }: { setShowLogoutModal: React.Dispatch<Rea
                   <a className="nav-link vintage-link" href="/prihlaseni">
                     Login
                   </a>
-                  <a className="nav-link vintage-link" href="/registrace">
-                    Register
-                  </a>
                 </>
               )}
             </>

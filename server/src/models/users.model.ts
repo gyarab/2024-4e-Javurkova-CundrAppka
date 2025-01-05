@@ -27,6 +27,7 @@ const userSchema = new Schema<IUser>({
     year: { type: Number, required: true }
   },
   email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
   ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ad' }] // Optional: reference to Ad model
 })
 

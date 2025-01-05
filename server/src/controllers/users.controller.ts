@@ -52,38 +52,35 @@ export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = as
 }
 
 interface LoginBody {
-    username: string,
-    email: string,
+    userInfo: string,
     password: string
 }
 
 // @route POST /api/users/login
 export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = asyncHandler(async (req, res, next) => {
-    const { username, email, password } = req.body
+    const { userInfo, password } = req.body
 
     try {
-        if( ( !username && !email ) || !password){
+        if(!userInfo || !password){
             throw createHttpError(400, 'Vyplňte všechny pole')
         }
 
-        const user1 = await User.findOne({username: username}).select('+email +password').exec()
-        const user2 = await User.findOne({email: email}).select('+email +password').exec()
-        if(!user1 && !user2){
+        const user1 = await User.findOne({username: userInfo}).select('+email +password').exec()
+        const user2 = await User.findOne({email: userInfo}).select('+username +password').exec()
+        let user = user1 || user2
+        if(!user){
             throw createHttpError(401, 'Nespravne zadane udaje')
         }
-        var user
-        if(!user1) {user = user2}
-        else {user = user1}
 
-        const passwordMatch = await bcrypt.compare(password, user!.password)
+        const passwordMatch = await bcrypt.compare(password, user.password)
 
         if(!passwordMatch){
             throw createHttpError(401, 'Nespravne zadane udaje')
         }
-        
         req.session.userId = user!.id
         res.status(200).json({user, success: true, message: "Prihlaseni probehlo uspesne"})
     } catch (error) {
+        console.log(error)
         next(error)
     }
 })

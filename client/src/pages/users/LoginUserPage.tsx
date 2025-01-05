@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import useLoginUser from 'hooks/users/useLoginUser'
 
 function LoginUserPage() {
-  const [username, setUsername] = useState('')
+  const [userInfo, setUserInfo] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false);
 
@@ -13,13 +13,13 @@ function LoginUserPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!username.trim() || !password.trim()) {
+        if (!userInfo.trim() || !password.trim()) {
             alert('Nejsou zadane vsechny informace')
             return
         }
 
         setLoading(true)
-        const success = await loginUser({ username, password })
+        const success = await loginUser(userInfo, password)
         if (success) {
           navigate('/')
           window.location.reload();
@@ -42,10 +42,10 @@ function LoginUserPage() {
       <form onSubmit={handleSubmit}>
         <input
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={userInfo}
+                onChange={(e) => setUserInfo(e.target.value)}
                 required
-                placeholder='Uživatelské jméno'
+                placeholder='Uživatelské jméno nebo email'
             />
         <input
                 id='password'
@@ -65,7 +65,7 @@ function LoginUserPage() {
 
         <button type="submit">Prihlasit se</button>
       </form>
-
+      <p>Nemate u nas ucet? <a href="/registrace">Registrace</a></p>
       <p><a href="/">Domu</a></p>
     </div>
   )

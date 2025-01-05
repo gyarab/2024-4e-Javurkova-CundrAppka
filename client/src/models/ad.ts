@@ -15,9 +15,9 @@ export interface Ad {
       smokingPreference?: "Kuřák" | "Nekuřák"
     }
     flexibility?: {
-      gender: boolean
-      ageRange: boolean
-      languages: boolean
+      gender?: boolean
+      ageRange?: boolean
+      languages?: boolean
     }
     createdAt: string
     updatedAt: string

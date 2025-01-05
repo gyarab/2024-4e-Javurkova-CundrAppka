@@ -5,7 +5,7 @@ interface User {
 
 const useLoginUser = () => {
 
-    const loginUser = async (user: User) => {
+    const loginUser = async (userInfo: string, password: string) => {
     
         try {
             const response = await fetch('/api/users/login', {
@@ -13,7 +13,7 @@ const useLoginUser = () => {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(user),
+              body: JSON.stringify({ userInfo, password }),
             })
             const data = await response.json()
             return data.success
