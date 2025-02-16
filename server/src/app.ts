@@ -20,6 +20,7 @@ const app = express()
 
 // middleware
 app.use(morgan('dev'))
+// TODO: setup cors
 app.use(cors())
 app.use(express.json())
 app.use(

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 interface Ad {
     _id: string
-    title: string
+    title: string,
+    description: string
 }
 
 const useFetchAds = () => {

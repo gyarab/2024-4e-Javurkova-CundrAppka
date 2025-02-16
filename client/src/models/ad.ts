@@ -1,4 +1,5 @@
 export interface Ad {
+    _id: string
     title: string
     description: string
     contactInfo: {
@@ -11,7 +12,8 @@ export interface Ad {
       gender?: "Muž" | "Žena"
       minAge?: number
       maxAge?: number
-      languages?: string[]
+      languages?: string
+      interests?: string
       smokingPreference?: "Kuřák" | "Nekuřák"
     }
     flexibility?: {

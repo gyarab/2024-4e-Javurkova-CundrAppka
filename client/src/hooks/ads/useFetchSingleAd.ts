@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react'
-
-interface Ad {
-  _id: string
-  title: string
-}
+import {Ad} from 'models/ad'
 
 const useFetchSingleAd = (id: string) => {
     const [ad, setAd] = useState<Ad | null>(null)

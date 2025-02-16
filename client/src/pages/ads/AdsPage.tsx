@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 interface Ad {
     _id: string;
     title: string;
+    description: string;
 }
 
 function AdsPage() {
@@ -57,7 +58,7 @@ function AdsPage() {
                             ads.map((ad, index) => (
                                 <div key={index} className="vintage-paper-box">
                                     <h2>{ad.title}</h2>
-                                    <p>{"Lorem ipsum dolor sit amet."}</p>
+                                    <p>{ad.description}</p>
                                     <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
                                         Zobrazit
                                     </a>

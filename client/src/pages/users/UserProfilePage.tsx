@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import useFetchUser from 'hooks/users/useFetchUser'
+import { useNavigate } from 'react-router-dom'
 
-interface User {
-    username: string,
-    email: String,
-    password: string
-}
+import useFetchUser from 'hooks/users/useFetchUser'
+import LoadingCircle from 'components/LoadingCircle'
+import User from 'models/user'
 
 function UserProfilePage() {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
     const { fetchUser } = useFetchUser()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getUser = async () => {
@@ -27,12 +26,12 @@ function UserProfilePage() {
     }, [fetchUser]);
 
     if (loading) {
-        return <p>Probiha prihlasovani...</p>
+        return <LoadingCircle/>
     }
 
   return (
     <div>
-        <h1>Profile</h1>
+        <h1>{user!.first_name} {user!.last_name}</h1>
         <p>Username: {user!.username}</p>
         <p>Email: {user!.email}</p>
         <p><a href="/">Domu</a></p>

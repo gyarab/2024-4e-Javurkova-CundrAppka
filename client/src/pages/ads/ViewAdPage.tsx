@@ -32,9 +32,42 @@ function ViewAdPage() {
       }
     }
       
+    const preferenceLabels: { [key: string]: string } = {
+      gender: "Pohlaví",
+      minAge: "Minimálně věk",
+      maxAge: "Maximální věk",
+      languages: "Mluvené jazyky",
+      smokingPreference: "Kuřáctví",
+      interests: "Zájmy"
+    };
+
   return (
     <div>
       <h1>{ad.title}</h1>
+      <p>{ad.description}</p>
+      <p>Kontaktni udaje: 
+      {ad.contactInfo.email ? (
+          <div>{ad.contactInfo.email}</div>
+        ) : (
+          <div>{ad.contactInfo.phone}</div>
+        )}
+      </p>
+      {ad.preferences && 
+      <ul>
+        <p>Preference:</p>
+        {Object.entries(ad.preferences).map(([key, value]) => {
+          if (value !== undefined) {
+            return (
+              <li key={key}>
+                <strong>{preferenceLabels[key]}:</strong> {Array.isArray(value) ? value.join(", ") : value}
+              </li>
+            );
+          }
+          return null;
+        })}
+      </ul>
+      }
+
       <p><a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>Upravit</a></p>
       <p><button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button></p>
       <p><a href="/inzeraty">Zpatky</a></p>

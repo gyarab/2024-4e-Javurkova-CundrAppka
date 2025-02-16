@@ -13,7 +13,8 @@ interface IAd extends Document {
     gender?: string
     minAge?: number
     maxAge?: number
-    languages?: string[]
+    languages?: string
+    interests?: string
     smokingPreference?: string
   }
   flexibility?: {
@@ -21,7 +22,7 @@ interface IAd extends Document {
     ageRange?: boolean
     languages?: boolean
   }
-  user: mongoose.Schema.Types.ObjectId
+  /*user: mongoose.Schema.Types.ObjectId*/
 }
 
 const adSchema = new Schema<IAd>(
@@ -39,8 +40,8 @@ const adSchema = new Schema<IAd>(
       gender: { type: String },
       minAge: { type: Number },
       maxAge: { type: Number },
-      languages: { type: [String] },
-      interests: { type: [String] },
+      languages: { type: String },
+      interests: { type: String },
       smokingPreference: { type: String },
     },
     flexibility: {
@@ -48,7 +49,7 @@ const adSchema = new Schema<IAd>(
       ageRange: { type: Boolean },
       languages: { type: Boolean },
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add the reference to User
+    /*user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add the reference to User*/
   },
   { timestamps: true }
 )

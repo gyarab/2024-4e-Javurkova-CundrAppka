@@ -108,6 +108,7 @@ export const getUser: RequestHandler = async (req, res, next) => {
         const user = await User.findById(authenticatedUserId).select('+email').exec()
         res.status(200).json({user, success: true, message: `Jste prihlasen jako ${user!.username}`})
     } catch (error) {
+        res.status(500).json({success: false})
         next(error)
     }
 }
