@@ -23,4 +23,5 @@ export interface Ad {
     }
     createdAt: string
     updatedAt: string
+    [key: string]: any;  // This allows any other property with any type
   }
