@@ -7,12 +7,6 @@ import { useEffect, useState } from 'react';
 import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
 import { useNavigate } from 'react-router-dom'
 
-interface Ad {
-    _id: string;
-    title: string;
-    description: string;
-}
-
 function AdsPage() {
     const [showLogoutModal, setShowLogoutModal] = useState(false)
     const navigate = useNavigate()
@@ -53,6 +47,7 @@ function AdsPage() {
                         }}
                     />
                     {/* Ads Content */}
+                    <p>Zverejnit inzerat <a href="/inzeraty/zverejnit">ZDE</a></p>
                     <div className="ads-container">
                         {ads.length > 0 ? (
                             ads.map((ad, index) => (

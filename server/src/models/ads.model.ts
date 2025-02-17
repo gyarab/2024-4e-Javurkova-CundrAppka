@@ -4,6 +4,7 @@ interface IAd extends Document {
   title: string
   description: string
   contactInfo: {
+    name?: string
     email?: string
     phone?: string
   }
@@ -16,11 +17,6 @@ interface IAd extends Document {
     languages?: string
     interests?: string
     smokingPreference?: string
-  }
-  flexibility?: {
-    gender?: boolean
-    ageRange?: boolean
-    languages?: boolean
   }
   /*user: mongoose.Schema.Types.ObjectId*/
 }
@@ -43,12 +39,7 @@ const adSchema = new Schema<IAd>(
       languages: { type: String },
       interests: { type: String },
       smokingPreference: { type: String },
-    },
-    flexibility: {
-      gender: { type: Boolean },
-      ageRange: { type: Boolean },
-      languages: { type: Boolean },
-    },
+    }
     /*user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add the reference to User*/
   },
   { timestamps: true }

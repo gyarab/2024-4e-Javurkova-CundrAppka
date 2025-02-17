@@ -101,7 +101,6 @@ function UpdateAdPage() {
               name={`${parentKey}.${key}`}  // Naming convention for nested properties
               value={inputValue as string}  // Explicitly cast to string
               onChange={handleChange}
-              required
             />
           </label>
         </div>
@@ -134,7 +133,6 @@ function UpdateAdPage() {
                   name={key}
                   value={value || ''}
                   onChange={handleChange}
-                  required
                 />
               </label>
             </div>

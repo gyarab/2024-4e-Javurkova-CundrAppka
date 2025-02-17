@@ -35,7 +35,7 @@ export const getAd: RequestHandler = asyncHandler(async (req: Request, res: Resp
 export const createAd = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         // Extract data from the request body
-        const { title, description, contactInfo, destination, date, preferences, flexibility } = req.body
+        const { title, description, contactInfo, destination, date, preferences } = req.body
     
         // Validate the required fields
         if (!title || !description || !contactInfo || !contactInfo.name) {
@@ -50,15 +50,16 @@ export const createAd = async (req: Request, res: Response, next: NextFunction):
           contactInfo,
           destination,
           date,
-          preferences,
-          flexibility,
+          preferences
         })
     
         // Save the ad to the database
         const savedAd = await newAd.save()
     
         // Return the saved ad as a response
-        res.status(201).json(savedAd)
+        if(savedAd){
+            res.status(201).json({success: true, data: savedAd})
+        }
       } catch (err) {
         console.error(err)
         res.status(500).json({ message: 'Error creating ad' })

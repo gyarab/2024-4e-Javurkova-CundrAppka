@@ -1,13 +1,11 @@
-interface Ad {
-  title: string
-}
+import { Ad } from "models/ad"
+
 
 const useCreateAd = () => {
 
   const createAd = async (newAd: Ad) => {
 
       try {
-        
           const response = await fetch('/api/ads', {
             method: 'POST',
             headers: {
@@ -15,7 +13,7 @@ const useCreateAd = () => {
             },
             body: JSON.stringify(newAd),
           })
-
+          console.log(JSON.stringify(newAd))
           const data = await response.json()
           return data.success
     

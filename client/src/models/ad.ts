@@ -3,6 +3,7 @@ export interface Ad {
     title: string
     description: string
     contactInfo: {
+      name: string
       email?: string
       phone?: string
     }
@@ -15,11 +16,6 @@ export interface Ad {
       languages?: string
       interests?: string
       smokingPreference?: "Kuřák" | "Nekuřák"
-    }
-    flexibility?: {
-      gender?: boolean
-      ageRange?: boolean
-      languages?: boolean
     }
     createdAt: string
     updatedAt: string
