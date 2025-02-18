@@ -117,7 +117,7 @@ function UpdateAdPage() {
           const value = formData[key];
           
           // Skip fields that should not be displayed (e.g., _id, createdAt)
-          if (key === '_id' || key === 'createdAt' || key === 'updatedAt') return null;
+          if (key === '_id' || key === 'createdAt' || key === 'updatedAt' || key === 'user' || key === 'email' || key === 'full_name') return null;
 
           // Handle nested objects like contactInfo or preferences
           if (typeof value === 'object' && value !== null) {

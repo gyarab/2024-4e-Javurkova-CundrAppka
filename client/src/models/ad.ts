@@ -7,8 +7,8 @@ export interface Ad {
     date?: string
     preferences?: {
       gender?: "Muž" | "Žena"
-      minAge?: number
-      maxAge?: number
+      minAge?: string
+      maxAge?: string
       languages?: string
       interests?: string
       smokingPreference?: "Kuřák" | "Nekuřák"

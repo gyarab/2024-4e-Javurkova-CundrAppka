@@ -49,21 +49,19 @@ function ViewAdPage() {
       <h5>Kontaktni udaje:</h5>
         <p>Email: {ad.email}
         {ad.phone && <div>, Telefonni cislo: {ad.phone}</div>}</p>
-      {ad.preferences && 
-      <ul>
-        <p>Preference:</p>
-        {Object.entries(ad.preferences).map(([key, value]) => {
-          if (value !== undefined) {
-            return (
-              <li key={key}>
-                <strong>{preferenceLabels[key]}:</strong> {Array.isArray(value) ? value.join(", ") : value}
-              </li>
-            );
-          }
-          return null;
-        })}
-      </ul>
-      }
+        {ad.preferences && Object.values(ad.preferences).some(value => value !== '') && (
+          <ul>
+            <p>Preference:</p>
+            {Object.entries(ad.preferences)
+              .filter(([_, value]) => value !== '')
+              .map(([key, value]) => (
+                <li key={key}>
+                  <strong>{preferenceLabels[key]}: {value}</strong>
+                </li>
+              ))
+            }
+          </ul>
+        )}
 
       <p><a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>Upravit</a></p>
       <p><button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button></p>

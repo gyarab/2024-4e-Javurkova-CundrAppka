@@ -8,8 +8,8 @@ interface IAd extends Document {
   date?: string
   preferences?: {
     gender?: string
-    minAge?: number
-    maxAge?: number
+    minAge?: string
+    maxAge?: string
     languages?: string
     interests?: string
     smokingPreference?: string
@@ -28,8 +28,8 @@ const adSchema = new Schema<IAd>(
     date: { type: String },
     preferences: {
       gender: { type: String },
-      minAge: { type: Number },
-      maxAge: { type: Number },
+      minAge: { type: String },
+      maxAge: { type: String },
       languages: { type: String },
       interests: { type: String },
       smokingPreference: { type: String },
