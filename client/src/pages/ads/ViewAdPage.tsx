@@ -46,9 +46,9 @@ function ViewAdPage() {
       <h1>{ad.title}</h1>
       <p>uzivatel: {ad.full_name}</p>
       <p>{ad.description}</p>
+      {ad.phone && <p>Destinace: {ad.destination}</p>}
       <h5>Kontaktni udaje:</h5>
-        <p>Email: {ad.email}
-        {ad.phone && <div>, Telefonni cislo: {ad.phone}</div>}</p>
+        <p>Email: {ad.email} {ad.phone && <div>, Telefonni cislo: {ad.phone}</div>}</p>
         {ad.preferences && Object.values(ad.preferences).some(value => value !== '') && (
           <ul>
             <p>Preference:</p>

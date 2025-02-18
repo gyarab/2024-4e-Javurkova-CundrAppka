@@ -2,7 +2,7 @@ export interface Ad {
     _id: string
     title: string
     description: string
-    phone: string
+    phone?: string
     destination?: string
     date?: string
     preferences?: {

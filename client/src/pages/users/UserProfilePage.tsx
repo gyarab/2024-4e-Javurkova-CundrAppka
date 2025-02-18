@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import useFetchUser from 'hooks/users/useFetchUser'
 import LoadingCircle from 'components/LoadingCircle'
@@ -35,6 +35,7 @@ function UserProfilePage() {
         <p>Username: {user!.username}</p>
         <p>Email: {user!.email}</p>
         <p>Muj vek: {user!.age}</p>
+        <a href="/muj-ucet/inzeraty">MOje inzeraty</a>
         <p><a href="/">Domu</a></p>
     </div>
   )

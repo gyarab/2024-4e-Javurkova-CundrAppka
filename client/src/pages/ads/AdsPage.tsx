@@ -50,7 +50,8 @@ function AdsPage() {
 
     const filteredAds = ads.filter(ad =>
         ad.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        ad.description.toLowerCase().includes(searchQuery.toLowerCase())
+        ad.description.toLowerCase().includes(searchQuery.toLowerCase())||
+        ad.destination?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
