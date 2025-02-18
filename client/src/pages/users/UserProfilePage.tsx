@@ -23,7 +23,7 @@ function UserProfilePage() {
         };
 
         getUser();
-    }, [fetchUser]);
+    }, []);
 
     if (loading) {
         return <LoadingCircle/>

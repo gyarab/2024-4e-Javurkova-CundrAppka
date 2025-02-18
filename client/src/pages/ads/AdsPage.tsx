@@ -12,6 +12,7 @@ function AdsPage() {
     const navigate = useNavigate()
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const { ads, loading } = useFetchAds();
+    const [searchQuery, setSearchQuery] = useState('');
       
     const handleLogout = async () => {
         try {
@@ -47,6 +48,11 @@ function AdsPage() {
         checkAuthStatus();
     }, []);
 
+    const filteredAds = ads.filter(ad =>
+        ad.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        ad.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <>
             {loading ? (
@@ -72,9 +78,18 @@ function AdsPage() {
                          <p>Pro zverejneni inzeratu se prihlaste <a href="/prihlaseni">ZDE</a></p>
                         </>
                     )}
+
+                    <input
+                        type="text"
+                        placeholder="Search ads..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="p-2 border rounded mb-4 w-full"
+                    />
+
                     <div className="ads-container">
-                        {ads.length > 0 ? (
-                            ads.map((ad, index) => (
+                        {filteredAds.length > 0 ? (
+                            filteredAds.map((ad, index) => (
                                 <div key={index} className="vintage-paper-box">
                                     <h2>{ad.title}</h2>
                                     <p>{ad.description}</p>
