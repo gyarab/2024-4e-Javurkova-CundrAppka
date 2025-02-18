@@ -5,6 +5,7 @@ import { Request, Response, RequestHandler, NextFunction } from 'express'
 import asyncHandler from 'express-async-handler'
 
 import Ad from '../models/ads.model'
+import User from '../models/users.model'
 
 export const getAds: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
     const ads = await Ad.find({})
@@ -35,10 +36,14 @@ export const getAd: RequestHandler = asyncHandler(async (req: Request, res: Resp
 export const createAd = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         // Extract data from the request body
-        const { title, description, contactInfo, destination, date, preferences } = req.body
+        const { title, description, phone, destination, date, preferences } = req.body
+        const authenticatedUserId = req.session.userId
+        const user = await User.findById(authenticatedUserId).select('+email').exec()
+
+
     
         // Validate the required fields
-        if (!title || !description || !contactInfo || !contactInfo.name) {
+        if (!title || !description ) {
           res.status(400).json({ message: 'Title, description, and contact name are required' })
           return
         }
@@ -47,10 +52,13 @@ export const createAd = async (req: Request, res: Response, next: NextFunction):
         const newAd = new Ad({
           title,
           description,
-          contactInfo,
+          phone,
           destination,
           date,
-          preferences
+          preferences,
+          full_name: `${user?.first_name} ${user?.last_name}`,
+          email: user?.email,
+          user: authenticatedUserId
         })
     
         // Save the ad to the database

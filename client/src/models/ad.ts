@@ -2,11 +2,7 @@ export interface Ad {
     _id: string
     title: string
     description: string
-    contactInfo: {
-      name: string
-      email?: string
-      phone?: string
-    }
+    phone: string
     destination?: string
     date?: string
     preferences?: {
@@ -19,5 +15,8 @@ export interface Ad {
     }
     createdAt: string
     updatedAt: string
+    user: string
+    full_name: string
+    email: string
     [key: string]: any;  // This allows any other property with any type
   }

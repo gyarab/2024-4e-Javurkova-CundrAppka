@@ -31,6 +31,22 @@ function AdsPage() {
         }
     }
 
+    useEffect(() => {
+        const checkAuthStatus = async () => {
+        try {
+            const response = await fetch('/api/users/status', {
+            method: 'GET',
+            credentials: 'include',
+            });
+            const data = await response.json();
+            setIsLoggedIn(data.isLoggedIn);
+        } catch (error) {
+            console.error('Error fetching auth status:', error);
+        }
+        };
+        checkAuthStatus();
+    }, []);
+
     return (
         <>
             {loading ? (
@@ -46,8 +62,16 @@ function AdsPage() {
                             handleLogout(); // Perform logout after confirmation
                         }}
                     />
-                    {/* Ads Content */}
-                    <p>Zverejnit inzerat <a href="/inzeraty/zverejnit">ZDE</a></p>
+
+                    {isLoggedIn ? (
+                        <>
+                        <p>Zverejnit inzerat <a href="/inzeraty/zverejnit">ZDE</a></p>
+                        </>
+                    ) : (
+                        <>
+                         <p>Pro zverejneni inzeratu se prihlaste <a href="/prihlaseni">ZDE</a></p>
+                        </>
+                    )}
                     <div className="ads-container">
                         {ads.length > 0 ? (
                             ads.map((ad, index) => (

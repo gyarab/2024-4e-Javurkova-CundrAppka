@@ -3,11 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose'
 interface IAd extends Document {
   title: string
   description: string
-  contactInfo: {
-    name?: string
-    email?: string
-    phone?: string
-  }
+  phone: number
   destination?: string
   date?: string
   preferences?: {
@@ -18,18 +14,16 @@ interface IAd extends Document {
     interests?: string
     smokingPreference?: string
   }
-  /*user: mongoose.Schema.Types.ObjectId*/
+  full_name: string
+  email: string
+  user: mongoose.Schema.Types.ObjectId
 }
 
 const adSchema = new Schema<IAd>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    contactInfo: {
-      name: { type: String, required: true },
-      email: { type: String },
-      phone: { type: String },
-    },
+    phone: { type: Number },
     destination: { type: String },
     date: { type: String },
     preferences: {
@@ -39,8 +33,10 @@ const adSchema = new Schema<IAd>(
       languages: { type: String },
       interests: { type: String },
       smokingPreference: { type: String },
-    }
-    /*user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add the reference to User*/
+    },
+    full_name: { type: String },
+    email: { type: String },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add the reference to User*/
   },
   { timestamps: true }
 )

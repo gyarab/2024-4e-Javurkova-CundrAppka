@@ -44,14 +44,11 @@ function ViewAdPage() {
   return (
     <div>
       <h1>{ad.title}</h1>
+      <p>uzivatel: {ad.full_name}</p>
       <p>{ad.description}</p>
-      <p>Kontaktni udaje: 
-      {ad.contactInfo.email ? (
-          <div>{ad.contactInfo.email}</div>
-        ) : (
-          <div>{ad.contactInfo.phone}</div>
-        )}
-      </p>
+      <h5>Kontaktni udaje:</h5>
+        <p>Email: {ad.email}
+        {ad.phone && <div>, Telefonni cislo: {ad.phone}</div>}</p>
       {ad.preferences && 
       <ul>
         <p>Preference:</p>

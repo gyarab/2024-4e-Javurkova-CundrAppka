@@ -8,7 +8,7 @@ function CreateAdPage() {
   const [adData, setAdData] = useState<AdFormData>({
     title: '',
     description: '',
-    contactInfo: { name: '', email: '', phone: '' },
+    phone: '',
     destination: '',
     date: '',
     preferences: {
@@ -66,22 +66,9 @@ function CreateAdPage() {
           required
         />
         <input
-          name="contactInfo.name"
-          value={adData.contactInfo.name}
-          onChange={(e) => setAdData({ ...adData, contactInfo: { ...adData.contactInfo, name: e.target.value } })}
-          placeholder="Cele jmeno"
-        />
-        <input
-          name="contactInfo.email"
-          type="email"
-          value={adData.contactInfo.email}
-          onChange={(e) => setAdData({ ...adData, contactInfo: { ...adData.contactInfo, email: e.target.value } })}
-          placeholder="Email"
-        />
-        <input
-          name="contactInfo.phone"
-          value={adData.contactInfo.phone}
-          onChange={(e) => setAdData({ ...adData, contactInfo: { ...adData.contactInfo, phone: e.target.value } })}
+          name="phone"
+          value={adData.phone}
+          onChange={(e) => setAdData({ ...adData, phone: e.target.value })}
           placeholder="Telefon"
         />
         <input
