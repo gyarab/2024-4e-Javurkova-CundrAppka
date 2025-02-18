@@ -9,7 +9,7 @@ function RegisterUserPage() {
   const [middleName, setMiddleName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [birthday, setBirthday] = useState('')
+  const [birthday, setBirthday] = useState(new Date())
   const [password, setPassword] = useState('')
 
   const [showPassword, setShowPassword] = useState(false);
@@ -20,11 +20,10 @@ function RegisterUserPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault()
-      if (!username.trim() || !firstName.trim() || !lastName.trim() || !email.trim() || !birthday.trim() || !password.trim()) {
+      if (!username.trim() || !firstName.trim() || !lastName.trim() || !email.trim() || !birthday || !password.trim()) {
           alert('Nejsou zadane vsechny informace')
           return
       }
-      // TODO: kontrola aby heslo bylo silne a osetreni jiz existujich (jen na frontendu)
 
       setLoading(true)
 
@@ -33,11 +32,7 @@ function RegisterUserPage() {
         first_name: firstName,
         middle_name: middleName,
         last_name: lastName,
-        birthday: {
-          "day": 1,
-          "month": 1,
-          "year": 1
-        },
+        birthday: birthday,
         email: email,
         password: password
       }
@@ -65,48 +60,41 @@ function RegisterUserPage() {
       <form onSubmit={handleSubmit}>
         <input
                 type="text"
-                value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 placeholder='Uživatelské jméno'
         />
         <input
                 type="text"
-                value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 placeholder='Krestni jmeno'
         />
         <input
                 type="text"
-                value={middleName}
                 onChange={(e) => setMiddleName(e.target.value)}
                 placeholder='Druhe jmeno'
         />
         <input
                 type="text"
-                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder='Prijmeni'
         />
         <input
                 type="email"
-                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder='Email'
         />
         <input
-                type="text"
-                value={birthday}
-                onChange={(e) => setBirthday(e.target.value)}
+                type="date"
+                onChange={(e) => setBirthday(new Date(e.target.value))}
                 required
                 placeholder='Datum narozeni'
         />
         <input
                 id='password'
                 type={showPassword ? "text" : "password"}
-                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder='Heslo'

@@ -6,11 +6,8 @@ export interface IUser extends Document {
   first_name: string
   middle_name: string
   last_name: string
-  birthday: {
-    day: number
-    month: number
-    year: number
-  }
+  birthday: Date,
+  age?: number
   email: string
   password: string
   ads: mongoose.Schema.Types.ObjectId[] // Array of ObjectIds referencing Ads
@@ -21,11 +18,8 @@ const userSchema = new Schema<IUser>({
   first_name: { type: String, required: true },
   middle_name: { type: String },
   last_name: { type: String, required: true },
-  birthday: {
-    day: { type: Number, required: true },
-    month: { type: Number, required: true },
-    year: { type: Number, required: true }
-  },
+  birthday: { type: Date },
+  age: { type: Number },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ad' }] // Optional: reference to Ad model

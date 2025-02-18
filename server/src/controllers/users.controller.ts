@@ -6,6 +6,13 @@ import { RequestHandler } from 'express'
 import asyncHandler from 'express-async-handler'
 import createHttpError from 'http-errors'
 
+const calculateAge = (birthDateString: string): number => {
+    const birthDate = new Date(birthDateString);
+    const diff = Date.now() - birthDate.getTime();
+    const ageDate = new Date(diff);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+};
+
 // @route POST /api/users/register
 export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = async (req, res, next) => {
     const { username, first_name, middle_name, last_name, birthday, email, ads  } = req.body
@@ -36,6 +43,7 @@ export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = as
             birthday: birthday,
             email: email,
             password: hashedPassword,
+            age: calculateAge((birthday as unknown) as string),
             ads: ads
         })
 
