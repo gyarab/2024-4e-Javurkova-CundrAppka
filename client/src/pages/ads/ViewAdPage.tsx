@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router'
 import useFetchSingleAd from 'hooks/ads/useFetchSingleAd'
 import { useNavigate } from 'react-router-dom'
 import useDeleteAd from 'hooks/ads/useDeleteAd'
 import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
+import useFetchUser from 'hooks/users/useFetchUser';
+import User from 'models/user';
 
 function ViewAdPage() {
     const { id } = useParams()
@@ -11,6 +13,22 @@ function ViewAdPage() {
     const navigate = useNavigate()
     const { deleteAd, loading: deleting } = useDeleteAd()
     const [showConfirmModal, setShowConfirmModal] = useState(false)
+    const [user, setUser] = useState<User | null>(null)
+    const { fetchUser } = useFetchUser()
+    
+    useEffect(() => {
+      const getUser = async () => {
+          const fetch = await fetchUser();
+          if (fetch.success) {
+            setUser(fetch.user);
+          } else {
+            alert('Nastal problém při zobrazování účtu');
+          }
+        };
+        getUser();
+    }, []);
+    
+    const userEmail = user ? user.email : '?'
 
     if (loading || deleting) {
         return <p>Načítání...</p>
@@ -62,9 +80,10 @@ function ViewAdPage() {
             }
           </ul>
         )}
-
-      <p><a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>Upravit</a></p>
-      <p><button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button></p>
+      {ad.email == userEmail && <div>
+        <p><a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>Upravit</a></p>
+        <p><button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button></p></div>
+      }
       <p><a href="/inzeraty">Zpatky</a></p>
       <DeleteConfirmComp
         message="Opravdu chcete inzerat smazat?"

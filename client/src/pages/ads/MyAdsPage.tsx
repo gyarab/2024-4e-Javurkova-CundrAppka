@@ -21,7 +21,7 @@ function MyAds() {
           getUser();
       }, []);
 
-  const userEmail = user ? user.email : ''
+  const userEmail = user ? user.email : '?'
   const myAds = ads.filter(ad =>
     ad.email.toLowerCase().includes(userEmail.toLowerCase())
   );
