@@ -56,7 +56,13 @@ function ViewAdPage() {
       maxAge: "Maximální věk",
       languages: "Mluvené jazyky",
       smokingPreference: "Kuřáctví",
-      interests: "Zájmy"
+      interests: "Zájmy",
+      spanish: "Španělština",
+      english: "Angličtina",
+      german: "Němčina",
+      russina: "Ruština",
+      italian: "Italština",
+      french: "Francouština"
     };
 
   return (
@@ -67,14 +73,20 @@ function ViewAdPage() {
       {ad.phone && <p>Destinace: {ad.destination}</p>}
       <h5>Kontaktni udaje:</h5>
         <p>Email: {ad.email} {ad.phone && <div>, Telefonni cislo: {ad.phone}</div>}</p>
-        {ad.preferences && Object.values(ad.preferences).some(value => value !== '') && (
+        {ad.preferences && Object.entries(ad.preferences).some(([_, value]) => value !== '' && (Array.isArray(value) ? value.length > 0 : true)) && (
           <ul>
             <p>Preference:</p>
             {Object.entries(ad.preferences)
-              .filter(([_, value]) => value !== '')
+              .filter(([key, value]) => value !== '' && (key !== 'languages' || (Array.isArray(value) && value.length > 0))) // Exclude languages if empty
               .map(([key, value]) => (
                 <li key={key}>
-                  <strong>{preferenceLabels[key]}: {value}</strong>
+                  <strong>{preferenceLabels[key]}: {
+                    key === 'languages' 
+                      ? (Array.isArray(value) 
+                          ? value.map(lang => preferenceLabels[lang] || lang).join(', ') 
+                          : value)
+                      : value
+                  }</strong>
                 </li>
               ))
             }

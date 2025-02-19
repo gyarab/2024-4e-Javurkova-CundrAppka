@@ -10,8 +10,7 @@ interface IAd extends Document {
     gender?: string
     minAge?: string
     maxAge?: string
-    languages?: string
-    interests?: string
+    languages?: string[]
     smokingPreference?: string
   }
   full_name: string
@@ -30,8 +29,7 @@ const adSchema = new Schema<IAd>(
       gender: { type: String },
       minAge: { type: String },
       maxAge: { type: String },
-      languages: { type: String },
-      interests: { type: String },
+      languages: [String],
       smokingPreference: { type: String },
     },
     full_name: { type: String },

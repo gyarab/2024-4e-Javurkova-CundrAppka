@@ -9,8 +9,7 @@ export interface Ad {
       gender?: "Muž" | "Žena"
       minAge?: string
       maxAge?: string
-      languages?: string
-      interests?: string
+      languages?: string[]
       smokingPreference?: "Kuřák" | "Nekuřák"
     }
     createdAt: string

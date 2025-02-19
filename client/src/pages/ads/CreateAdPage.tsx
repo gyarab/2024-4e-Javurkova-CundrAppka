@@ -5,6 +5,7 @@ import { Ad } from 'models/ad';
 
 type AdFormData = Partial<Omit<Ad, '_id' | 'createdAt' | 'updatedAt'>>;
 function CreateAdPage() {
+
   const [adData, setAdData] = useState<AdFormData>({
     title: '',
     description: '',
@@ -15,11 +16,11 @@ function CreateAdPage() {
       gender: '',
       minAge: '',
       maxAge: '',
-      languages: '',
-      interests: '',
+      languages: [] as string[],
       smokingPreference: ''
     }
-  });
+    });
+
     const { createAd } = useCreateAd()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
@@ -40,6 +41,19 @@ function CreateAdPage() {
       } else {
         alert('Nastal problém při vytváření inzerátu');
       }
+    };
+
+    const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setAdData({
+        ...adData,
+        preferences: {
+          ...adData.preferences,
+          languages: e.target.checked
+            ? [...adData.preferences.languages, value]
+            : adData.preferences.languages.filter((lang: string) => lang !== value),
+        },
+      });
     };
   
 
@@ -93,16 +107,57 @@ function CreateAdPage() {
           onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, maxAge: e.target.value } })}
           placeholder="Maximalni vek"
         />
-        <input
-          name="preferences.languages"
-          onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, languages: e.target.value } })}
-          placeholder="Jazyky"
-        />
-        <input
-          name="preferences.interests"
-          onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, interests: e.target.value } })}
-          placeholder="Zajmy"
-        />
+      {/* Checkboxes for languages */}
+      <div>
+          <label>
+            <input
+              type="checkbox"
+              value="spanish"
+              onChange={handleLanguageChange}
+            />
+            Spanelsky
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="english"
+              onChange={handleLanguageChange}
+            />
+            Anglicky
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="russian"
+              onChange={handleLanguageChange}
+            />
+            Rusky
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="italian"
+              onChange={handleLanguageChange}
+            />
+            Italsky
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="german"
+              onChange={handleLanguageChange}
+            />
+            Nemecky
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="french"
+              onChange={handleLanguageChange}
+            />
+            Francouzsky
+          </label>
+        </div>
         <input
           name="preferences.smokingPreference"
           onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, smokingPreference: e.target.value } })}

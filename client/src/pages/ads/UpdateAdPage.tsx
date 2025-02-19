@@ -76,8 +76,7 @@ function UpdateAdPage() {
     minAge: "Minimální věk",
     maxAge: "Maximální věk",
     languages: "Jazyky",
-    smokingPreference: "Kuřácká preference",
-    interests: "Zájmy"
+    smokingPreference: "Kuřácká preference"
   };
 
 
