@@ -8,6 +8,7 @@ function MyAds() {
   const { ads, loading } = useFetchAds();
   const { fetchUser } = useFetchUser()
   const [user, setUser] = useState<User | null>(null)
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
           const getUser = async () => {
@@ -30,12 +31,26 @@ function MyAds() {
     return <LoadingCircle/>
   }
 
+  const filteredAds = myAds.filter(ad =>
+    ad.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    ad.description.toLowerCase().includes(searchQuery.toLowerCase())||
+    ad.destination?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
       <h1>Moje inzeraty</h1>
+
+      <input
+        type="text"
+        placeholder="Hledat inzerat.."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="p-2 border rounded mb-4 w-full"
+      />
       <div className="ads-container">
-        {myAds.length > 0 ? (
-          myAds.map((ad, index) => (
+        {filteredAds.length > 0 ? (
+          filteredAds.map((ad, index) => (
             <div key={index} className="vintage-paper-box">
               <h2>{ad.title}</h2>
               <p>{ad.description}</p>

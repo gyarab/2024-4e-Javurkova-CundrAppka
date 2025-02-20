@@ -48,12 +48,6 @@ function AdsPage() {
         checkAuthStatus();
     }, []);
 
-    var filteredAds = ads.filter(ad =>
-        ad.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        ad.description.toLowerCase().includes(searchQuery.toLowerCase())||
-        ad.destination?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
     const [filters, setFilters] = useState({
         destination: '',
         date: '',
@@ -80,7 +74,7 @@ function AdsPage() {
         }
     };
 
-    filteredAds = ads.filter(ad => {
+    const filteredAds = ads.filter(ad => {
         const adMinAge = ad.preferences?.minAge ? Number(ad.preferences.minAge) : null;
         const adMaxAge = ad.preferences?.maxAge ? Number(ad.preferences.maxAge) : null;
         const userAge = filters.userAge ? Number(filters.userAge) : null;
@@ -125,14 +119,6 @@ function AdsPage() {
                          <p>Pro zverejneni inzeratu se prihlaste <a href="/prihlaseni">ZDE</a></p>
                         </>
                     )}
-
-                    <input
-                        type="text"
-                        placeholder="Hledat inzerat.."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="p-2 border rounded mb-4 w-full"
-                    />
 
                     {/* Filters */}
                     <div className="filters">

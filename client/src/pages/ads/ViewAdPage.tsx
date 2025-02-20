@@ -9,6 +9,7 @@ import User from 'models/user';
 
 function ViewAdPage() {
     const { id } = useParams()
+     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { ad, loading } = useFetchSingleAd(id!)
     const navigate = useNavigate()
     const { deleteAd, loading: deleting } = useDeleteAd()
@@ -16,18 +17,33 @@ function ViewAdPage() {
     const [user, setUser] = useState<User | null>(null)
     const { fetchUser } = useFetchUser()
     
-    useEffect(() => {
+      useEffect(() => {
+          const checkAuthStatus = async () => {
+          try {
+            const response = await fetch('/api/users/status', {
+              method: 'GET',
+              credentials: 'include',
+            });
+            const data = await response.json();
+            setIsLoggedIn(data.isLoggedIn);
+          } catch (error) {
+            console.error('Error fetching auth status:', error);
+          }
+        };
+        checkAuthStatus();
+      }, []);
+
+    if(isLoggedIn){
       const getUser = async () => {
-          const fetch = await fetchUser();
+        const fetch = await fetchUser();
           if (fetch.success) {
             setUser(fetch.user);
           } else {
-            alert('Nastal problém při zobrazování účtu');
-          }
-        };
-        getUser();
-    }, []);
-    
+            setUser(null);
+        }
+      };
+      getUser();
+    }
     const userEmail = user ? user.email : '?'
 
     if (loading || deleting) {
@@ -92,7 +108,7 @@ function ViewAdPage() {
             }
           </ul>
         )}
-      {ad.email == userEmail && <div>
+      {user !== null && ad.email == userEmail && <div>
         <p><a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>Upravit</a></p>
         <p><button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button></p></div>
       }
