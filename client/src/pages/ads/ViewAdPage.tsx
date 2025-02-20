@@ -33,18 +33,18 @@ function ViewAdPage() {
         checkAuthStatus();
       }, []);
 
-    if(isLoggedIn){
-      const getUser = async () => {
-        const fetch = await fetchUser();
-          if (fetch.success) {
-            setUser(fetch.user);
-          } else {
-            setUser(null);
-        }
-      };
-      getUser();
-    }
-    const userEmail = user ? user.email : '?'
+      useEffect(() => {
+        const getUser = async () => {
+          const fetch = await fetchUser();
+            if (fetch.success) {
+              setUser(fetch.user);
+            }
+        };
+        getUser();
+    }, [isLoggedIn]);
+
+    const myAdsIds = user?.ads || [];
+    const isMine = myAdsIds.includes(id as string)
 
     if (loading || deleting) {
         return <p>Načítání...</p>
@@ -108,7 +108,7 @@ function ViewAdPage() {
             }
           </ul>
         )}
-      {user !== null && ad.email == userEmail && <div>
+      {user !== null && isMine && <div>
         <p><a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>Upravit</a></p>
         <p><button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button></p></div>
       }

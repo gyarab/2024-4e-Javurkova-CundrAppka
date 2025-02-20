@@ -10,4 +10,5 @@ export default interface User {
     email: string
     password: string
     ads?: string[]
+    liked_ads?: string[]
   }

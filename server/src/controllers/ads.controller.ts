@@ -1,6 +1,6 @@
 // TODO: osetrit errory.. treba middlewarem
 
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 import { Request, Response, RequestHandler, NextFunction } from 'express'
 import asyncHandler from 'express-async-handler'
 
@@ -63,6 +63,11 @@ export const createAd = async (req: Request, res: Response, next: NextFunction):
     
         // Save the ad to the database
         const savedAd = await newAd.save()
+        await User.findByIdAndUpdate(
+            user?._id, 
+            { $push: { ads: newAd._id } }, 
+            { new: true } // Return the updated document
+        );
     
         // Return the saved ad as a response
         if(savedAd){

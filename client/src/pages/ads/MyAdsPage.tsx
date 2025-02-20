@@ -1,6 +1,7 @@
 import LoadingCircle from 'components/LoadingCircle';
 import useFetchAds from 'hooks/ads/useFetchAds';
 import useFetchUser from 'hooks/users/useFetchUser'
+import { Ad } from 'models/ad';
 import User from 'models/user';
 import { useEffect, useState } from 'react';
 
@@ -22,16 +23,15 @@ function MyAds() {
           getUser();
       }, []);
 
-  const userEmail = user ? user.email : '?'
-  const myAds = ads.filter(ad =>
-    ad.email.toLowerCase().includes(userEmail.toLowerCase())
-  );
+  const myAdsIds = user?.ads || [];
+  const myAds = ads.filter(ad => myAdsIds.includes(ad._id));
+
 
   if (loading) {
     return <LoadingCircle/>
   }
 
-  const filteredAds = myAds.filter(ad =>
+  const filteredAds = myAds?.filter(ad =>
     ad.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     ad.description.toLowerCase().includes(searchQuery.toLowerCase())||
     ad.destination?.toLowerCase().includes(searchQuery.toLowerCase())

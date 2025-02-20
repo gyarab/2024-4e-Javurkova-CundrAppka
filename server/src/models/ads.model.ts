@@ -15,6 +15,7 @@ interface IAd extends Document {
   }
   full_name: string
   email: string
+  likes?: number
   user: mongoose.Schema.Types.ObjectId
 }
 
@@ -34,6 +35,7 @@ const adSchema = new Schema<IAd>(
     },
     full_name: { type: String },
     email: { type: String },
+    likes: { type: Number },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add the reference to User*/
   },
   { timestamps: true }

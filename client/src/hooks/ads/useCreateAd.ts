@@ -13,7 +13,6 @@ const useCreateAd = () => {
             },
             body: JSON.stringify(newAd),
           })
-          console.log(JSON.stringify(newAd))
           const data = await response.json()
           return data.success
     
