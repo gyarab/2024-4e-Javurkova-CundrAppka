@@ -1,8 +1,3 @@
-interface User {
-    username: string,
-    password: string
-}
-
 const useLoginUser = () => {
 
     const loginUser = async (userInfo: string, password: string) => {

@@ -13,6 +13,8 @@ import LoginUserPage from 'pages/users/LoginUserPage'
 import UserProfilePage from 'pages/users/UserProfilePage'
 import MapPage from 'pages/MapPage'
 
+import useLogoutUser from 'hooks/users/useLogoutUser'
+
 import Navbar from 'components/Navbar'
 import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
 import Footer from 'components/Footer'
@@ -21,20 +23,7 @@ import MyAdsPage from 'pages/ads/MyAdsPage'
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
   const navigate = useNavigate()
-
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/users/logout', {
-        method: 'POST',
-        credentials: 'include',
-      })
-      navigate('/')
-      window.location.reload();
-    } catch (error) {
-      console.error('Error logging out:', error)
-      alert('Error logging out. Please try again.')
-    }
-  }
+  const { logoutUser } = useLogoutUser()
 
   return (
     <div className='page-wrapper'>
@@ -45,7 +34,7 @@ function App() {
         onClose={() => setShowLogoutModal(false)}
         onConfirm={() => {
         setShowLogoutModal(false)
-        handleLogout() // Perform logout after confirmation
+        logoutUser() // Perform logout after confirmation
         }}
       />
 
