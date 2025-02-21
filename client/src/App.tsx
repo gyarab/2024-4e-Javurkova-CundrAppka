@@ -12,13 +12,14 @@ import RegistrationPage from 'pages/users/RegisterUserPage'
 import LoginUserPage from 'pages/users/LoginUserPage'
 import UserProfilePage from 'pages/users/UserProfilePage'
 import MapPage from 'pages/MapPage'
+import MyAdsPage from 'pages/ads/MyAdsPage'
+import SavedAdsPage from 'pages/ads/SavedAdsPage'
 
 import useLogoutUser from 'hooks/users/useLogoutUser'
 
 import Navbar from 'components/Navbar'
 import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
 import Footer from 'components/Footer'
-import MyAdsPage from 'pages/ads/MyAdsPage'
 
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
@@ -47,7 +48,8 @@ function App() {
         <Route path='/registrace' element={<RegistrationPage />} />
         <Route path='/prihlaseni' element={<LoginUserPage />} />
         <Route path='/muj-ucet' element={<UserProfilePage />} />
-        <Route path='/muj-ucet/inzeraty' element={<MyAdsPage />} />
+        <Route path='/muj-ucet/moje-inzeraty' element={<MyAdsPage />} />
+        <Route path='/muj-ucet/ulozene-inzeraty' element={<SavedAdsPage />} />
         <Route path='/mapa' element={<MapPage />} />
       </Routes>
       <Footer />
