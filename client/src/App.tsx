@@ -20,10 +20,10 @@ import useLogoutUser from 'hooks/users/useLogoutUser'
 import Navbar from 'components/Navbar'
 import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
 import Footer from 'components/Footer'
+import PackagesPage from 'pages/travel_packages/PackagesPage'
 
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
-  const navigate = useNavigate()
   const { logoutUser } = useLogoutUser()
 
   return (
@@ -51,6 +51,8 @@ function App() {
         <Route path='/muj-ucet/moje-inzeraty' element={<MyAdsPage />} />
         <Route path='/muj-ucet/ulozene-inzeraty' element={<SavedAdsPage />} />
         <Route path='/mapa' element={<MapPage />} />
+        <Route path='/cestovni-balicky' element={<PackagesPage/>} ></Route>
+        <Route path='/cestovni-balicky/:city' element={<></>} ></Route>
       </Routes>
       <Footer />
     </div>

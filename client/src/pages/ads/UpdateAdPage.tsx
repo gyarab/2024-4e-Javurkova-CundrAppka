@@ -76,7 +76,9 @@ function UpdateAdPage() {
     minAge: "Minimální věk",
     maxAge: "Maximální věk",
     languages: "Jazyky",
-    smokingPreference: "Kuřácká preference"
+    smokingPreference: "Kuřácká preference",
+    german: "Nemcina",
+    /*etc..*/
   };
 
 
@@ -98,7 +100,7 @@ function UpdateAdPage() {
           {labels[key] || key}: {/* Dynamic label based on the parent key */}
             <input
               name={`${parentKey}.${key}`}  // Naming convention for nested properties
-              value={inputValue as string}  // Explicitly cast to string
+              value={labels[inputValue as string] || inputValue as string}  // Explicitly cast to string
               onChange={handleChange}
             />
           </label>
