@@ -10,8 +10,8 @@ export interface IUser extends Document {
   age?: number
   email: string
   password: string
-  ads: mongoose.Schema.Types.ObjectId[]
-  liked_ads: mongoose.Schema.Types.ObjectId[]
+  ads: string[]
+  saved_ads: string[]
 }
 
 const userSchema = new Schema<IUser>({
@@ -23,8 +23,8 @@ const userSchema = new Schema<IUser>({
   age: { type: Number },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ad' }],
-  liked_ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Liked_Ad' }]
+  ads: [{ type: String, ref: 'Ad' }],
+  saved_ads: [{ type: String, ref: 'Saved_Ad' }]
 })
 
 const User = mongoose.model<IUser>('User', userSchema)

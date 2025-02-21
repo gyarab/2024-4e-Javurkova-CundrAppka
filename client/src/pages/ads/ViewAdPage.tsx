@@ -6,6 +6,7 @@ import useDeleteAd from 'hooks/ads/useDeleteAd'
 import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
 import useFetchUser from 'hooks/users/useFetchUser';
 import User from 'models/user';
+import useSaveAd from 'hooks/ads/useSaveAd'
 
 function ViewAdPage() {
     const { id } = useParams()
@@ -16,6 +17,8 @@ function ViewAdPage() {
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [user, setUser] = useState<User | null>(null)
     const { fetchUser } = useFetchUser()
+    const { saveAd } = useSaveAd()
+    const [saved, setSaved] = useState(false)
     
       useEffect(() => {
           const checkAuthStatus = async () => {
@@ -45,6 +48,10 @@ function ViewAdPage() {
 
     const myAdsIds = user?.ads || [];
     const isMine = myAdsIds.includes(id as string)
+    useEffect(() => {
+      const mySavedAdsIds = user?.saved_ads || [];
+      setSaved(mySavedAdsIds.includes(id as string)); // Update saved state based on whether the ad is in the user's saved ads.
+    }, []); // Add 'user' and 'id' as dependencies to run this effect only when they change.
 
     if (loading || deleting) {
         return <p>Načítání...</p>
@@ -81,6 +88,11 @@ function ViewAdPage() {
       french: "Francouština"
     };
 
+    const handleSaveClick = async () => {
+      const newSavedState = await saveAd(ad!._id);
+      setSaved(newSavedState);
+    }
+
   return (
     <div>
       <h1>{ad.title}</h1>
@@ -108,10 +120,28 @@ function ViewAdPage() {
             }
           </ul>
         )}
-      {user !== null && isMine && <div>
-        <p><a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>Upravit</a></p>
-        <p><button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button></p></div>
-      }
+      {user !== null && (
+        <div> 
+          <button className='btn btn-secondary' onClick={handleSaveClick}>
+            {saved ? 'Oddelat z ulozenych' : 'Ulozit si'}
+          </button>
+          {isMine && (
+            <div>
+              <p>
+                <a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>
+                  Upravit
+                </a>
+              </p>
+              <p>
+                <button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>
+                  Smazat
+                </button>
+              </p>
+            </div>
+            )}
+            </div>
+          )}
+      
       <p><a href="/inzeraty">Zpatky</a></p>
       <DeleteConfirmComp
         message="Opravdu chcete inzerat smazat?"

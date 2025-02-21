@@ -9,10 +9,8 @@ import { useNavigate } from 'react-router-dom'
 
 function AdsPage() {
     const [showLogoutModal, setShowLogoutModal] = useState(false)
-    const navigate = useNavigate()
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const { ads, loading } = useFetchAds();
-    const [searchQuery, setSearchQuery] = useState('');
       
     const handleLogout = async () => {
         try {

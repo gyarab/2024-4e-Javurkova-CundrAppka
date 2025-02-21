@@ -65,7 +65,7 @@ export const createAd = async (req: Request, res: Response, next: NextFunction):
         const savedAd = await newAd.save()
         await User.findByIdAndUpdate(
             user?._id, 
-            { $push: { ads: newAd._id } }, 
+            { $push: { ads: newAd._id as string } }, 
             { new: true } // Return the updated document
         );
     
@@ -113,4 +113,26 @@ export const deleteAd: RequestHandler = asyncHandler(async (req: Request, res: R
         return
     }
     res.status(500).json({ success: false, message: 'Inzerát se nepodařilo smazat' })
+})
+
+export const saveAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+    try {
+        const { userId, adId } = req.params;
+
+        const user = await User.findById(userId);
+        if (!user) { res.status(404).json({ message: "User not found" }); return }
+
+        const isAlreadySaved = user.saved_ads.includes(adId);
+        if (isAlreadySaved) {
+            // If already saved, remove it (toggle feature)
+            user.saved_ads = user.saved_ads.filter(id => id !== adId);
+        } else {
+            // Otherwise, save the ad
+            user.saved_ads.push(adId);
+        }
+        await user.save();
+        res.json({ saved_ads: user.saved_ads });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
 })
