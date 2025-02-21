@@ -1,13 +1,7 @@
-const useSaveAd = (userId?: string) => {
-
-  const saveAd = async (adId: string) => {
-    if (!userId) {
-        alert("Musíte být přihlášeni k uložení inzerátu.");
-        return false;
-    }
-
+const useSaveAd = () => {
+  const saveAd = async (userId: string, adId: string) => {
       try {
-          const response = await fetch(`/users/${userId}/save-ad/${adId}`, {
+          const response = await fetch(`/api/ads/${userId}/save-ad/${adId}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json", },
           })

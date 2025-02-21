@@ -1,6 +1,5 @@
-import { Ad } from "./ad"
-
 export default interface User {
+    _id?: string
     username: string
     first_name: string
     middle_name?: string

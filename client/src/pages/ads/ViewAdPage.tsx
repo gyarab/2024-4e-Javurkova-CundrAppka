@@ -21,7 +21,6 @@ function ViewAdPage() {
     //const [user, setUser] = useState<User | null>(null)
     //const { fetchUser } = useFetchUser()
     const { saveAd } = useSaveAd()
-    const { checkAuthStatus } = useCheckAuthStatus()
     const [saved, setSaved] = useState(false)
     
     const { user, loading } = useAuth(); // Access user data from AuthContext
@@ -31,7 +30,7 @@ function ViewAdPage() {
     useEffect(() => {
       const mySavedAdsIds = user?.saved_ads || [];
       setSaved(mySavedAdsIds.includes(id as string)); // Update saved state based on whether the ad is in the user's saved ads.
-    }, []); // Add 'user' and 'id' as dependencies to run this effect only when they change.
+    }, [user, id]); // Add 'user' and 'id' as dependencies to run this effect only when they change.
 
     if (loading || deleting) {
         return <p>Načítání...</p>
@@ -69,8 +68,8 @@ function ViewAdPage() {
     };
 
     const handleSaveClick = async () => {
-      const newSavedState = await saveAd(ad!._id);
-      setSaved(newSavedState);
+      const newSavedState = await saveAd(user!._id!, ad!._id);
+      setSaved(newSavedState)
     }
 
   return (
