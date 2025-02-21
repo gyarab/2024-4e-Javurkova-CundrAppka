@@ -7,44 +7,24 @@ import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
 import useFetchUser from 'hooks/users/useFetchUser';
 import User from 'models/user';
 import useSaveAd from 'hooks/ads/useSaveAd'
+import useCheckAuthStatus from 'hooks/users/useCheckAuthStatus';
+import { useAuth } from 'context/AuthContext';
+
 
 function ViewAdPage() {
     const { id } = useParams()
-     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { ad, loading } = useFetchSingleAd(id!)
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { ad } = useFetchSingleAd(id!)
     const navigate = useNavigate()
     const { deleteAd, loading: deleting } = useDeleteAd()
     const [showConfirmModal, setShowConfirmModal] = useState(false)
-    const [user, setUser] = useState<User | null>(null)
-    const { fetchUser } = useFetchUser()
+    //const [user, setUser] = useState<User | null>(null)
+    //const { fetchUser } = useFetchUser()
     const { saveAd } = useSaveAd()
+    const { checkAuthStatus } = useCheckAuthStatus()
     const [saved, setSaved] = useState(false)
     
-      useEffect(() => {
-          const checkAuthStatus = async () => {
-          try {
-            const response = await fetch('/api/users/status', {
-              method: 'GET',
-              credentials: 'include',
-            });
-            const data = await response.json();
-            setIsLoggedIn(data.isLoggedIn);
-          } catch (error) {
-            console.error('Error fetching auth status:', error);
-          }
-        };
-        checkAuthStatus();
-      }, []);
-
-      useEffect(() => {
-        const getUser = async () => {
-          const fetch = await fetchUser();
-            if (fetch.success) {
-              setUser(fetch.user);
-            }
-        };
-        getUser();
-    }, [isLoggedIn]);
+    const { user, loading } = useAuth(); // Access user data from AuthContext
 
     const myAdsIds = user?.ads || [];
     const isMine = myAdsIds.includes(id as string)

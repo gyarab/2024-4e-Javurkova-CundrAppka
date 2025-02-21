@@ -1,4 +1,5 @@
 import LoadingCircle from 'components/LoadingCircle';
+import { useAuth } from 'context/AuthContext';
 import useFetchAds from 'hooks/ads/useFetchAds';
 import useFetchUser from 'hooks/users/useFetchUser'
 import { Ad } from 'models/ad';
@@ -6,22 +7,9 @@ import User from 'models/user';
 import { useEffect, useState } from 'react';
 
 function MyAds() {
-  const { ads, loading } = useFetchAds();
-  const { fetchUser } = useFetchUser()
-  const [user, setUser] = useState<User | null>(null)
+  const { ads } = useFetchAds();
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-          const getUser = async () => {
-              const fetch = await fetchUser();
-              if (fetch.success) {
-                  setUser(fetch.user);
-              } else {
-                  alert('Nastal problém při zobrazování účtu');
-              }
-          };
-          getUser();
-      }, []);
+  const { user, loading } = useAuth(); // Access user data from AuthContext
 
   const myAdsIds = user?.ads || [];
   const myAds = ads.filter(ad => myAdsIds.includes(ad._id));

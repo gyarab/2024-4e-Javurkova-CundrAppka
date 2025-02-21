@@ -1,21 +1,37 @@
+import { useState, useEffect } from "react";
+import User from "models/user"; 
+
 const useFetchUser = () => {
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    const fetchUser = async () => {
-    
+    const fetchUser = async () => { // Make this function accessible
+        setLoading(true);
         try {
-            const response = await fetch('/api/users', {
-                method: 'GET',
-                credentials: 'include', // Ensure cookies are sent
-            })
-            const data = await response.json()
-            return data
+            const response = await fetch("/api/users", {
+                method: "GET",
+                credentials: "include",
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                setUser(data.user);
+            } else {
+                setUser(null);
+            }
         } catch (err) {
-            alert('Při zobrazovani účtu nastala chyba')
-            return
+            console.error("Error fetching user:", err);
+            setUser(null);
+        } finally {
+            setLoading(false);
         }
+    };
 
-    }
-    return { fetchUser }
-}
+    useEffect(() => {
+        fetchUser(); // Automatically fetch user on mount
+    }, []);
 
-export default useFetchUser
+    return { user, loading, fetchUser }; // Now we return `fetchUser` too!
+};
+
+export default useFetchUser;

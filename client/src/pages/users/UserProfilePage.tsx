@@ -4,27 +4,12 @@ import { useNavigate, Link } from 'react-router-dom'
 import useFetchUser from 'hooks/users/useFetchUser'
 import LoadingCircle from 'components/LoadingCircle'
 import User from 'models/user'
+import { useAuth } from 'context/AuthContext'
 
 function UserProfilePage() {
-    const [user, setUser] = useState<User | null>(null)
-    const [loading, setLoading] = useState(true)
     const { fetchUser } = useFetchUser()
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        const getUser = async () => {
-            const fetch = await fetchUser();
-            setLoading(false);
-            if (fetch.success) {
-                setUser(fetch.user);
-            } else {
-                alert('Nastal problém při zobrazování účtu');
-            }
-        };
-
-        getUser();
-    }, []);
-
+    const { user, loading } = useAuth(); // Access user data from AuthContext
+    
     if (loading) {
         return <LoadingCircle/>
     }

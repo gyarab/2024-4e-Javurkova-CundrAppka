@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose'
+import mongoose, { Schema, Document, ObjectId } from 'mongoose'
 
 // Define the User interface
 export interface IUser extends Document {
@@ -10,8 +10,8 @@ export interface IUser extends Document {
   age?: number
   email: string
   password: string
-  ads: string[]
-  saved_ads: string[]
+  ads: ObjectId[]
+  saved_ads: ObjectId[]
 }
 
 const userSchema = new Schema<IUser>({
@@ -23,8 +23,8 @@ const userSchema = new Schema<IUser>({
   age: { type: Number },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  ads: [{ type: String, ref: 'Ad' }],
-  saved_ads: [{ type: String, ref: 'Saved_Ad' }]
+  ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ad' }], // Reference to the 'Ad' model
+  saved_ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Saved_ad' }] // Reference to the 'Ad' model
 })
 
 const User = mongoose.model<IUser>('User', userSchema)

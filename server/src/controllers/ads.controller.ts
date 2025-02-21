@@ -118,17 +118,18 @@ export const deleteAd: RequestHandler = asyncHandler(async (req: Request, res: R
 export const saveAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
     try {
         const { userId, adId } = req.params;
+        const adObjectId = new mongoose.Schema.Types.ObjectId(adId);
 
         const user = await User.findById(userId);
         if (!user) { res.status(404).json({ message: "User not found" }); return }
 
-        const isAlreadySaved = user.saved_ads.includes(adId);
+        const isAlreadySaved = user.saved_ads.includes(adObjectId);
         if (isAlreadySaved) {
             // If already saved, remove it (toggle feature)
-            user.saved_ads = user.saved_ads.filter(id => id !== adId);
+            user.saved_ads = user.saved_ads.filter(id => id !== adObjectId);
         } else {
             // Otherwise, save the ad
-            user.saved_ads.push(adId);
+            user.saved_ads.push(adObjectId);
         }
         await user.save();
         res.json({ saved_ads: user.saved_ads });
