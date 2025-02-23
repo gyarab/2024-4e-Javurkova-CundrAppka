@@ -21,6 +21,7 @@ import Navbar from 'components/Navbar'
 import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
 import Footer from 'components/Footer'
 import PackagesPage from 'pages/travel_packages/PackagesPage'
+import ViewPackagePage from 'pages/travel_packages/ViewPackagePage'
 
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
@@ -52,7 +53,7 @@ function App() {
         <Route path='/muj-ucet/ulozene-inzeraty' element={<SavedAdsPage />} />
         <Route path='/mapa' element={<MapPage />} />
         <Route path='/cestovni-balicky' element={<PackagesPage/>} ></Route>
-        <Route path='/cestovni-balicky/:city' element={<></>} ></Route>
+        <Route path='/cestovni-balicky/:city' element={<ViewPackagePage/>} ></Route>
       </Routes>
       <Footer />
     </div>

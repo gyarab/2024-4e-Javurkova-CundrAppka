@@ -8,9 +8,7 @@ function PackagesPage() {
     <div>
        {cities.map((city, index) => (
         <>
-            <h3>{city}</h3>
-            <p>url k infu v txt: {`assets/cities_info/${city}.txt`}</p>
-            <p>Odkaz <a href={`/cestovni-balicky/${city}`}>Tady</a></p>
+            <h3><a href={`/cestovni-balicky/${city}`}>{city}</a></h3>
         </>
       ))}
     </div>
