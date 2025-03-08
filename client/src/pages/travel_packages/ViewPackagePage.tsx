@@ -3,9 +3,16 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
 function ViewPackagePage() {
-    const { city } = useParams()
+    const { city } = useParams<string>()
     const [text, setText] = useState('')
     const [loading, setLoading] = useState(true)
+    
+    const special_city_names: { [key: string]: string } = {
+        "Plzen": "Plzeň",
+        "Ceske-Budejovice": "České Budějovice",
+        "Hradec-Kralove": "Hradec Králové",
+        "Zlin": "Zlín"
+    };
 
     // Parsing the text into structured sections
     const parseText = (text: string) => {
@@ -71,7 +78,7 @@ function ViewPackagePage() {
 
     return (
         <div>
-            <h1>{city}</h1>
+            <h1>{special_city_names[city as keyof typeof special_city_names] || city}</h1>
             <div>
                 {Object.keys(sections).map((section, index) => (
                     <div key={index}>
