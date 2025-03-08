@@ -6,7 +6,7 @@ function ViewPackagePage() {
     const { city } = useParams<string>()
     const [text, setText] = useState('')
     const [loading, setLoading] = useState(true)
-    
+
     const special_city_names: { [key: string]: string } = {
         "Plzen": "Plzeň",
         "Ceske-Budejovice": "České Budějovice",

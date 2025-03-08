@@ -22,6 +22,7 @@ import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
 import Footer from 'components/Footer'
 import PackagesPage from 'pages/travel_packages/PackagesPage'
 import ViewPackagePage from 'pages/travel_packages/ViewPackagePage'
+import PrivateRoute from 'components/PrivateRoute'
 
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
@@ -43,14 +44,14 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/inzeraty' element={<AdsPage />} />
-        <Route path='/inzeraty/zverejnit' element={<CreateAdPage />} />
+        <Route path='/inzeraty/zverejnit' element={<PrivateRoute redirectTo='/prihlaseni'><CreateAdPage /></PrivateRoute>} />
         <Route path='/inzeraty/:id' element={<ViewAdPage />} />
-        <Route path='/inzeraty/upravit/:id' element={<UpdateAdPage />} />
-        <Route path='/registrace' element={<RegistrationPage />} />
-        <Route path='/prihlaseni' element={<LoginUserPage />} />
-        <Route path='/muj-ucet' element={<UserProfilePage />} />
-        <Route path='/muj-ucet/moje-inzeraty' element={<MyAdsPage />} />
-        <Route path='/muj-ucet/ulozene-inzeraty' element={<SavedAdsPage />} />
+        <Route path='/inzeraty/upravit/:id' element={<PrivateRoute redirectTo='/inzeraty'><UpdateAdPage /></PrivateRoute>} />
+        <Route path='/registrace' element={<PrivateRoute redirectTo='/muj-ucet'><RegistrationPage /></PrivateRoute>} />
+        <Route path='/prihlaseni' element={<PrivateRoute redirectTo='/muj-ucet'><LoginUserPage /></PrivateRoute>} />
+        <Route path='/muj-ucet' element={<PrivateRoute redirectTo='/prihlaseni'><UserProfilePage/></PrivateRoute>} />
+        <Route path='/muj-ucet/moje-inzeraty' element={<PrivateRoute redirectTo='/prihlaseni'><MyAdsPage /></PrivateRoute>} />
+        <Route path='/muj-ucet/ulozene-inzeraty' element={<PrivateRoute redirectTo='/prihlaseni'><SavedAdsPage /></PrivateRoute>} />
         <Route path='/mapa' element={<MapPage />} />
         <Route path='/cestovni-balicky' element={<PackagesPage/>} ></Route>
         <Route path='/cestovni-balicky/:city' element={<ViewPackagePage/>} ></Route>
