@@ -7,7 +7,47 @@ function ViewPackagePage() {
     const [text, setText] = useState('')
     const [loading, setLoading] = useState(true)
 
-   useEffect(() => {
+    // Parsing the text into structured sections
+    const parseText = (text: string) => {
+        const sections = [
+            'Web',
+            'Historie',
+            'Zeměpis',
+            'Turistické zajímavosti',
+            'Kultura',
+            'Restaurace, doprava a ubytování',
+            'Výlety v okolí'
+        ];
+
+        const sectionData: any = {};
+        let currentSection = '';
+        let currentContent = '';
+
+        // Split by lines and then process each line
+        const lines = text.split('\n');
+        lines.forEach(line => {
+            const matchedSection = sections.find(section => line.startsWith(section));
+            if (matchedSection) {
+                // If we find a section, save the previous one and start new one
+                if (currentSection) {
+                    sectionData[currentSection] = currentContent.trim();
+                }
+                currentSection = matchedSection;
+                currentContent = line.replace(matchedSection, '').trim();  // Clean up the section header
+            } else {
+                currentContent += `\n${line}`;
+            }
+        });
+
+        // Add the last section to the result
+        if (currentSection) {
+            sectionData[currentSection] = currentContent.trim();
+        }
+
+        return sectionData;
+    };
+
+    useEffect(() => {
         const path = `/cities_info/${city}.txt`;
         fetch(path)
             .then(response => {
@@ -16,22 +56,33 @@ function ViewPackagePage() {
                 }
                 return response.text();
             })
-            .then(data => setText(data))
+            .then(data => {
+                setText(data);
+                setLoading(false);
+            })
             .catch(error => console.error("Error loading text file:", error));
-        setLoading(false)
     }, [city]);
 
     if (loading) {
-        return <LoadingCircle/>
+        return <LoadingCircle />
     }
 
-  return (
-    <div>
-      <h1>{city}</h1>
-      <p>{text}</p>
-      <p><a href="/cestovni-balicky">Zpet</a></p>
-    </div>
-  )
+    const sections = parseText(text);
+
+    return (
+        <div>
+            <h1>{city}</h1>
+            <div>
+                {Object.keys(sections).map((section, index) => (
+                    <div key={index}>
+                        <h3>{section}</h3>
+                        <p style={{ whiteSpace: 'pre-wrap' }}>{sections[section]}</p>
+                    </div>
+                ))}
+            </div>
+            <p><a href="/cestovni-balicky">Zpět</a></p>
+        </div>
+    )
 }
 
 export default ViewPackagePage
