@@ -12,6 +12,7 @@ export interface IUser extends Document {
   password: string
   ads: ObjectId[]
   saved_ads: ObjectId[]
+  posts: ObjectId[]
 }
 
 const userSchema = new Schema<IUser>({
@@ -24,7 +25,8 @@ const userSchema = new Schema<IUser>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ad' }], // Reference to the 'Ad' model
-  saved_ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Saved_ad' }] // Reference to the 'Ad' model
+  saved_ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Saved_ad' }], // Reference to the 'Ad' model
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'posts' }]
 })
 
 const User = mongoose.model<IUser>('User', userSchema)

@@ -25,6 +25,7 @@ import ViewPackagePage from 'pages/travel_packages/ViewPackagePage'
 import PrivateRoute from 'components/PrivateRoute'
 import ForumHomePage from 'pages/community_forum/ForumHomePage'
 import ForumCityPage from 'pages/community_forum/ForumCityPage'
+import ForumPostingPage from 'pages/community_forum/ForumPostingPage'
 
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
@@ -58,7 +59,9 @@ function App() {
         <Route path='/cestovni-balicky' element={<PackagesPage/>} ></Route>
         <Route path='/cestovni-balicky/:city' element={<ViewPackagePage/>} ></Route>
         <Route path='/komunitni-forum' element={<ForumHomePage/>} ></Route>
+        <Route path='/komunitni-forum/zverejnit' element={<PrivateRoute redirectTo='/prihlaseni'><ForumPostingPage/></PrivateRoute>} ></Route>
         <Route path='/komunitni-forum/:city' element={<ForumCityPage/>} ></Route>
+        <Route path='/komunitni-forum/:city/zverejnit' element={<PrivateRoute redirectTo='/prihlaseni'><ForumPostingPage/></PrivateRoute>} ></Route>
       </Routes>
       <Footer />
     </div>
