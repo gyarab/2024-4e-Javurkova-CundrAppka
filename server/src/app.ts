@@ -11,6 +11,7 @@ import MongoStore from 'connect-mongo'
 import { connectDB } from './config/db'
 import adRoutes from './routes/ads.route'
 import userRoutes from './routes/users.route'
+import forumRoutes from './routes/forum.route'
 
 // connecting db
 connectDB()
@@ -40,6 +41,7 @@ app.use(
 // routes
 app.use('/api/ads', adRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/forum', forumRoutes)
 // page not found
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(400).json({ message: 'Endpoint neexistuje' })
