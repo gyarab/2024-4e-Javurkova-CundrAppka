@@ -23,6 +23,8 @@ import Footer from 'components/Footer'
 import PackagesPage from 'pages/travel_packages/PackagesPage'
 import ViewPackagePage from 'pages/travel_packages/ViewPackagePage'
 import PrivateRoute from 'components/PrivateRoute'
+import ForumHomePage from 'pages/community_forum/ForumHomePage'
+import ForumCityPage from 'pages/community_forum/ForumCityPage'
 
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
@@ -55,6 +57,8 @@ function App() {
         <Route path='/mapa' element={<MapPage />} />
         <Route path='/cestovni-balicky' element={<PackagesPage/>} ></Route>
         <Route path='/cestovni-balicky/:city' element={<ViewPackagePage/>} ></Route>
+        <Route path='/komunitni-forum' element={<ForumHomePage/>} ></Route>
+        <Route path='/komunitni-forum/:city' element={<ForumCityPage/>} ></Route>
       </Routes>
       <Footer />
     </div>

@@ -1,4 +1,4 @@
-function NotFounfPage() {
+function NotFoundPage() {
   return (
     <div>
       <h1>Stranka neexistuje.. vratit se <a href="/">domu</a></h1>
@@ -6,4 +6,4 @@ function NotFounfPage() {
   )
 }
 
-export default NotFounfPage
+export default NotFoundPage

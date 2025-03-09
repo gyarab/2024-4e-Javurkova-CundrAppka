@@ -79,6 +79,7 @@ function ViewPackagePage() {
     return (
         <div>
             <h1>{special_city_names[city as keyof typeof special_city_names] || city}</h1>
+            <p>Komunitni forum <a href={`/komunitni-forum/${city}`}>tady</a></p>
             <div>
                 {Object.keys(sections).map((section, index) => (
                     <div key={index}>
