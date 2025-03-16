@@ -1,10 +1,14 @@
+import LoadingCircle from "components/LoadingCircle";
 import { useAuth } from "context/AuthContext";
 import useFetchCityPosts from "hooks/forum/useFetchCityPosts";
 import { useParams } from "react-router-dom"
 
 function ForumCityPage() {
+    const { user, loading } = useAuth();
     const { city } = useParams()
     const { posts } = useFetchCityPosts(city as string);
+    const myPostsIds = user?.posts || []
+    const shownPosts = posts.filter(post => !myPostsIds.includes(post._id));
 
     const special_city_names: { [key: string]: string } = {
       "Plzen": "Plzeň",
@@ -13,7 +17,9 @@ function ForumCityPage() {
       "Zlin": "Zlín"
     };
 
-    const { user, loading } = useAuth();
+    if (loading) {
+      return <LoadingCircle/>
+    }
 
   return (
     <div>
@@ -24,8 +30,8 @@ function ForumCityPage() {
         <p>Pro tvorbu prispevku se prihlasete <a href="/prihlaseni">zde</a></p>
       )}
       <div className="posts-container" >
-        {posts.length > 0 ? (
-            posts.map((post, index) => (
+        {shownPosts.length > 0 ? (
+            shownPosts.map((post, index) => (
               <div key={index} className="vintage-paper-box">
                 <h2>Uzivatel {post.full_name}: {post.title}</h2>
                 <p>{post.text}</p>
