@@ -22,6 +22,7 @@ function UserProfilePage() {
         <p>Muj vek: {user!.age}</p>
         <a href="/muj-ucet/moje-inzeraty" className='btn btn-primary'>MOje inzeraty</a>
         <a href="/muj-ucet/ulozene-inzeraty" className='btn btn-secondary'>Ulozene inzeraty</a>
+        <p><a href="/muj-ucet/moje-prispevky" className='btn btn-secondary'>Moje prispevky</a></p>
         <p><a href="/">Domu</a></p>
     </div>
   )

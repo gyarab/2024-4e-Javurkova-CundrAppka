@@ -1,13 +1,13 @@
 import { Post } from 'models/forum-post';
 import { useEffect, useState } from 'react'
 
-const useFetchPosts = (city: string) => {
+const useFetchCityPosts = (city: string) => {
 
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetch(`/api/forum/${city}`, { method: 'GET' })
+        fetch(`/api/forum/posts/${city}`, { method: 'GET' })
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Nastal problém při načítání prispevku.')
@@ -27,4 +27,4 @@ const useFetchPosts = (city: string) => {
     return { posts, loading }
 }
 
-export default useFetchPosts
+export default useFetchCityPosts

@@ -26,6 +26,7 @@ import PrivateRoute from 'components/PrivateRoute'
 import ForumHomePage from 'pages/community_forum/ForumHomePage'
 import ForumCityPage from 'pages/community_forum/ForumCityPage'
 import ForumPostingPage from 'pages/community_forum/ForumPostingPage'
+import MyPostsPage from 'pages/community_forum/MyPostsPage'
 
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
@@ -55,6 +56,7 @@ function App() {
         <Route path='/muj-ucet' element={<PrivateRoute redirectTo='/prihlaseni'><UserProfilePage/></PrivateRoute>} />
         <Route path='/muj-ucet/moje-inzeraty' element={<PrivateRoute redirectTo='/prihlaseni'><MyAdsPage /></PrivateRoute>} />
         <Route path='/muj-ucet/ulozene-inzeraty' element={<PrivateRoute redirectTo='/prihlaseni'><SavedAdsPage /></PrivateRoute>} />
+        <Route path='/muj-ucet/moje-prispevky' element={<PrivateRoute redirectTo='/prihlaseni'><MyPostsPage /></PrivateRoute>} />
         <Route path='/mapa' element={<MapPage />} />
         <Route path='/cestovni-balicky' element={<PackagesPage/>} ></Route>
         <Route path='/cestovni-balicky/:city' element={<ViewPackagePage/>} ></Route>

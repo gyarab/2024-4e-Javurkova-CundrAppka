@@ -2,12 +2,14 @@ import express from 'express'
 const router = express.Router()
 
 // import controllers
-import { getPosts, createPost } from '../controllers/forum.controller'
+import { getCityPosts, createPost, getAllPosts, deletePost } from '../controllers/forum.controller'
 
 // import middlewares
 
 // api routes
 router.post('/', createPost)
-router.get('/:city', getPosts)
+router.delete('/:id', deletePost)
+router.get('/posts', getAllPosts)
+router.get('/posts/:city', getCityPosts)
 
 export default router

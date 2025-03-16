@@ -1,10 +1,10 @@
 import { useAuth } from "context/AuthContext";
-import useFetchPosts from "hooks/forum/useFetchPosts";
+import useFetchCityPosts from "hooks/forum/useFetchCityPosts";
 import { useParams } from "react-router-dom"
 
 function ForumCityPage() {
     const { city } = useParams()
-    const { posts } = useFetchPosts(city as string);
+    const { posts } = useFetchCityPosts(city as string);
 
     const special_city_names: { [key: string]: string } = {
       "Plzen": "Plzeň",

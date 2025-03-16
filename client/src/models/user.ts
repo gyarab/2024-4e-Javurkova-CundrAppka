@@ -10,4 +10,5 @@ export default interface User {
     password: string
     ads?: string[]
     saved_ads?: string[]
+    posts?: string[]
   }

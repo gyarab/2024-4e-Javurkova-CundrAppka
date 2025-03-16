@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler'
 
 import Post from '../models/forum-post.model'
 import User from '../models/users.model'
+import mongoose from 'mongoose'
 
 const cities: string[] = [
     'Praha', 
@@ -18,7 +19,7 @@ const cities: string[] = [
 ]
 
 
-export const getPosts: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+export const getCityPosts: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
     const { city } = req.params
     if (!cities.includes(city)) {
         res.status(404).json({ success: false, message: 'K tomuto mestu neni forum' })
@@ -31,6 +32,16 @@ export const getPosts: RequestHandler = asyncHandler(async (req: Request, res: R
         return
     }
     res.status(500).json({ success: false, message: 'Při načítání prispevku nastala chyba' })
+})
+
+export const getAllPosts: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+  const posts = await Post.find({})
+  console.log('tady')
+  if(posts){
+      res.status(200).json({ success: true, data: posts })
+      return
+  }
+  res.status(500).json({ success: false, message: 'Při načítání prispevku nastala chyba' })
 })
 
 export const createPost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -73,3 +84,20 @@ export const createPost = async (req: Request, res: Response, next: NextFunction
         next(err) // Pass the error to the error handling middleware
       }
 }
+
+export const deletePost: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(404).json({ message: 'Prispevek se zadaným ID neexistuje' })
+    return
+  }
+
+    const deletedPost = await Post.findByIdAndDelete(id)
+
+    if(deletedPost){
+        res.status(200).json({ success: true, message: 'Prispevek úspěšně smazán' })
+        return
+    }
+    res.status(500).json({ success: false, message: 'Prispevek se nepodařilo smazat' })
+})
