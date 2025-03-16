@@ -58,7 +58,8 @@ export const createAd = async (req: Request, res: Response, next: NextFunction):
           preferences,
           full_name: `${user?.first_name} ${user?.last_name}`,
           email: user?.email,
-          user: authenticatedUserId
+          user: authenticatedUserId,
+          user_age: user?.age
         })
     
         // Save the ad to the database

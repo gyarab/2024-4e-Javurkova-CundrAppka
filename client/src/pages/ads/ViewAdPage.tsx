@@ -75,7 +75,7 @@ function ViewAdPage() {
   return (
     <div>
       <h1>{ad.title}</h1>
-      <p>uzivatel: {ad.full_name}</p>
+      <p>uzivatel: {ad.full_name} ({ad.user_age} let)</p>
       <p>{ad.description}</p>
       {ad.phone && <p>Destinace: {ad.destination}</p>}
       <h5>Kontaktni udaje:</h5>
@@ -99,6 +99,8 @@ function ViewAdPage() {
             }
           </ul>
         )}
+        <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleString()}</p>
+        <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.updatedAt).toLocaleString()}</p>
       {user !== null && (
         <div> 
           <button className='btn btn-secondary' onClick={handleSaveClick}>

@@ -10,7 +10,13 @@ import { useNavigate } from 'react-router-dom'
 function AdsPage() {
     const [showLogoutModal, setShowLogoutModal] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [sortOrder, setSortOrder] = useState('newest')
     const { ads, loading } = useFetchAds();
+    ads.sort((a, b) => {
+        const dateA = new Date(a.updatedAt).getTime();
+        const dateB = new Date(b.updatedAt).getTime();
+        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+      });
       
     const handleLogout = async () => {
         try {
@@ -203,6 +209,17 @@ function AdsPage() {
                         <option value="Nekuřák">Nekuřák</option>
                         </select>
                     </div>
+                    <div className="mb-4">
+                        <label className="mr-2">Seřadit podle:</label>
+                        <select 
+                            value={sortOrder} 
+                            onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
+                            className="p-2 border rounded"
+                        >
+                            <option value="newest">Nejnovější</option>
+                            <option value="oldest">Nejstarší</option>
+                        </select>
+                    </div>
 
 
                     <div className="ads-container">
@@ -214,6 +231,7 @@ function AdsPage() {
                                     <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
                                         Zobrazit
                                     </a>
+                                    <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.updatedAt).toLocaleString()}</p>
                                 </div>
                             ))
                         ) : (

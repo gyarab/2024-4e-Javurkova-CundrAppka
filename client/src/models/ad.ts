@@ -17,6 +17,7 @@ export interface Ad {
     user: string
     full_name: string
     email: string
+    user_age: number
     likes?: number
     [key: string]: any;  // This allows any other property with any type
   }

@@ -4,4 +4,5 @@ export interface Post {
     title?: string
     text: string
     full_name: string
+    createdAt: string
 }

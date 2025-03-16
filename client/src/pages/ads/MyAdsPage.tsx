@@ -10,10 +10,16 @@ function MyAds() {
   const { ads } = useFetchAds();
   const [searchQuery, setSearchQuery] = useState('');
   const { user, loading } = useAuth(); // Access user data from AuthContext
+  const [sortOrder, setSortOrder] = useState('newest')
 
   const myAdsIds = user?.ads || [];
   const myAds = ads.filter(ad => myAdsIds.includes(ad._id));
 
+  myAds.sort((a, b) => {
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
+    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+  });
 
   if (loading) {
     return <LoadingCircle/>
@@ -36,6 +42,17 @@ function MyAds() {
         onChange={(e) => setSearchQuery(e.target.value)}
         className="p-2 border rounded mb-4 w-full"
       />
+      <div className="mb-4">
+                <label className="mr-2">Seřadit podle:</label>
+                <select 
+                    value={sortOrder} 
+                    onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
+                    className="p-2 border rounded"
+                >
+                    <option value="newest">Nejnovější</option>
+                    <option value="oldest">Nejstarší</option>
+                </select>
+        </div>
       <div className="ads-container">
         {filteredAds.length > 0 ? (
           filteredAds.map((ad, index) => (
@@ -45,6 +62,7 @@ function MyAds() {
               <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
                 Zobrazit
               </a>
+              <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleString()}</p>
             </div>
           ))
           ) : (
