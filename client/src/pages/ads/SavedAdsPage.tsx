@@ -4,7 +4,7 @@ import useFetchAds from 'hooks/ads/useFetchAds';
 import { useState } from 'react';
 
 function SavedAdsPage() {
-    const { ads } = useFetchAds();
+    const { ads, loading: loading1 } = useFetchAds();
     const { user, loading } = useAuth(); // Access user data from AuthContext
     const savedAdsIds = user?.saved_ads || [];
     const [searchQuery, setSearchQuery] = useState('');
@@ -16,7 +16,7 @@ function SavedAdsPage() {
         return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
       });
 
-    if (loading) {
+    if (loading || loading1) {
         return <LoadingCircle/>
     }
     

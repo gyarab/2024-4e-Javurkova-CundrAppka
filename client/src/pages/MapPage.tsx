@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { GoogleMap, LoadScript } from "@react-google-maps/api"
-import Navbar from 'components/Navbar'
-import Footer from 'components/Footer'
 import LoadingCircle from 'components/LoadingCircle'
 
 function MapPage() {
@@ -16,29 +12,7 @@ function MapPage() {
     width: "100%",
     height: "400px",
   };
-
-  const [showLogoutModal, setShowLogoutModal] = useState(false)
-  const navigate = useNavigate()
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   
-  const handleLogout = async () => {
-    try {
-      const response = await fetch('/api/users/logout', {
-        method: 'POST',
-        credentials: 'include',
-      })
-      if (response.ok) {
-        setIsLoggedIn(false)
-        window.location.reload();
-      } else {
-          alert('Logout failed. Please try again.')
-        }
-      } catch (error) {
-        console.error('Error logging out:', error)
-        alert('Error logging out. Please try again.')
-      }
-    }
-
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "";
   return (
     <>

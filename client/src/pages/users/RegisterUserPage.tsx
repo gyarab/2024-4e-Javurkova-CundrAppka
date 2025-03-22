@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useRegisterUser from 'hooks/users/useRegisterUser'
 import User from 'models/user'
+import LoadingCircle from 'components/LoadingCircle'
 
 function RegisterUserPage() {
   const [username, setUsername] = useState('')
@@ -46,7 +47,7 @@ function RegisterUserPage() {
   }
 
     if (loading) {
-      return <p>Inzerat se vytvari...</p>
+      return <LoadingCircle/>
     }
 
     const toggleVisibility = () => {

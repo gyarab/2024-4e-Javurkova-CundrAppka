@@ -5,9 +5,9 @@ import { useState } from "react";
 import { useParams } from "react-router-dom"
 
 function ForumCityPage() {
-    const { user, loading } = useAuth();
+    const { user, loading: loadingUser } = useAuth();
     const { city } = useParams()
-    const { posts } = useFetchCityPosts(city as string);
+    const { posts, loading: loadingPosts } = useFetchCityPosts(city as string);
     const [sortOrder, setSortOrder] = useState('newest')
     const [searchQuery, setSearchQuery] = useState('')
 
@@ -31,7 +31,7 @@ function ForumCityPage() {
       "Zlin": "Zlín"
     };
 
-    if (loading) {
+    if (loadingUser || loadingPosts) {
       return <LoadingCircle/>
     }
 

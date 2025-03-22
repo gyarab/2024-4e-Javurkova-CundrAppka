@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import User from "models/user";  // Import the User model from your models
+import { createContext, useContext } from "react";
+import User from "models/user"
 import useFetchUser from "hooks/users/useFetchUser";
 import useLogoutUser from "hooks/users/useLogoutUser";
 

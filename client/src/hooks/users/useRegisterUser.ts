@@ -1,8 +1,4 @@
-interface User {
-    username: string,
-    email: string,
-    password: string
-}
+import User from "models/user"
 
 const useRegisterUser = () => {
 
@@ -17,12 +13,10 @@ const useRegisterUser = () => {
             })
   
             const data = await response.json()
-            console.log(data)
             return data.success
       
         } catch{
-            alert('Při vytváření účtu nastala chyba')
-            return
+            return { success: false }
         }
 
     }

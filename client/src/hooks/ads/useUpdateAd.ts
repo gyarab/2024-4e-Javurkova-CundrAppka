@@ -8,7 +8,6 @@ const useUpdateAd = () => {
     setLoading(true)
 
     try {
-
       const response = await fetch(`/api/ads/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

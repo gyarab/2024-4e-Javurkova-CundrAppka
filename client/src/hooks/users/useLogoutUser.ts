@@ -4,15 +4,21 @@ const useLogoutUser = () => {
     const navigate = useNavigate()
     const logoutUser = async () => {
         try {
-            await fetch('/api/users/logout', {
+            const response = await fetch('/api/users/logout', {
               method: 'POST',
               credentials: 'include',
             })
-            navigate('/')
-            window.location.reload();
+            const data = await response.json()
+
+            if(data.success) {
+              navigate('/')
+              window.location.reload();
+            }
+            else {
+              throw new Error();
+            }
           } catch (error) {
-            console.error('Error logging out:', error)
-            alert('Error logging out. Please try again.')
+            alert('Nastala chyba pri odhlasovani')
           }
 
     }

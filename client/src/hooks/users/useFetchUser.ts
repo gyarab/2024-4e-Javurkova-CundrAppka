@@ -5,7 +5,7 @@ const useFetchUser = () => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const fetchUser = async () => { // Make this function accessible
+    const fetchUser = async () => { 
         setLoading(true);
         try {
             const response = await fetch("/api/users", {

@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router'
 import useFetchSingleAd from 'hooks/ads/useFetchSingleAd'
 import { useNavigate } from 'react-router-dom'
 import useDeleteAd from 'hooks/ads/useDeleteAd'
 import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
-import useFetchUser from 'hooks/users/useFetchUser';
-import User from 'models/user';
 import useSaveAd from 'hooks/ads/useSaveAd'
-import useCheckAuthStatus from 'hooks/users/useCheckAuthStatus';
 import { useAuth } from 'context/AuthContext';
+import LoadingCircle from 'components/LoadingCircle';
 
 
 function ViewAdPage() {
     const { id } = useParams()
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { ad } = useFetchSingleAd(id!)
+    const { ad, loading: loadingAd } = useFetchSingleAd(id!)
     const navigate = useNavigate()
-    const { deleteAd, loading: deleting } = useDeleteAd()
+    const { deleteAd } = useDeleteAd()
     const [showConfirmModal, setShowConfirmModal] = useState(false)
-    //const [user, setUser] = useState<User | null>(null)
-    //const { fetchUser } = useFetchUser()
     const { saveAd } = useSaveAd()
     const [saved, setSaved] = useState(false)
     
@@ -32,8 +27,8 @@ function ViewAdPage() {
       setSaved(mySavedAdsIds.includes(id as string)); // Update saved state based on whether the ad is in the user's saved ads.
     }, [user, id]); // Add 'user' and 'id' as dependencies to run this effect only when they change.
 
-    if (loading || deleting) {
-        return <p>Načítání...</p>
+    if (loading || loadingAd) {
+        return <LoadingCircle/>
     }
     
     if (!ad) {
@@ -62,7 +57,7 @@ function ViewAdPage() {
       spanish: "Španělština",
       english: "Angličtina",
       german: "Němčina",
-      russina: "Ruština",
+      russian: "Ruština",
       italian: "Italština",
       french: "Francouština"
     };

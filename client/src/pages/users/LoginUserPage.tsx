@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useLoginUser from 'hooks/users/useLoginUser'
+import LoadingCircle from 'components/LoadingCircle'
 
 function LoginUserPage() {
   const [userInfo, setUserInfo] = useState('')
@@ -29,7 +30,7 @@ function LoginUserPage() {
     }
 
     if (loading) {
-      return <p>Probiha prihlasovani...</p>
+      return <LoadingCircle/>
     }
 
     const toggleVisibility = () => {

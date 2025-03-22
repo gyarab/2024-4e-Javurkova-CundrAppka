@@ -27,6 +27,7 @@ import ForumHomePage from 'pages/community_forum/ForumHomePage'
 import ForumCityPage from 'pages/community_forum/ForumCityPage'
 import ForumPostingPage from 'pages/community_forum/ForumPostingPage'
 import MyPostsPage from 'pages/community_forum/MyPostsPage'
+import NotFoundPage from 'pages/NotFoundPage'
 
 function App() {
   const [showLogoutModal, setShowLogoutModal] = useState(false)
@@ -64,6 +65,7 @@ function App() {
         <Route path='/komunitni-forum/zverejnit' element={<PrivateRoute redirectTo='/prihlaseni'><ForumPostingPage/></PrivateRoute>} ></Route>
         <Route path='/komunitni-forum/:city' element={<ForumCityPage/>} ></Route>
         <Route path='/komunitni-forum/:city/zverejnit' element={<PrivateRoute redirectTo='/prihlaseni'><ForumPostingPage/></PrivateRoute>} ></Route>
+        <Route path='*' element={<NotFoundPage/>} ></Route>
       </Routes>
       <Footer />
     </div>

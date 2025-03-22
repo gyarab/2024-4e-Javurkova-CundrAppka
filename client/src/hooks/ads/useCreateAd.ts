@@ -17,8 +17,7 @@ const useCreateAd = () => {
           return data.success
     
       } catch{
-          alert('Při vytváření inzerátu nastala chyba')
-          return
+        return { success: false }
       }
   }
 

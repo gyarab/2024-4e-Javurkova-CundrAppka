@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-
-import useFetchUser from 'hooks/users/useFetchUser'
 import LoadingCircle from 'components/LoadingCircle'
-import User from 'models/user'
 import { useAuth } from 'context/AuthContext'
 
 function UserProfilePage() {
-    const { fetchUser } = useFetchUser()
-    const { user, loading } = useAuth(); // Access user data from AuthContext
+    const { user, loading } = useAuth()
     
     if (loading) {
         return <LoadingCircle/>

@@ -18,7 +18,7 @@ const useCreatePost = () => {
     
       } catch{
           alert('Při vytváření prispevku nastala chyba')
-          return
+          return { success: false }
       }
   }
 

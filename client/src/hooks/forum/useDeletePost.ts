@@ -1,11 +1,8 @@
 import { useState } from 'react'
 
 const useDeletePost = () => {
-    const [loading, setLoading] = useState(false)
 
     const deletePost = async (id: string) => {
-        setLoading(true)
-
         try {
             const response = await fetch(`/api/forum/${id}`, {
                 method: 'DELETE',
@@ -15,20 +12,13 @@ const useDeletePost = () => {
             })
 
             const data = await response.json()
-
-            if (response.ok) {
-                return { success: true }
-            } else {
-                return { success: false }
-            }
+            return data.success
         } catch (err) {
             return { success: false }
-        } finally {
-            setLoading(false)
         }
     }
 
-    return { deletePost, loading }
+    return { deletePost }
 }
 
 export default useDeletePost

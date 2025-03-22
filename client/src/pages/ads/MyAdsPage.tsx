@@ -1,13 +1,10 @@
 import LoadingCircle from 'components/LoadingCircle';
 import { useAuth } from 'context/AuthContext';
 import useFetchAds from 'hooks/ads/useFetchAds';
-import useFetchUser from 'hooks/users/useFetchUser'
-import { Ad } from 'models/ad';
-import User from 'models/user';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function MyAds() {
-  const { ads } = useFetchAds();
+  const { ads, loading: loading1 } = useFetchAds();
   const [searchQuery, setSearchQuery] = useState('');
   const { user, loading } = useAuth(); // Access user data from AuthContext
   const [sortOrder, setSortOrder] = useState('newest')
@@ -21,7 +18,7 @@ function MyAds() {
     return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
   });
 
-  if (loading) {
+  if (loading || loading1) {
     return <LoadingCircle/>
   }
 

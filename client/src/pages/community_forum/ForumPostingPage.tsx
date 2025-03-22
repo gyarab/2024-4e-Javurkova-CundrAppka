@@ -1,3 +1,4 @@
+import LoadingCircle from "components/LoadingCircle";
 import useCreatePost from "hooks/forum/useCreatePost";
 import { Post } from "models/forum-post";
 import { useState } from "react";
@@ -46,6 +47,8 @@ function ForumPostingPage() {
         "Zlin": "Zlín",
         "Pardubice": "Pardubice"
     };
+
+    if(loading) return <LoadingCircle/>
 
   return (
     <div>

@@ -8,13 +8,13 @@ import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
 import { useNavigate } from 'react-router-dom'
 
 function MyPostsPage() {
-    const { posts } = useFetchAllPosts();
-    const { user, loading } = useAuth();
+    const { posts, loading: loadingPosts } = useFetchAllPosts();
+    const { user, loading: loadingUser } = useAuth();
     const navigate = useNavigate()
     const [postToDelete, setPostToDelete] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [showConfirmModal, setShowConfirmModal] = useState(false)
-    const { deletePost, loading: deleting } = useDeletePost()
+    const { deletePost } = useDeletePost()
     const [sortOrder, setSortOrder] = useState('newest')
 
     const myPostsIds = user?.posts || [];
@@ -25,7 +25,7 @@ function MyPostsPage() {
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
 
-    if (loading || deleting) {
+    if (loadingPosts || loadingUser) {
         return <LoadingCircle/>
     }
 

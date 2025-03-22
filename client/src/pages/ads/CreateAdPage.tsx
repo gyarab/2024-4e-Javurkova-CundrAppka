@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useCreateAd from 'hooks/ads/useCreateAd'
 import { Ad } from 'models/ad';
+import LoadingCircle from 'components/LoadingCircle';
 
 type AdFormData = Partial<Omit<Ad, '_id' | 'createdAt' | 'updatedAt'>>;
 function CreateAdPage() {
@@ -58,7 +59,7 @@ function CreateAdPage() {
   
 
     if (loading) {
-        return <p>Inzerat se vytvari...</p>
+        return <LoadingCircle/>
     }
 
   return (

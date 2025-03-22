@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import useFetchSingleAd from 'hooks/ads/useFetchSingleAd'
 import useUpdateAd from 'hooks/ads/useUpdateAd'
 import { Ad } from 'models/ad'
+import LoadingCircle from 'components/LoadingCircle'
 
 function UpdateAdPage() {
   const { id } = useParams()
@@ -62,7 +63,7 @@ function UpdateAdPage() {
     }
   }
 
-  if (loadingAd || updating) return <p>Načítání...</p>
+  if (loadingAd || updating) return <LoadingCircle/>
 
   const labels: { [key: string]: string } = {
     title: "Název",

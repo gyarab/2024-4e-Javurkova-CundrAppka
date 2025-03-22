@@ -1,3 +1,4 @@
+import LoadingCircle from "components/LoadingCircle";
 import { useAuth } from "context/AuthContext";
 
 function ForumHomePage() {
@@ -16,6 +17,8 @@ function ForumHomePage() {
   };
 
   const { user, loading } = useAuth();
+
+  if (loading) return <LoadingCircle/>
 
   return (
     <div>
