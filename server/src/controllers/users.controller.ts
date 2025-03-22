@@ -48,7 +48,7 @@ export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = as
         })
 
         // TODO: prubezne toto smazat aby user po registraci nebyl prihlasen
-        req.session.userId = newUser.id
+        //req.session.userId = newUser.id
 
         res.status(200).json({
             success: true, 

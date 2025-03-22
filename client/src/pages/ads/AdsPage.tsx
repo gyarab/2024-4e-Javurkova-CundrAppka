@@ -221,7 +221,17 @@ function AdsPage() {
                         </select>
                     </div>
 
-
+                    {filteredAds.length != 0 && filteredAds.length < 5 ? (
+                        <>
+                            {filteredAds.length == 1 ? (
+                                <p>Zobrazen 1 inzerat</p>
+                            ) : (
+                                <p>Zobrazeny {filteredAds.length} inzeraty</p>
+                            )}
+                        </>
+                    ) : (
+                        (filteredAds.length != 0 && <p>Zobrazeno {filteredAds.length} inzeratu</p>)
+                    )}
                     <div className="ads-container">
                         {filteredAds.length > 0 ? (
                             filteredAds.map((ad, index) => (

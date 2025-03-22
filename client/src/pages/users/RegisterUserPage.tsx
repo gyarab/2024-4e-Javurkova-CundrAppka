@@ -39,8 +39,7 @@ function RegisterUserPage() {
       const success = await registerUser(newUser)
 
       if (success) {
-        navigate('/')
-        window.location.reload();
+        navigate('/prihlaseni')
       } else {
           alert('Nastal problém při vytváření uctu')
       }
