@@ -13,10 +13,10 @@ const useRegisterUser = () => {
             })
   
             const data = await response.json()
-            return data.success
+            return { success: data.success, message: data.message }
       
         } catch{
-            return { success: false }
+            return { success: false, message: 'Pri registraci nastala chyba' }
         }
 
     }

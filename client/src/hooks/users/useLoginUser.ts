@@ -11,11 +11,10 @@ const useLoginUser = () => {
               body: JSON.stringify({ userInfo, password }),
             })
             const data = await response.json()
-            return data.success
+            return { success: data.success, message: data.message }
       
         } catch{
-            alert('Při prihlasovani účtu nastala chyba')
-            return
+          return { success: false, message: 'Pri prihlasovani nastala chyba' }
         }
 
     }

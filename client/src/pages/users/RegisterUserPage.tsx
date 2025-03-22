@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useRegisterUser from 'hooks/users/useRegisterUser'
 import User from 'models/user'
-import LoadingCircle from 'components/LoadingCircle'
 
 function RegisterUserPage() {
   const [username, setUsername] = useState('')
@@ -15,18 +14,11 @@ function RegisterUserPage() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const [loading, setLoading] = useState(false)
   const { registerUser } = useRegisterUser()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault()
-      if (!username.trim() || !firstName.trim() || !lastName.trim() || !email.trim() || !birthday || !password.trim()) {
-          alert('Nejsou zadane vsechny informace')
-          return
-      }
-
-      setLoading(true)
 
       const newUser: User = {
         username: username,
@@ -37,18 +29,14 @@ function RegisterUserPage() {
         email: email,
         password: password
       }
-      const success = await registerUser(newUser)
+      const { success, message } = await registerUser(newUser)
 
       if (success) {
         navigate('/prihlaseni')
       } else {
-          alert('Nastal problém při vytváření uctu')
+        alert(message)
       }
   }
-
-    if (loading) {
-      return <LoadingCircle/>
-    }
 
     const toggleVisibility = () => {
       setShowPassword(!showPassword);

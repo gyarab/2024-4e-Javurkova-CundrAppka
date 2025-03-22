@@ -8,29 +8,20 @@ function LoginUserPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false);
 
-  const [loading, setLoading] = useState(false)
   const { loginUser } = useLoginUser()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!userInfo.trim() || !password.trim()) {
-            alert('Nejsou zadane vsechny informace')
-            return
-        }
+        const { success, message } = await loginUser(userInfo, password)
 
-        setLoading(true)
-        const success = await loginUser(userInfo, password)
         if (success) {
           navigate('/')
           window.location.reload();
         } else {
-            alert('Nastal problém při prihlasovani')
+          alert(message)
+          setPassword('')
         }
-    }
-
-    if (loading) {
-      return <LoadingCircle/>
     }
 
     const toggleVisibility = () => {

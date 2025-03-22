@@ -19,17 +19,15 @@ export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = as
         const { username, first_name, middle_name, last_name, birthday, email  } = req.body
         const rawPassword = req.body.password
 
-        if(!username || !first_name || !last_name || !birthday || !email || !rawPassword){
-            throw createHttpError(400, 'Prosim vyplnte vsechna pole')
-        }
-
         const usernameExists = await User.findOne({username: username}).exec()
         const emailExists = await User.findOne({email: email}).exec()
         if(usernameExists){
-            throw createHttpError(409, 'Uzivatel s timto username jiz existuje')
+            res.status(409).json({ success: false, message: "Uzivatel s timto username jiz existuje"})
+            return
         }
         if(emailExists){
-            throw createHttpError(409, 'Uzivatel s timto emailem jiz existuje')
+            res.status(409).json({ success: false, message: "Uzivatel s timto emailem jiz existuje"})
+            return
         }
 
         const salt = await bcrypt.genSalt(10)
@@ -65,21 +63,19 @@ export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = a
     try {
         const { userInfo, password } = req.body
 
-        if(!userInfo || !password){
-            throw createHttpError(400, 'Vyplňte všechny pole')
-        }
-
         const user1 = await User.findOne({username: userInfo}).select('+email +password').exec()
         const user2 = await User.findOne({email: userInfo}).select('+username +password').exec()
         const user = user1 || user2
         if(!user){
-            throw createHttpError(401, 'Nespravne zadane udaje')
+            res.status(401).json({ success: false, message: "Tento uzivatel neexistuje"})
+            return
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password)
 
         if(!passwordMatch){
-            throw createHttpError(401, 'Nespravne zadane udaje')
+            res.status(401).json({ success: false, message: "Nespravne heslo"})
+            return
         }
         req.session.userId = user!.id
         res.status(200).json({user, success: true, message: "Prihlaseni probehlo uspesne"})
