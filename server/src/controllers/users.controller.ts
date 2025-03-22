@@ -14,11 +14,11 @@ const calculateAge = (birthDateString: string): number => {
 };
 
 // @route POST /api/users/register
-export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = async (req, res, next) => {
-    const { username, first_name, middle_name, last_name, birthday, email, ads  } = req.body
-    const rawPassword = req.body.password
-    
+export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = async (req, res, next) => {    
     try {
+        const { username, first_name, middle_name, last_name, birthday, email  } = req.body
+        const rawPassword = req.body.password
+
         if(!username || !first_name || !last_name || !birthday || !email || !rawPassword){
             throw createHttpError(400, 'Prosim vyplnte vsechna pole')
         }
@@ -43,19 +43,15 @@ export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = as
             birthday: birthday,
             email: email,
             password: hashedPassword,
-            age: calculateAge((birthday as unknown) as string),
-            ads: ads
+            age: calculateAge((birthday as unknown) as string)
         })
-
-        // TODO: prubezne toto smazat aby user po registraci nebyl prihlasen
-        //req.session.userId = newUser.id
 
         res.status(200).json({
             success: true, 
             newUser: newUser
         })
     } catch (error) {
-        next(error)
+        res.status(500).json({ success: false, message: "Registrace se nepodarila"})
     }
 }
 
@@ -65,17 +61,17 @@ interface LoginBody {
 }
 
 // @route POST /api/users/login
-export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = asyncHandler(async (req, res, next) => {
-    const { userInfo, password } = req.body
-
+export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = asyncHandler(async (req, res) => {
     try {
+        const { userInfo, password } = req.body
+
         if(!userInfo || !password){
             throw createHttpError(400, 'Vyplňte všechny pole')
         }
 
         const user1 = await User.findOne({username: userInfo}).select('+email +password').exec()
         const user2 = await User.findOne({email: userInfo}).select('+username +password').exec()
-        let user = user1 || user2
+        const user = user1 || user2
         if(!user){
             throw createHttpError(401, 'Nespravne zadane udaje')
         }
@@ -88,8 +84,7 @@ export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = a
         req.session.userId = user!.id
         res.status(200).json({user, success: true, message: "Prihlaseni probehlo uspesne"})
     } catch (error) {
-        console.log(error)
-        next(error)
+        res.status(500).json({ success: false, message: "Prihlaseni se nepodarilo"})
     }
 })
 
@@ -97,19 +92,19 @@ export const loginUser: RequestHandler<unknown, unknown, LoginBody, unknown> = a
 export const logoutUser: RequestHandler = async (req, res, next) => {
     req.session.destroy(error => {
         if(error){
-            next(error)
+            res.status(500).json({ success: false, message: "Odhlaseni se nepodarilo"})
         }
         else{
-            res.status(200).json({message: "Byli jste odhlaseni"})
+            res.status(200).json({ success: true, message: "Byli jste odhlaseni"})
         }
     })
 }
 
 // @route GET /api/users
-export const getUser: RequestHandler = async (req, res, next) => {
-    const authenticatedUserId = req.session.userId
-
+export const getUser: RequestHandler = async (req, res) => {
     try {
+        const authenticatedUserId = req.session.userId
+
         if(!authenticatedUserId){
             throw createHttpError(401, 'Nejste prihlasenyi')
         }
@@ -117,19 +112,16 @@ export const getUser: RequestHandler = async (req, res, next) => {
         res.status(200).json({user, success: true, message: `Jste prihlasen jako ${user!.username}`})
     } catch (error) {
         res.status(500).json({success: false})
-        next(error)
     }
 }
 
 
 // @route GET /api/status
-export const getStatus: RequestHandler = async (req, res, next) => {
-
+export const getStatus: RequestHandler = async (req, res) => {
     try {
         const isLoggedIn = !!req.session.userId;
         res.status(200).json({ isLoggedIn, success: true });
     } catch (error) {
         res.status(500).json({success: false})
-        next(error)
     }
 }

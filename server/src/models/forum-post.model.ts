@@ -10,7 +10,7 @@ interface IPost extends Document {
 
 const postSchema = new Schema<IPost>(
   {
-    city: { type: String },
+    city: { type: String, required: true },
     title: { type: String },
     text: { type: String, required: true },
     full_name: { type: String },

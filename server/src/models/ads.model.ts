@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose'
 interface IAd extends Document {
   title: string
   description: string
-  phone: number
+  phone?: number
   destination?: string
   date?: string
   preferences?: {
@@ -16,7 +16,6 @@ interface IAd extends Document {
   full_name: string
   email: string
   user_age: number
-  likes?: number
   user: mongoose.Schema.Types.ObjectId
 }
 
@@ -34,10 +33,9 @@ const adSchema = new Schema<IAd>(
       languages: [String],
       smokingPreference: { type: String },
     },
-    full_name: { type: String },
-    email: { type: String },
-    user_age: { type: Number },
-    likes: { type: Number },
+    full_name: { type: String, required: true },
+    email: { type: String, required: true },
+    user_age: { type: Number, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add the reference to User*/
   },
   { timestamps: true }
