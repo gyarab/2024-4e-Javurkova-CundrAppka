@@ -31,7 +31,7 @@ function MyAds() {
   return (
     <>
       <h1>Moje inzeraty</h1>
-
+      <p>Dohromady zverejneno inzeratu: {myAds.length}</p>
       <input
         type="text"
         placeholder="Hledat inzerat.."

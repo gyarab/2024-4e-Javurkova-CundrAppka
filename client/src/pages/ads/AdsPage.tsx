@@ -64,6 +64,16 @@ function AdsPage() {
         return <LoadingCircle/> 
       }
 
+      const languageLabels: { [key: string]: string } = {
+        czech: "Cestina",
+        english: "Anglictina",
+        german: "Nemcina",
+        spanish: "Spanelstina",
+        russian: "Rustina",
+        italian: "Italstina",
+        french: "Francouzstina"
+      }
+
     return (
         <>
                     {user ? (
@@ -92,59 +102,26 @@ function AdsPage() {
                         />
 
                         <select name="gender" value={filters.gender} onChange={handleFilterChange}>
-                        <option value="">Pohlavi</option>
-                        <option value="Žena">Žena</option>
-                        <option value="Nekuřák">Muž</option>
+                            <option value="">Pohlavi</option>
+                            <option value="woman">Žena</option>
+                            <option value="male">Muž</option>
                         </select>
 
                         {/* Language Filter (Multiple Choice) */}
                         <div>
-                            <label>
+                            <p>Jakými jazyky mluvíte?</p>
+                            {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
+                                <label key={lang}>
                                 <input
                                     type="checkbox"
                                     name="languages"
-                                    value="spanish"
+                                    value={lang}
                                     onChange={handleFilterChange}
                                 />
-                                Spanelsky
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    name="languages"
-                                    value="english"
-                                    onChange={handleFilterChange}
-                                />
-                                Anglicky
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    name="languages"
-                                    value="russian"
-                                    onChange={handleFilterChange}
-                                />
-                                Rusky
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    name="languages"
-                                    value="italian"
-                                    onChange={handleFilterChange}
-                                />
-                                Italsky
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    name="languages"
-                                    value="german"
-                                    onChange={handleFilterChange}
-                                />
-                                Nemecky
-                            </label>
-                        </div>
+                                {languageLabels[lang]}
+                                </label>
+                            ))}
+                            </div>
 
                         <input
                         type="number"
@@ -156,9 +133,9 @@ function AdsPage() {
 
 
                         <select name="smokingPreference" value={filters.smokingPreference} onChange={handleFilterChange}>
-                        <option value="">Kuractvi</option>
-                        <option value="Kuřák">Kuřák</option>
-                        <option value="Nekuřák">Nekuřák</option>
+                            <option value="">Kuractvi</option>
+                            <option value="smoker">Kuřák</option>
+                            <option value="non-smoker">Nekuřák</option>
                         </select>
                     </div>
                     <div className="mb-4">

@@ -10,7 +10,7 @@ const useDeleteAd = () => {
             })
 
             const data = await response.json()
-            return data.success
+            return { success: data.success }
         } catch (error) {
             return { success: false }
         }

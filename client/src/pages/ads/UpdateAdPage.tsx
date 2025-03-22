@@ -10,51 +10,42 @@ function UpdateAdPage() {
   const navigate = useNavigate()
   const { ad, loading: loadingAd } = useFetchSingleAd(id!)
   const { updateAd, loading: updating } = useUpdateAd()
-  
-  const [formData, setFormData] = useState<Ad>({} as Ad);
+
+  const [formData, setFormData] = useState<Ad>({} as Ad)
 
   useEffect(() => {
     if (ad) {
-      const newFormData: any = {};
-  
+      const newFormData: any = {}
+
       // Filter out non-editable fields like _id, createdAt, updatedAt
       Object.entries(ad).forEach(([key, value]) => {
-        if (key !== '_id' && key !== 'createdAt' && key !== 'updatedAt' && key !== '__v' && value !== undefined) {
-          newFormData[key] = value;
+        if (key !== '_id' && key !== 'createdAt' && key !== 'updatedAt' && key !== '__v' && key !== 'user_age' && value !== undefined) {
+          newFormData[key] = value
         }
-      });
-  
-      setFormData(newFormData);
-    }
-  }, [ad]);
+      })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-  
-    // Handle nested fields by using the name structure to traverse the nested object
-    const nameParts = name.split('.'); // Split name into parts to handle nested structure
-    let newValue = value;
-  
-    setFormData((prevState) => {
-      let updatedData = { ...prevState };
-  
-      // Traverse the object using the name parts
-      let temp = updatedData;
-      for (let i = 0; i < nameParts.length - 1; i++) {
-        temp = temp[nameParts[i]] ?? {}; // Navigate to the next nested object
-      }
-  
-      // Update the nested field value
-      temp[nameParts[nameParts.length - 1]] = newValue;
-  
-      return updatedData;
-    });
-  };
+      setFormData(newFormData)
+    }
+  }, [ad])
+
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setFormData({
+      ...formData,
+      preferences: {
+        ...formData.preferences,
+        languages: e.target.checked
+          ? [...(formData.preferences?.languages || []), value]
+          : formData.preferences?.languages?.filter((lang: string) => lang !== value),
+      },
+    })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (id) {
-        const success = await updateAd(id, formData);
+      const success = await updateAd(id, formData)
       if (success) {
         navigate(`/inzeraty/${id}`)
       } else {
@@ -63,86 +54,109 @@ function UpdateAdPage() {
     }
   }
 
-  if (loadingAd || updating) return <LoadingCircle/>
+  if (loadingAd || updating) return <LoadingCircle />
 
-  const labels: { [key: string]: string } = {
-    title: "Název",
-    description: "Popis",
-    name: "Celé jméno",
-    email: "Email",
-    phone: "Telefonní číslo",
-    destination: "Destinace",
-    date: "Datum",
-    gender: "Pohlaví",
-    minAge: "Minimální věk",
-    maxAge: "Maximální věk",
-    languages: "Jazyky",
-    smokingPreference: "Kuřácká preference",
+  const languageLabels: { [key: string]: string } = {
+    czech: "Cestina",
+    english: "Anglictina",
     german: "Nemcina",
-    /*etc..*/
-  };
-
-
-  const renderNestedFields = (obj: any, parentKey: string): JSX.Element[] => {
-    return Object.entries(obj).flatMap(([key, value]) => {
-      // If the value is an object, we need to handle it differently
-      if (typeof value === 'object' && value !== null) {
-        // Recursively render nested fields if it's another object
-        return renderNestedFields(value, `${parentKey}.${key}`);
-      }
-  
-      // Ensure value is either string, number, or undefined
-      const inputValue = value ?? '';  // If value is null or undefined, fallback to ''
-      
-      // For non-object values, render input
-      return [
-        <div key={key}>
-          <label>
-          {labels[key] || key}: {/* Dynamic label based on the parent key */}
-            <input
-              name={`${parentKey}.${key}`}  // Naming convention for nested properties
-              value={labels[inputValue as string] || inputValue as string}  // Explicitly cast to string
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-      ];
-    });
-  };
-
+    spanish: "Spanelstina",
+    russian: "Rustina",
+    italian: "Italstina",
+    french: "Francouzstina"
+  }
 
   return (
     <div>
-      <h1>Upravit Inzerát</h1>
+      <h1>Upravit inzerát</h1>
       <form onSubmit={handleSubmit}>
-        {Object.keys(formData).map((key) => {
-          const value = formData[key];
-          
-          // Skip fields that should not be displayed (e.g., _id, createdAt)
-          if (key === '_id' || key === 'createdAt' || key === 'updatedAt' || key === 'user' || key === 'email' || key === 'full_name') return null;
+        <input
+          name="title"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          placeholder="Název"
+          required
+        />
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          placeholder="Popis"
+          required
+        />
+        <input
+          name="phone"
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          placeholder="Telefon"
+        />
+        <input
+          name="destination"
+          value={formData.destination}
+          onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+          placeholder="Destinace"
+        />
+        <input
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+        />
 
-          // Handle nested objects like contactInfo or preferences
-          if (typeof value === 'object' && value !== null) {
-            return renderNestedFields(value, key);
-          }
+        {/* Gender Dropdown */}
+        <select
+          name="preferences.gender"
+          value={formData.preferences?.gender}
+          onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, gender: e.target.value } })}
+        >
+          <option value="">Pohlaví</option>
+          <option value="female">Žena</option>
+          <option value="male">Muž</option>
+        </select>
 
-          // For simple fields (non-object)
-          return (
-            <div key={key}>
-              <label>
-                {labels[key] || key}: {/* Use custom labels if available */}
-                <input
-                  name={key}
-                  value={value || ''}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-          );
-        })}
-      <button type="submit">Uložit změny</button>
+        <input
+          name="preferences.minAge"
+          value={formData.preferences?.minAge}
+          onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, minAge: e.target.value } })}
+          placeholder="Minimální věk"
+        />
+        <input
+          name="preferences.maxAge"
+          value={formData.preferences?.maxAge}
+          onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, maxAge: e.target.value } })}
+          placeholder="Maximální věk"
+        />
+
+        {/* Checkboxes for languages */}
+        <div>
+          <p>Jakými jazyky mluvíte?</p>
+          {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
+            <label key={lang}>
+              <input
+                type="checkbox"
+                value={lang}
+                checked={formData.preferences?.languages?.includes(lang)}
+                onChange={handleLanguageChange}
+              />
+              {languageLabels[lang]}
+            </label>
+          ))}
+        </div>
+
+        {/* Smoking Preference Dropdown */}
+        <select
+          name="preferences.smokingPreference"
+          value={formData.preferences?.smokingPreference}
+          onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, smokingPreference: e.target.value } })}
+        >
+          <option value="">Kouření</option>
+          <option value="smoker">Kuřák</option>
+          <option value="nonsmoker">Nekuřák</option>
+        </select>
+
+        <button type="submit">Uložit změny</button>
       </form>
-      <p><a href={`/inzeraty/${id}`}>Zpátky</a></p>
+      <a href="/inzeraty">Zpátky</a>
     </div>
   )
 }

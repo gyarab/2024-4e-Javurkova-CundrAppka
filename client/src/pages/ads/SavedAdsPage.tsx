@@ -30,7 +30,6 @@ function SavedAdsPage() {
     return (
         <>
             <h1>Ulozene inzeraty</h1>
-
             <input
                 type="text"
                 placeholder="Hledat inzerat.."

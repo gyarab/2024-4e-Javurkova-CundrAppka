@@ -49,11 +49,16 @@ function ViewAdPage() {
       
     const preferenceLabels: { [key: string]: string } = {
       gender: "Pohlaví",
+      female: "Žena",
+      male: "Muž",
       minAge: "Minimálně věk",
       maxAge: "Maximální věk",
       languages: "Mluvené jazyky",
       smokingPreference: "Kuřáctví",
+      nonsmoker: 'Nekuřák',
+      smoker: 'Kuřák',
       interests: "Zájmy",
+      czech: "Čeština",
       spanish: "Španělština",
       english: "Angličtina",
       german: "Němčina",
@@ -87,7 +92,7 @@ function ViewAdPage() {
                       ? (Array.isArray(value) 
                           ? value.map(lang => preferenceLabels[lang] || lang).join(', ') 
                           : value)
-                      : value
+                      : preferenceLabels[value as keyof typeof preferenceLabels] || value
                   }</strong>
                 </li>
               ))

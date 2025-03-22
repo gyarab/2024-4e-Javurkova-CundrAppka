@@ -6,11 +6,11 @@ export interface Ad {
     destination?: string
     date?: string
     preferences?: {
-      gender?: "Muž" | "Žena"
+      gender?: string
       minAge?: string
       maxAge?: string
       languages?: string[]
-      smokingPreference?: "Kuřák" | "Nekuřák"
+      smokingPreference?: string
     }
     createdAt: string
     updatedAt: string

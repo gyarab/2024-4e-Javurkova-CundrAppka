@@ -62,111 +62,57 @@ function CreateAdPage() {
         return <LoadingCircle/>
     }
 
+    const languageLabels: { [key: string]: string } = {
+      czech: "Cestina",
+      english: "Anglictina",
+      german: "Nemcina",
+      spanish: "Spanelstina",
+      russian: "Rustina",
+      italian: "Italstina",
+      french: "Francouzstina"
+    }
+
   return (
     <div>
-      <h1>Vytvor si svuj inzerat!!</h1>
+      <h1>Vytvoř si svůj inzerát!!</h1>
       <form onSubmit={handleSubmit}>
-      <input
-          name="title"
-          onChange={(e) => setAdData({ ...adData, title: e.target.value })}
-          placeholder="Název"
-          required
-        />
-        <textarea
-          name="description"
-          onChange={(e) => setAdData({ ...adData, description: e.target.value })}
-          placeholder="Popis"
-          required
-        />
-        <input
-          name="phone"
-          onChange={(e) => setAdData({ ...adData, phone: e.target.value })}
-          placeholder="Telefon"
-        />
-        <input
-          name="destination"
-          onChange={(e) => setAdData({ ...adData, destination: e.target.value })}
-          placeholder="Destinace"
-        />
-        <input
-          type="date"
-          name="date"
-          onChange={(e) => setAdData({ ...adData, date: e.target.value })}
-        />
-        <input
-          name="preferences.gender"
-          onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, gender: e.target.value } })}
-          placeholder="Pohlavi"
-        />
-        <input
-          name="preferences.minAge"
-          onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, minAge: e.target.value } })}
-          placeholder="Minimalni vek"
-        />
-        <input
-          name="preferences.maxAge"
-          onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, maxAge: e.target.value } })}
-          placeholder="Maximalni vek"
-        />
-      {/* Checkboxes for languages */}
-      <div>
-          <label>
-            <input
-              type="checkbox"
-              value="spanish"
-              onChange={handleLanguageChange}
-            />
-            Spanelsky
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="english"
-              onChange={handleLanguageChange}
-            />
-            Anglicky
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="russian"
-              onChange={handleLanguageChange}
-            />
-            Rusky
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="italian"
-              onChange={handleLanguageChange}
-            />
-            Italsky
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="german"
-              onChange={handleLanguageChange}
-            />
-            Nemecky
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="french"
-              onChange={handleLanguageChange}
-            />
-            Francouzsky
-          </label>
+        <input name="title" onChange={(e) => setAdData({ ...adData, title: e.target.value })} placeholder="Název" required />
+        <textarea name="description" onChange={(e) => setAdData({ ...adData, description: e.target.value })} placeholder="Popis" required />
+        <input name="phone" onChange={(e) => setAdData({ ...adData, phone: e.target.value })} placeholder="Telefon" />
+        <input name="destination" onChange={(e) => setAdData({ ...adData, destination: e.target.value })} placeholder="Destinace" />
+        <input type="date" name="date" onChange={(e) => setAdData({ ...adData, date: e.target.value })} />
+
+        {/* Gender Dropdown */}
+        <select name="preferences.gender" onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, gender: e.target.value } })}>
+          <option value="">Pohlaví</option>
+          <option value="female">Žena</option>
+          <option value="male">Muž</option>
+        </select>
+
+        <input name="preferences.minAge" onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, minAge: e.target.value } })} placeholder="Minimální věk" />
+        <input name="preferences.maxAge" onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, maxAge: e.target.value } })} placeholder="Maximální věk" />
+
+        {/* Checkboxes for languages */}
+        <div>
+          <p>Jakými jazyky mluvíte?</p>
+          {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
+            <label key={lang}>
+              <input type="checkbox" value={lang} onChange={handleLanguageChange} />
+              {languageLabels[lang]}
+            </label>
+          ))}
         </div>
-        <input
-          name="preferences.smokingPreference"
-          onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, smokingPreference: e.target.value } })}
-          placeholder="Kuractvi"
-        />
-        <button type="submit">Vytvorit inzerat</button>
+
+        {/* Smoking Preference Dropdown */}
+        <select name="preferences.smokingPreference" onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, smokingPreference: e.target.value } })}>
+          <option value="">Kouření</option>
+          <option value="smoker">Kuřák</option>
+          <option value="nonsmoker">Nekuřák</option>
+        </select>
+
+        <button type="submit">Vytvořit inzerát</button>
       </form>
-      <a href="/inzeraty">Zpatky</a>
+      <a href="/inzeraty">Zpátky</a>
     </div>
   )
 }

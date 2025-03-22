@@ -14,7 +14,7 @@ const useCreateAd = () => {
             body: JSON.stringify(newAd),
           })
           const data = await response.json()
-          return data.success
+          return { success: data.success }
     
       } catch{
         return { success: false }
