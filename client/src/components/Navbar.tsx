@@ -18,16 +18,16 @@ const Navbar = ({ setShowLogoutModal }: { setShowLogoutModal: React.Dispatch<Rea
           <div className="collapse navbar-collapse" id="navbarNav">
             <div className="navbar-nav">
               <a className="nav-link vintage-link" href="/inzeraty">
-                Inzeraty
+                Inzeráty
               </a>
               <a className="nav-link vintage-link" href="/mapa">
                 Mapa
               </a>
               <a className="nav-link vintage-link" href="/komunitni-forum">
-                Komunitni Forum
+                Komunitní Fórum
               </a>
               <a className="nav-link vintage-link" href="/cestovni-balicky">
-                Cestovni Balicky
+                Cestovní Balíčky
               </a>
             </div>
 

@@ -1,4 +1,24 @@
 /* Custom vintage styles for the navbar */
+
+.navbar {
+  background-color: #3b2d22;  /* Dark brown color for the navbar */
+  color: #f5f1e0;  /* Light color for text */
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  position: sticky;  /* Makes the navbar sticky */
+  top: 0;
+  width: 100%;
+  z-index: 10;  /* Ensures the navbar stays on top */
+  text-align: center;
+}
+
+/* Navbar links */
+.navbar a {
+  color: #f5f1e0;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
 .custom-navbar {
   background-color: #4b3f2f;  /* Dark brown color */
   border-bottom: 1px solid #d2c1a3;  /* Light beige border */

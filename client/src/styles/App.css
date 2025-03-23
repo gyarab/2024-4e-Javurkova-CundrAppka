@@ -6,6 +6,20 @@
   min-height: 100vh;
 }
 
+body {
+  background-image: url('../assets/images/vintage-paper.jpg');  /* Vintage paper as full background */
+  background-size: cover;  /* Ensures the background covers the entire page */
+  background-position: center center;  /* Centers the background image */
+  background-repeat: repeat;  /* Makes the background repeat */
+  background-attachment: fixed;  /* Keeps the background in place while scrolling */
+  margin: 0;
+  padding: 0;
+  font-family: 'Cormorant Garamond', serif;  /* Your chosen font */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  /* Makes sure the content takes at least the full height of the viewport */
+}
+
 /* Root Colors */
 :root {
   --beige: #f5f5dc;

@@ -102,21 +102,11 @@ export const getUser: RequestHandler = async (req, res) => {
         const authenticatedUserId = req.session.userId
 
         if(!authenticatedUserId){
-            throw createHttpError(401, 'Nejste prihlasenyi')
+            res.status(200).json({success: false})
+            return
         }
         const user = await User.findById(authenticatedUserId).select('+email').exec()
         res.status(200).json({user, success: true, message: `Jste prihlasen jako ${user!.username}`})
-    } catch (error) {
-        res.status(500).json({success: false})
-    }
-}
-
-
-// @route GET /api/status
-export const getStatus: RequestHandler = async (req, res) => {
-    try {
-        const isLoggedIn = !!req.session.userId;
-        res.status(200).json({ isLoggedIn, success: true });
     } catch (error) {
         res.status(500).json({success: false})
     }

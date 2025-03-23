@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+import "styles/PackagesPage.css"; // Importing the CSS
+import LocationPin from 'assets/images/location-pin.svg'
+
 function PackagesPage() {
   const cities: { [key: string]: string } = {
     "Praha": "Praha",
@@ -11,16 +15,25 @@ function PackagesPage() {
     "Zlin": "Zlín",
     "Pardubice": "Pardubice"
   };
-    
+
   return (
-    <div>
-       {Object.entries(cities).map(([key, value], index) => (
-          <div key={index}>
-              <h3><a href={`/cestovni-balicky/${key}`}>{value}</a></h3>
-            </div>
+    <div className="packages-page">
+      <h1 className="packages-title">Available Travel Packages</h1>
+      <br />
+      <div className="packages-grid">
+        {Object.entries(cities).map(([key, value], index) => (
+          <Link to={`/cestovni-balicky/${key}`} key={index} className="package-card">
+            <img
+              src={LocationPin}
+              alt="Location"
+              className="location-icon"
+            />
+            <h3>{value}</h3>
+          </Link>
         ))}
+      </div>
     </div>
-  )
+  );
 }
 
-export default PackagesPage
+export default PackagesPage;

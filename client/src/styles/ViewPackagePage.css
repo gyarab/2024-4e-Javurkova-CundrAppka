@@ -1,0 +1,87 @@
+.view-package-page {
+  font-family: 'Georgia', serif;
+  padding: 30px; /* Reduced padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left; /* Align text to the left for a more article-like feel */
+}
+
+.view-package-page h1 {
+  font-size: 35px; /* Smaller title font */
+  font-weight: bold;
+  color: #6b4226;
+  margin-bottom: 15px; /* Reduced margin */
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.view-package-page p {
+  font-size: 16px; /* Smaller text */
+  color: #6b4226;
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.view-package-page a {
+  text-decoration: none;
+  color: #6b4226;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.view-package-page a:hover {
+  color: #8e7664;
+}
+
+/* Container box for the content */
+.view-package-page-container {
+  background-color: #e3c7b3;
+  padding: 20px;
+  border-radius: 15px;
+  border: 3px solid #b08968;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 800px; /* Set a maximum width */
+  width: 100%;
+  margin-top: 30px; /* Reduced margin */
+  margin-bottom: 30px; /* Reduced margin */
+  font-size: 14px;
+}
+
+/* For the sections */
+.sections-container {
+  margin-top: 30px; /* Reduced margin */
+  margin-bottom: 30px; /* Reduced margin */
+}
+
+.section {
+  margin-bottom: 30px; /* Reduced spacing between sections */
+}
+
+.section h3 {
+  font-size: 24px; /* Smaller title for each section */
+  font-weight: bold;
+  color: #6b4226;
+  margin-bottom: 10px; /* Reduced margin */
+  text-transform: uppercase; /* Capitalize section titles */
+}
+
+.section p {
+  font-size: 14px; /* Smaller text in sections */
+  color: #6b4226;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .view-package-page h1 {
+    font-size: 24px; /* Smaller title on medium screens */
+  }
+
+  .section h3 {
+    font-size: 22px; /* Smaller section titles */
+  }
+
+  .view-package-page p {
+    font-size: 14px; /* Adjust paragraph size */
+  }
+}
