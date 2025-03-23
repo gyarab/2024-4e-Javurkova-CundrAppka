@@ -1,5 +1,3 @@
-import React from 'react'
-import 'styles/Home.css'
 import CompassIcon from 'assets/images/compass-icon.png'
 
 function HeroSection() {

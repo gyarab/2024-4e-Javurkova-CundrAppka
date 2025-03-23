@@ -1,7 +1,8 @@
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-import 'App.css'
+//import 'App.css'
+import 'styles/App.css'
 
 import HomePage from 'pages/HomePage'
 import AdsPage from 'pages/ads/AdsPage'

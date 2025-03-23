@@ -1,5 +1,11 @@
 /* Home.css */
 
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 /* Root Colors */
 :root {
   --beige: #f5f5dc;
