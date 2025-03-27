@@ -4,6 +4,7 @@ import useFetchSingleAd from 'hooks/ads/useFetchSingleAd'
 import useUpdateAd from 'hooks/ads/useUpdateAd'
 import { Ad } from 'models/ad'
 import LoadingCircle from 'components/LoadingCircle'
+import 'styles/Ads.css';
 
 function UpdateAdPage() {
   const { id } = useParams()
@@ -28,7 +29,6 @@ function UpdateAdPage() {
     }
   }, [ad])
 
-
   const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setFormData({
@@ -49,7 +49,7 @@ function UpdateAdPage() {
       if (success) {
         navigate(`/inzeraty/${id}`)
       } else {
-        alert('Nastal problém při uprave inzerátu')
+        alert('Nastal problém při úprave inzerátu')
       }
     }
   }
@@ -67,15 +67,16 @@ function UpdateAdPage() {
   }
 
   return (
-    <div>
-      <h1>Upravit inzerát</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="create-ad-container">
+      <h1 className="create-ad-title">Upravit inzerát</h1>
+      <form onSubmit={handleSubmit} className="create-ad-form">
         <input
           name="title"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           placeholder="Název"
           required
+          className="create-ad-input"
         />
         <textarea
           name="description"
@@ -83,24 +84,28 @@ function UpdateAdPage() {
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder="Popis"
           required
+          className="create-ad-textarea"
         />
         <input
           name="phone"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           placeholder="Telefon"
+          className="create-ad-input"
         />
         <input
           name="destination"
           value={formData.destination}
           onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
           placeholder="Destinace"
+          className="create-ad-input"
         />
         <input
-          type="date"
+          type="month"
           name="date"
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          className="create-ad-input"
         />
 
         {/* Gender Dropdown */}
@@ -108,6 +113,7 @@ function UpdateAdPage() {
           name="preferences.gender"
           value={formData.preferences?.gender}
           onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, gender: e.target.value } })}
+          className="create-ad-select"
         >
           <option value="">Pohlaví</option>
           <option value="female">Žena</option>
@@ -119,16 +125,18 @@ function UpdateAdPage() {
           value={formData.preferences?.minAge}
           onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, minAge: e.target.value } })}
           placeholder="Minimální věk"
+          className="create-ad-input"
         />
         <input
           name="preferences.maxAge"
           value={formData.preferences?.maxAge}
           onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, maxAge: e.target.value } })}
           placeholder="Maximální věk"
+          className="create-ad-input"
         />
 
         {/* Checkboxes for languages */}
-        <div>
+        <div className="create-ad-languages">
           <p>Jakými jazyky mluvíte?</p>
           {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
             <label key={lang}>
@@ -148,15 +156,16 @@ function UpdateAdPage() {
           name="preferences.smokingPreference"
           value={formData.preferences?.smokingPreference}
           onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, smokingPreference: e.target.value } })}
+          className="create-ad-select"
         >
           <option value="">Kouření</option>
           <option value="smoker">Kuřák</option>
           <option value="nonsmoker">Nekuřák</option>
         </select>
 
-        <button type="submit">Uložit změny</button>
+        <button type="submit" className="create-ad-submit">Uložit změny</button>
       </form>
-      <a href="/inzeraty">Zpátky</a>
+      <a href="/inzeraty" className="back-link">Zpátky</a>
     </div>
   )
 }

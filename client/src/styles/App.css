@@ -30,9 +30,9 @@ body {
 
 /* Global Styles */
 body {
-  font-family: 'Cormorant Garamond', serif; /* Vintage-inspired font */
+  font-family: 'Georgia', serif;
   background-color: var(--beige);
-  color: var(--dark-brown);
+  color: #4b3a2e;
   margin: 0;
   padding: 0;
 }
