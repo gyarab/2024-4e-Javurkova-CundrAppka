@@ -67,6 +67,20 @@ function ViewAdPage() {
       french: "Francouština"
     };
 
+    const czechMonths = [
+      'leden', 'únor', 'březen', 'duben', 'květen', 'červen',
+      'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'
+    ];
+
+    const formatMonthYear = (monthYear: string) => {
+      if (!monthYear) return '';
+      
+      const [year, month] = monthYear.split('-');
+      const monthName = czechMonths[Number(month) - 1]; // Adjust because months are 0-indexed
+      
+      return `${monthName} ${year}`;
+    };
+
     const handleSaveClick = async () => {
       const newSavedState = await saveAd(user!._id!, ad!._id);
       setSaved(newSavedState)
@@ -99,8 +113,9 @@ function ViewAdPage() {
             }
           </ul>
         )}
-        <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleString()}</p>
-        <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.updatedAt).toLocaleString()}</p>
+        {ad.date && <p>Priblizne datum: {formatMonthYear(ad.date)}</p>}
+        <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
       {user !== null && (
         <div> 
           <button className='btn btn-secondary' onClick={handleSaveClick}>

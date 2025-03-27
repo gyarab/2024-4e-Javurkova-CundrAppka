@@ -80,7 +80,7 @@ function CreateAdPage() {
         <textarea name="description" onChange={(e) => setAdData({ ...adData, description: e.target.value })} placeholder="Popis" required />
         <input name="phone" onChange={(e) => setAdData({ ...adData, phone: e.target.value })} placeholder="Telefon" />
         <input name="destination" onChange={(e) => setAdData({ ...adData, destination: e.target.value })} placeholder="Destinace" />
-        <input type="date" name="date" onChange={(e) => setAdData({ ...adData, date: e.target.value })} />
+        <input type="month" name="date" onChange={(e) => setAdData({ ...adData, date: e.target.value })} />
 
         {/* Gender Dropdown */}
         <select name="preferences.gender" onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, gender: e.target.value } })}>
