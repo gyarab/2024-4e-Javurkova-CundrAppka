@@ -54,7 +54,7 @@ function SavedAdsPage() {
                     <div key={index} className="vintage-paper-box">
                     <h2>{ad.title}</h2>
                     <p>{ad.description}</p>
-                    <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.updatedAt).toLocaleString()}</p>
+                    <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                     <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
                         Zobrazit
                     </a>

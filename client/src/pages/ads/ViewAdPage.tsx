@@ -115,7 +115,7 @@ function ViewAdPage() {
         )}
         {ad.date && <p>Priblizne datum: {formatMonthYear(ad.date)}</p>}
         <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-        <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
       {user !== null && (
         <div> 
           <button className='btn btn-secondary' onClick={handleSaveClick}>

@@ -59,7 +59,7 @@ function MyAds() {
               <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
                 Zobrazit
               </a>
-              <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleString()}</p>
+              <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           ))
           ) : (
