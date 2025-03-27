@@ -7,6 +7,7 @@ import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
 import useSaveAd from 'hooks/ads/useSaveAd'
 import { useAuth } from 'context/AuthContext';
 import LoadingCircle from 'components/LoadingCircle';
+import 'styles/ViewAd.css'
 
 
 function ViewAdPage() {
@@ -86,69 +87,35 @@ function ViewAdPage() {
       setSaved(newSavedState)
     }
 
+    /*TODO: preference a dalsi pole */
   return (
-    <div>
-      <h1>{ad.title}</h1>
-      <p>uzivatel: {ad.full_name} ({ad.user_age} let)</p>
-      <p>{ad.description}</p>
-      {ad.phone && <p>Destinace: {ad.destination}</p>}
-      <h5>Kontaktni udaje:</h5>
-        <p>Email: {ad.email} {ad.phone && <div>, Telefonni cislo: {ad.phone}</div>}</p>
-        {ad.preferences && Object.entries(ad.preferences).some(([_, value]) => value !== '' && (Array.isArray(value) ? value.length > 0 : true)) && (
-          <ul>
-            <p>Preference:</p>
-            {Object.entries(ad.preferences)
-              .filter(([key, value]) => value !== '' && (key !== 'languages' || (Array.isArray(value) && value.length > 0))) // Exclude languages if empty
-              .map(([key, value]) => (
-                <li key={key}>
-                  <strong>{preferenceLabels[key]}: {
-                    key === 'languages' 
-                      ? (Array.isArray(value) 
-                          ? value.map(lang => preferenceLabels[lang] || lang).join(', ') 
-                          : value)
-                      : preferenceLabels[value as keyof typeof preferenceLabels] || value
-                  }</strong>
-                </li>
-              ))
-            }
-          </ul>
-        )}
-        {ad.date && <p>Priblizne datum: {formatMonthYear(ad.date)}</p>}
-        <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-        <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-      {user !== null && (
-        <div> 
-          <button className='btn btn-secondary' onClick={handleSaveClick}>
-            {saved ? 'Oddelat z ulozenych' : 'Ulozit si'}
-          </button>
-          {isMine && (
-            <div>
-              <p>
-                <a className='btn btn-primary' href={`/inzeraty/upravit/${ad._id}`}>
-                  Upravit
-                </a>
-              </p>
-              <p>
-                <button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>
-                  Smazat
-                </button>
-              </p>
+    <div className="vintage-container">
+            <div className="vintage-card">
+                <h1 className="vintage-title">{ad.title}</h1>
+                <p className="vintage-meta">Uživatel: {ad.full_name} ({ad.user_age} let)</p>
+                <p className="vintage-description">{ad.description}</p>
+                {ad.destination && <p><strong>Destinace:</strong> {ad.destination}</p>}
+                <h5>Kontaktní údaje:</h5>
+                <p>Email: {ad.email}{ad.phone && <> | Telefon: {ad.phone}</>}</p>
+                <p className="text-gray-500">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ')}</p>
+                <p className="text-gray-500">Poslední úprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ')}</p>
+                
+                {user !== null && (
+                    <div className="vintage-buttons">
+                        <button className={`btn ${saved ? 'btn-secondary' : 'btn-primary'}`} onClick={handleSaveClick}>
+                            {saved ? 'Odebrat z uložených' : 'Uložit'}</button>
+                        {isMine && (
+                            <>
+                                <a className="btn btn-primary" href={`/inzeraty/upravit/${ad._id}`}>Upravit</a>
+                                <button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button>
+                            </>
+                        )}
+                    </div>
+                )}
+                <p><a href="/inzeraty">Zpět</a></p>
             </div>
-            )}
-            </div>
-          )}
-      
-      <p><a href="/inzeraty">Zpatky</a></p>
-      <DeleteConfirmComp
-        message="Opravdu chcete inzerat smazat?"
-        show={showConfirmModal}
-        onClose={() => setShowConfirmModal(false)}
-        onConfirm={() => {
-          setShowConfirmModal(false);
-          handleDelete();
-        }}
-      />
-    </div>
+            <DeleteConfirmComp show={showConfirmModal} onClose={() => setShowConfirmModal(false)} onConfirm={handleDelete} message="Opravdu chcete inzerát smazat?" />
+        </div>
   )
 }
 

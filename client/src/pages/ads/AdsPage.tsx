@@ -166,13 +166,15 @@ function AdsPage() {
                     filteredAds.map((ad, index) => (
                         <div key={index} className="vintage-paper-box">
                             <h2>{ad.title}</h2>
-                            <p>{ad.description}</p>
-                            <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
-                                Zobrazit
-                            </a>
-                            <p className="ad-updated">
-                                Poslední úprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
-                            </p>
+                            <p className="ad-description">{ad.description}</p>
+                            <div className="ad-footer">
+                                <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
+                                    Zobrazit
+                                </a>
+                                <p className="ad-updated">
+                                    Poslední úprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                </p>
+                            </div>
                         </div>
                     ))
                 ) : (
