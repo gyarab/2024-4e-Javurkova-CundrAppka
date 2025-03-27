@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "styles/PackagesPage.css"; // Importing the CSS
+import "styles/Packages.css"; // Importing the CSS
 import LocationPin from 'assets/images/location-pin.svg'
 
 function PackagesPage() {

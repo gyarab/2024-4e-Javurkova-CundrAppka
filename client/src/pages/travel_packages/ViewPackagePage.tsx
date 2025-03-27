@@ -1,7 +1,7 @@
 import LoadingCircle from 'components/LoadingCircle'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import 'styles/ViewPackagePage.css'
+import 'styles/Packages.css'
 
 function ViewPackagePage() {
     const { city } = useParams<string>()

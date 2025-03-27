@@ -12,7 +12,7 @@ const useDeletePost = () => {
             })
 
             const data = await response.json()
-            return data.success
+            return { success: data.success }
         } catch (err) {
             return { success: false }
         }

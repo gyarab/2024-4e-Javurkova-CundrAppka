@@ -116,7 +116,7 @@ export const deleteAd: RequestHandler = asyncHandler(async (req: Request, res: R
 
     const deletedAd = await Ad.findByIdAndDelete(id)
 
-    if(deletedAd){
+    if (deletedAd){
       res.status(200).json({ success: true, message: 'Inzerát úspěšně smazán' })
       return
     }
