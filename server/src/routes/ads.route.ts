@@ -4,9 +4,7 @@ const router = express.Router()
 // import controllers
 import { getAds, createAd, getAd, updateAd, deleteAd, saveAd } from '../controllers/ads.controller'
 
-// import middlewares
-
-// api routes
+// api routes for interacting with ads
 router.get('/', getAds)
 router.post('/', createAd)
 router.get('/:id', getAd)

@@ -4,9 +4,7 @@ const router = express.Router()
 // import controllers
 import { getCityPosts, createPost, getAllPosts, deletePost } from '../controllers/forum.controller'
 
-// import middlewares
-
-// api routes
+// api routes for forum and interacting with posts
 router.post('/', createPost)
 router.delete('/:id', deletePost)
 router.get('/posts', getAllPosts)

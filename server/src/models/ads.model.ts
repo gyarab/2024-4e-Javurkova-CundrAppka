@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
+// interface for ads
 interface IAd extends Document {
   title: string
   description: string
@@ -19,6 +20,7 @@ interface IAd extends Document {
   user: mongoose.Schema.Types.ObjectId
 }
 
+// mongoose schema for ads
 const adSchema = new Schema<IAd>(
   {
     title: { type: String, required: true },
@@ -41,6 +43,7 @@ const adSchema = new Schema<IAd>(
   { timestamps: true }
 )
 
+// registers an Ad model in database
 const Ad = mongoose.model<IAd>('Ad', adSchema)
 
 export default Ad

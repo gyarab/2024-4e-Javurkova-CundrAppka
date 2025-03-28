@@ -4,9 +4,7 @@ const router = express.Router()
 // import controllers
 import { getUser, registerUser, loginUser, logoutUser } from '../controllers/users.controller'
 
-// import middlewares
-
-// api routes
+// api routes user authentication
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.post('/logout', logoutUser)

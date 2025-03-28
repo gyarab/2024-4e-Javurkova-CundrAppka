@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, ObjectId } from 'mongoose'
 
-// Define the User interface
+// interface for users
 export interface IUser extends Document {
   username: string
   first_name: string
@@ -14,6 +14,7 @@ export interface IUser extends Document {
   posts: ObjectId[]
 }
 
+// mongoose schema for users
 const userSchema = new Schema<IUser>({
   username: { type: String, required: true, unique: true },
   first_name: { type: String, required: true },
@@ -22,11 +23,12 @@ const userSchema = new Schema<IUser>({
   age: { type: Number, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ad' }], // Reference to the 'Ad' model
-  saved_ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Saved_ad' }], // Reference to the 'Ad' model
+  ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ad' }],
+  saved_ads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Saved_ad' }],
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'posts' }]
 })
 
+// registers a User model in database
 const User = mongoose.model<IUser>('User', userSchema)
 
 export default User

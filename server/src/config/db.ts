@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 
+// connects backend to db
 export const connectDB = async () => {
     const MONGO_URI = process.env.MONGO_URI
 
@@ -9,11 +10,12 @@ export const connectDB = async () => {
     }
 
     mongoose
-    .connect(MONGO_URI)
-    .then(() => {
-        console.log('Databáze připojena')
-    })
-    .catch((err) => {
-        console.error('Nastala chyba při připojování k databázi: ', err.message)
+        .connect(MONGO_URI)
+        .then(() => {
+            // once succesfully connected, prints out a message
+            console.log('Databáze připojena')
+        })
+        .catch((err) => {
+            console.error('Nastala chyba při připojování k databázi: ', err.message)
     })
 }
