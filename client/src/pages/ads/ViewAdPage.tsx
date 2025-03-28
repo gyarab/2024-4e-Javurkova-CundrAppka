@@ -99,7 +99,7 @@ function ViewAdPage() {
                 <p>Email: {ad.email}{ad.phone && <> | Telefon: {ad.phone}</>}</p>
                 {ad.preferences && Object.entries(ad.preferences).some(([_, value]) => value !== '' && (Array.isArray(value) ? value.length > 0 : true)) && (
                   <div className="vintage-preferences-container">
-                    <h3 className="vintage-preferences-title">🌿 Preference:</h3>
+                    <h3 className="vintage-preferences-title">🏕️ Preference:</h3>
                     <div className="vintage-preferences">
                       {Object.entries(ad.preferences)
                         .filter(([key, value]) => value !== '' && (key !== 'languages' || (Array.isArray(value) && value.length > 0)))

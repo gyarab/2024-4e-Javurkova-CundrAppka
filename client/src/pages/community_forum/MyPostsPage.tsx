@@ -1,11 +1,11 @@
 import LoadingCircle from 'components/LoadingCircle';
 import { useAuth } from 'context/AuthContext';
 import useFetchAllPosts from 'hooks/forum/useFetchAllPosts';
-import { Post } from 'models/forum-post';
 import React, { useMemo, useState } from 'react'
 import useDeletePost from 'hooks/forum/useDeletePost'
 import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
 import { useNavigate } from 'react-router-dom'
+import 'styles/Forum.css'
 
 function MyPostsPage() {
     const { posts, loading: loadingPosts } = useFetchAllPosts();
@@ -43,34 +43,41 @@ function MyPostsPage() {
         }
     }
 
+    const special_city_names: { [key: string]: string } = {
+      "Plzen": "Plzeň",
+      "Ceske-Budejovice": "České Budějovice",
+      "Hradec-Kralove": "Hradec Králové",
+      "Zlin": "Zlín"
+    };
+
   return (
-    <div>
+    <div className="forum-city-container">
     <h1>Moje prispevky</h1>
       <input
         type="text"
         placeholder="Hledat prispevek.."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="p-2 border rounded mb-4 w-full"
+        className="forum-search"
       />
-      <div className="mb-4">
-                <label className="mr-2">Seřadit podle:</label>
-                <select 
-                    value={sortOrder} 
-                    onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
-                    className="p-2 border rounded"
-                >
-                    <option value="newest">Nejnovější</option>
-                    <option value="oldest">Nejstarší</option>
-                </select>
-        </div>
-      <div className="ads-container">
+      <div className="forum-sort-container">
+          <label className="forum-sort-label">Seřadit podle:</label>
+          <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as "newest" | "oldest")}
+              className="forum-sort-dropdown"
+          >
+              <option value="newest">Nejnovější</option>
+              <option value="oldest">Nejstarší</option>
+          </select>
+      </div>
+
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post, index) => (
-            <div key={index} className="vintage-paper-box">
-              <h2>{post.title}</h2>
-              <p>{post.text}</p>
-              <p className="text-gray-500 text-sm">Vytvořeno: {new Date(post.createdAt).toLocaleString()}</p>
+            <div key={index} className="forum-post-card">
+              <h2 className="forum-post-title">{post.title} <span className="forum-post-user">({special_city_names[post.city as keyof typeof special_city_names] || post.city})</span></h2>
+              <p className="forum-post-text">{post.text}</p>
+              <p className="forum-post-date">Vytvořeno: {new Date(post.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
               <p>
                 <button className="btn btn-danger" onClick={() => { setShowConfirmModal(true); setPostToDelete(post._id); }}>
                   Smazat
@@ -79,9 +86,8 @@ function MyPostsPage() {
             </div>
           ))
           ) : (
-            <p>No posts available.</p>
+            <p className="forum-no-posts">Žádné příspěvky k dispozici.</p>
       )}
-      </div>
       <p><a href="/muj-ucet">zpet</a></p>
       <DeleteConfirmComp
         message="Opravdu chcete inzerat smazat?"

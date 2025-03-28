@@ -12,7 +12,7 @@ function MapPage() {
 
   return (
     <div className="map-page">
-      <h1 className="map-title">Explore the Czech Republic</h1>
+      <h1 className="map-title">🔆 Explore the Czech Republic</h1>
       <div className="map-container">
         <LoadScript googleMapsApiKey={apiKey} loadingElement={<LoadingCircle />}>
           <GoogleMap mapContainerClassName="map-box" center={center} zoom={7} />

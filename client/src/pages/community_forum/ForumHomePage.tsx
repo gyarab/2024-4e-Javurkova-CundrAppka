@@ -1,8 +1,8 @@
 import LoadingCircle from "components/LoadingCircle";
 import { useAuth } from "context/AuthContext";
+import 'styles/Forum.css'
 
 function ForumHomePage() {
-
   const cities: { [key: string]: string } = {
     "Praha": "Praha",
     "Brno": "Brno",
@@ -18,22 +18,29 @@ function ForumHomePage() {
 
   const { user, loading } = useAuth();
 
-  if (loading) return <LoadingCircle/>
+  if (loading) return <LoadingCircle/>;
 
   return (
-    <div>
-      <h1>Komunitni forum</h1>
-      {user ? (
-        <p><a href="komunitni-forum/zverejnit" className="btn btn-primary">+</a></p>
-      ) : (
-        <p>Pro tvorbu prispevku se prihlasete <a href="/prihlaseni">zde</a></p>
-      )}
+    <div className="forum-container">
+      <h1 className="forum-title">👋 Komunitní Fórum</h1>
       
-      {Object.entries(cities).map(([key, value], index) => (
-        <h3><a href={`/komunitni-forum/${key}`}>{value}</a></h3>
-      ))}
+      {user ? (
+        <p>
+          <a href="komunitni-forum/zverejnit" className="forum-post-btn">✚ Přidat příspěvek</a>
+        </p>
+      ) : (
+        <p className="forum-login-msg">
+          Pro tvorbu příspěvků se přihlaste <a href="/prihlaseni">zde</a>.
+        </p>
+      )}
+
+      <div className="forum-cities">
+        {Object.entries(cities).map(([key, value]) => (
+          <a key={key} href={`/komunitni-forum/${key}`} className="forum-city-link">{value}</a>
+        ))}
+      </div>
     </div>
-  )
+  );
 }
 
-export default ForumHomePage
+export default ForumHomePage;

@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: 'Dancing Script', cursive; /* Handwritten style */
 }
 
 body {
@@ -14,7 +15,6 @@ body {
   background-attachment: fixed;  /* Keeps the background in place while scrolling */
   margin: 0;
   padding: 0;
-  font-family: 'Cormorant Garamond', serif;  /* Your chosen font */
   display: flex;
   flex-direction: column;
   min-height: 100vh;  /* Makes sure the content takes at least the full height of the viewport */
@@ -30,7 +30,6 @@ body {
 
 /* Global Styles */
 body {
-  font-family: 'Georgia', serif;
   background-color: var(--beige);
   color: #4b3a2e;
   margin: 0;
@@ -50,7 +49,6 @@ a:hover {
 .navbar {
   background-color: var(--beige);
   border-bottom: 2px solid var(--dark-brown);
-  font-family: 'Cormorant Garamond', serif;
 }
 
 .navbar-brand img {
@@ -128,7 +126,6 @@ footer {
   text-align: center;
   padding: 20px;
   border-top: 2px solid var(--dark-brown);
-  font-family: 'Cormorant Garamond', serif;
 }
 
 footer p {
@@ -162,7 +159,6 @@ footer {
   color: #333;  /* Dark text */
   text-align: center;
   padding: 12px 20px;  /* Reduced padding to avoid extra white space */
-  font-family: 'Cormorant Garamond', serif;
   border-top: 2px solid var(--dark-brown);
   width: 100%;
   margin-top: auto; /* Pushes footer to the bottom */

@@ -4,7 +4,6 @@
   align-items: center;
   text-align: center;
   padding: 20px;
-  font-family: 'Georgia', serif;
 }
 
 .packages-title {
@@ -78,7 +77,6 @@
 /* viewpackgepage css*/
 
 .view-package-page {
-  font-family: 'Georgia', serif;
   padding: 30px; /* Reduced padding */
   display: flex;
   flex-direction: column;

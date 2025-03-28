@@ -18,7 +18,7 @@ function PackagesPage() {
 
   return (
     <div className="packages-page">
-      <h1 className="packages-title">Available Travel Packages</h1>
+      <h1 className="packages-title">🌿 Available Travel Packages</h1>
       <br />
       <div className="packages-grid">
         {Object.entries(cities).map(([key, value], index) => (

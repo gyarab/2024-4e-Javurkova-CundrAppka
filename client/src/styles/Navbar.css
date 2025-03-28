@@ -22,14 +22,12 @@
 .custom-navbar {
   background-color: #4b3f2f;  /* Dark brown color */
   border-bottom: 1px solid #d2c1a3;  /* Light beige border */
-  font-family: 'Georgia', serif;  /* Vintage serif font */
   color: #f4f1e1;  /* Light cream color for text */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
 }
 
 /* Styling for the brand name */
 .vintage-brand {
-  font-family: 'Cinzel', serif; /* Use Cinzel font for an ancient/classic feel */
   font-size: 2.5rem;
   color: #f4f1e1; /* Light cream color for brand text */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow for a vintage effect */
@@ -40,7 +38,6 @@
 .vintage-link {
   color: #f4f1e1 !important; /* Light and readable color */
   text-transform: uppercase;  /* Uppercase text for a retro feel */
-  font-family: 'Georgia', serif; /* Vintage-style font */
 }
 
 .vintage-link:hover {
@@ -54,7 +51,6 @@
   border: none;
   border-radius: 5px;  /* Rounded corners for a vintage feel */
   padding: 8px 16px;
-  font-family: 'Georgia', serif;
 }
 
 .vintage-btn:hover {
