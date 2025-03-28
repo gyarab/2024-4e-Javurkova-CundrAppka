@@ -95,6 +95,7 @@ function ViewAdPage() {
                 <p className="vintage-meta">Uživatel: {ad.full_name} ({ad.user_age} let)</p>
                 <p className="vintage-description">{ad.description}</p>
                 {ad.destination && <p><strong>Destinace:</strong> {ad.destination}</p>}
+                {ad.date && <p>Priblizne datum: {formatMonthYear(ad.date)}</p>}
                 <h5>Kontaktní údaje:</h5>
                 <p>Email: {ad.email}{ad.phone && <> | Telefon: {ad.phone}</>}</p>
                 {ad.preferences && Object.entries(ad.preferences).some(([_, value]) => value !== '' && (Array.isArray(value) ? value.length > 0 : true)) && (
@@ -119,20 +120,22 @@ function ViewAdPage() {
                     </div>
                   </div>
                 )}
-                <p className="text-gray-500">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ')}</p>
-                <p className="text-gray-500">Poslední úprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ')}</p>
+                <br />
+                <p>Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ')}</p>
+                <p>Poslední úprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ')}</p>
                 {user !== null && (
                     <div className="vintage-buttons">
                         <button className={`btn ${saved ? 'btn-secondary' : 'btn-primary'}`} onClick={handleSaveClick}>
                             {saved ? 'Odebrat z uložených' : 'Uložit'}</button>
-                        {isMine && (
-                            <>
-                                <a className="btn btn-primary" href={`/inzeraty/upravit/${ad._id}`}>Upravit</a>
-                                <button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button>
-                            </>
-                        )}
+                          {isMine && (
+                              <>
+                                  <a className="btn btn-primary" href={`/inzeraty/upravit/${ad._id}`}>Upravit</a>
+                                  <button className="btn btn-danger" onClick={() => setShowConfirmModal(true)}>Smazat</button>
+                              </>
+                          )}
                     </div>
                 )}
+                <br />
                 <p><a href="/inzeraty">Zpět</a></p>
             </div>
             <DeleteConfirmComp show={showConfirmModal} onClose={() => setShowConfirmModal(false)} onConfirm={handleDelete} message="Opravdu chcete inzerát smazat?" />
