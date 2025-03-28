@@ -60,3 +60,49 @@
     background-color: #b22222;
     color: white;
 }
+
+.vintage-preferences-container {
+    background: #fffaf0;
+    border: 2px dashed #c8b99d;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.vintage-preferences-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5a4634;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.vintage-preferences {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.vintage-preference-card {
+    background-color: #f5e6d7;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #d4c2a8;
+    font-size: 1rem;
+    font-style: italic;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.vintage-preference-key {
+    font-weight: bold;
+    color: #8b5e3b;
+}
+
+.vintage-preference-value {
+    color: #5a4634;
+}

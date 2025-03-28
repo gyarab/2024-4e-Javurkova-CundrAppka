@@ -97,9 +97,30 @@ function ViewAdPage() {
                 {ad.destination && <p><strong>Destinace:</strong> {ad.destination}</p>}
                 <h5>Kontaktní údaje:</h5>
                 <p>Email: {ad.email}{ad.phone && <> | Telefon: {ad.phone}</>}</p>
+                {ad.preferences && Object.entries(ad.preferences).some(([_, value]) => value !== '' && (Array.isArray(value) ? value.length > 0 : true)) && (
+                  <div className="vintage-preferences-container">
+                    <h3 className="vintage-preferences-title">🌿 Preference:</h3>
+                    <div className="vintage-preferences">
+                      {Object.entries(ad.preferences)
+                        .filter(([key, value]) => value !== '' && (key !== 'languages' || (Array.isArray(value) && value.length > 0)))
+                        .map(([key, value]) => (
+                          <div key={key} className="vintage-preference-card">
+                            <span className="vintage-preference-key">{preferenceLabels[key]}:</span>  
+                            <span className="vintage-preference-value">
+                              {key === 'languages' 
+                                ? (Array.isArray(value) 
+                                    ? value.map(lang => preferenceLabels[lang] || lang).join(', ') 
+                                    : value)
+                                : preferenceLabels[value as keyof typeof preferenceLabels] || value}
+                            </span>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </div>
+                )}
                 <p className="text-gray-500">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ')}</p>
                 <p className="text-gray-500">Poslední úprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ')}</p>
-                
                 {user !== null && (
                     <div className="vintage-buttons">
                         <button className={`btn ${saved ? 'btn-secondary' : 'btn-primary'}`} onClick={handleSaveClick}>
