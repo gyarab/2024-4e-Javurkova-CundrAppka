@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose'
 interface IAd extends Document {
   title: string
   description: string
-  phone?: number
+  phone?: string
   destination?: string
   date?: string
   preferences?: {
@@ -23,7 +23,7 @@ const adSchema = new Schema<IAd>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    phone: { type: Number },
+    phone: { type: String },
     destination: { type: String },
     date: { type: String },
     preferences: {

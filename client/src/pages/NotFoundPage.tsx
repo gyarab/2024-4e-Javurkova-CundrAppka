@@ -1,7 +1,7 @@
 function NotFoundPage() {
   return (
     <div>
-      <h1>Stranka neexistuje.. vratit se <a href="/">domu</a></h1>
+      <h1 className="no-ads">Na svém objevování ČundrAppky si se ztratil.. naštěstí tady je <a href="/">cesta domů</a></h1>
     </div>
   )
 }

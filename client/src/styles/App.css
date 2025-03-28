@@ -81,7 +81,7 @@ a:hover {
 }
 
 .hero-icon {
-  width: 80px;
+  width: 90px;
   margin-bottom: 20px;
   filter: sepia(50%);
   animation: slow-spin 10s linear infinite;

@@ -30,11 +30,11 @@ function SavedAdsPage() {
 
     return (
         <>
-            <h1>Ulozene inzeraty</h1>
-            <p>Dohromady uzloceno inzeratu: {savedAds.length}</p>
+            <h1>Tvoje uložené inzeráty</h1>
+            <p>Dohromady uloženo inzerátů: {savedAds.length}</p>
             <input
                 type="text"
-                placeholder="Hledat inzerat.."
+                placeholder="Hledat mezi inzeráty.."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="p-2 border rounded mb-4 w-full"
@@ -65,10 +65,10 @@ function SavedAdsPage() {
                     </div>
                 ))
                 ) : (
-                    <p>No ads available.</p>
+                    <p>Neuložil sis žádné inzeráty.</p>
             )}
             </div>
-            <p><a href="/muj-ucet" className='back-link'>Zpět</a></p>
+            <p><a href="/muj-ucet" className='back-link'>Zpátky</a></p>
     </>
     )
 }

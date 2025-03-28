@@ -57,13 +57,13 @@ function UpdateAdPage() {
   if (loadingAd || updating) return <LoadingCircle />
 
   const languageLabels: { [key: string]: string } = {
-    czech: "Cestina",
-    english: "Anglictina",
-    german: "Nemcina",
-    spanish: "Spanelstina",
-    russian: "Rustina",
-    italian: "Italstina",
-    french: "Francouzstina"
+    czech: "Čeština",
+    english: "Angličtina",
+    german: "Němčina",
+    spanish: "Španělština",
+    russian: "Ruština",
+    italian: "Italština",
+    french: "Francouzština"
   }
 
   return (
@@ -110,7 +110,7 @@ function UpdateAdPage() {
 
          {/* Checkboxes for languages */}
          <div className="create-ad-languages">
-          <p>Jakými jazyky mluvíte?</p>
+          <p>Jakými jazyky mluvíš?</p>
           {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
             <label key={lang}>
               <input
@@ -158,7 +158,7 @@ function UpdateAdPage() {
           onChange={(e) => setFormData({ ...formData, preferences: { ...formData.preferences, smokingPreference: e.target.value } })}
           className="create-ad-select"
         >
-          <option value="">Kouření</option>
+          <option value="">Kuřáctví</option>
           <option value="smoker">Kuřák</option>
           <option value="nonsmoker">Nekuřák</option>
         </select>

@@ -165,6 +165,11 @@
     text-decoration: none;
     border-radius: 4px;
 }
+
+.modal-footer .btn {
+  width: auto !important;
+  min-width: 100px; /* Optional: Ensures a decent button size */
+}
   
   /* Vintage links */
   a {
@@ -242,6 +247,13 @@
 
 .back-link:hover {
   text-decoration: underline;
+}
+
+.no-ads {
+  font-size: 1.1rem;
+  color: #5a4634;
+  font-weight: bold;
+  padding: 15px;
 }
 
 /* Responsive Design */

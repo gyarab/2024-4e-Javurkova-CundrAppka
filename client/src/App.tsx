@@ -19,7 +19,7 @@ import SavedAdsPage from 'pages/ads/SavedAdsPage'
 import useLogoutUser from 'hooks/users/useLogoutUser'
 
 import Navbar from 'components/Navbar'
-import LogoutConfirmComp from 'components/users/LogoutConfirmComp'
+import LogoutConfirmComp from 'components/LogoutConfirmComp'
 import Footer from 'components/Footer'
 import PackagesPage from 'pages/travel_packages/PackagesPage'
 import ViewPackagePage from 'pages/travel_packages/ViewPackagePage'
@@ -38,7 +38,7 @@ function App() {
     <div className='page-wrapper'>
       <Navbar setShowLogoutModal={setShowLogoutModal}/>
       <LogoutConfirmComp
-        message="Are you sure you want to log out?"
+        message="Určitě se chceš odhlásit?"
         show={showLogoutModal}
         onClose={() => setShowLogoutModal(false)}
         onConfirm={() => {

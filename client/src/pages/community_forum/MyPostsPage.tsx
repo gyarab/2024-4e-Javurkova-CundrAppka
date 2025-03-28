@@ -3,7 +3,7 @@ import { useAuth } from 'context/AuthContext';
 import useFetchAllPosts from 'hooks/forum/useFetchAllPosts';
 import React, { useMemo, useState } from 'react'
 import useDeletePost from 'hooks/forum/useDeletePost'
-import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
+import DeleteConfirmComp from 'components/DeleteConfirmComp'
 import { useNavigate } from 'react-router-dom'
 import 'styles/Forum.css'
 
@@ -52,10 +52,10 @@ function MyPostsPage() {
 
   return (
     <div className="forum-city-container">
-    <h1>Moje prispevky</h1>
+    <h1>Tvoje příspěvky</h1>
       <input
         type="text"
-        placeholder="Hledat prispevek.."
+        placeholder="Hledat mezi příspěvky.."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         className="forum-search"
@@ -86,11 +86,11 @@ function MyPostsPage() {
             </div>
           ))
           ) : (
-            <p className="forum-no-posts">Žádné příspěvky k dispozici.</p>
+            <p className="forum-no-posts">Nezveřejnil si žádné příspěvky.</p>
       )}
       <p><a href="/muj-ucet">zpet</a></p>
       <DeleteConfirmComp
-        message="Opravdu chcete inzerat smazat?"
+        message="Opravdu chceš příspěvek smazat?"
         show={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         onConfirm={() => {

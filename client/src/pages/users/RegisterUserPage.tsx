@@ -7,7 +7,6 @@ import 'styles/Auth.css';
 function RegisterUserPage() {
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
-  const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -23,7 +22,6 @@ function RegisterUserPage() {
     const newUser: User = {
       username,
       first_name: firstName,
-      middle_name: middleName,
       last_name: lastName,
       birthday: new Date(birthday),
       email,
@@ -46,12 +44,13 @@ function RegisterUserPage() {
     <div className="auth-container">
       <h1 className="auth-title">Registrace</h1>
       <form className="auth-form" onSubmit={handleSubmit}>
-        <input className="auth-input" type="text" onChange={(e) => setUsername(e.target.value)} required placeholder="Uživatelské jméno" />
         <input className="auth-input" type="text" onChange={(e) => setFirstName(e.target.value)} required placeholder="Křestní jméno" />
-        <input className="auth-input" type="text" onChange={(e) => setMiddleName(e.target.value)} placeholder="Druhé jméno" />
-        <input className="auth-input" type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Příjmení" />
+        <input className="auth-input" type="text" onChange={(e) => setLastName(e.target.value)} required placeholder="Příjmení" />
+        <label htmlFor="date">Tvoje narozeniny</label>
+        <input className="auth-input" type="date" onChange={(e) => setBirthday(e.target.value)} required/>
+        <br />
+        <input className="auth-input" type="text" onChange={(e) => setUsername(e.target.value)} required placeholder="Uživatelské jméno" />
         <input className="auth-input" type="email" onChange={(e) => setEmail(e.target.value)} required placeholder="Email" />
-        <input className="auth-input" type="date" onChange={(e) => setBirthday(e.target.value)} required placeholder="Datum narození" />
         <div className="password-container">
           <input className="auth-input" type={showPassword ? 'text' : 'password'} onChange={(e) => setPassword(e.target.value)} required placeholder="Heslo" />
           <button type="button" onClick={toggleVisibility} className="toggle-password" aria-label="Toggle password visibility">

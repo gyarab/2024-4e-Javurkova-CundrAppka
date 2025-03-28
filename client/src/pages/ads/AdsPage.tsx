@@ -75,9 +75,9 @@ function AdsPage() {
         <>
             <header className="ads-header">
                 {user ? (
-                    <p className="header-text">Vytvořte si svůj inzerát <a href="/inzeraty/zverejnit">ZDE</a></p>
+                    <p className="header-text">Vytvoř si svůj inzerát <a href="/inzeraty/zverejnit">ZDE</a></p>
                 ) : (
-                    <p className="header-text">Pro vytvoření inzerátu se přihlaste <a href="/prihlaseni">ZDE</a></p>
+                    <p className="header-text">Pro vytvoření inzerátu se přihlaš <a href="/prihlaseni">ZDE</a></p>
                 )}
             </header>
 
@@ -90,7 +90,7 @@ function AdsPage() {
                         placeholder="Destinace"
                         onChange={handleFilterChange}
                     />
-                    <p>Predpokladane datum</p>
+                    <p>Předpokládané datum</p>
                     <input
                         type="month"
                         name="date"
@@ -98,10 +98,10 @@ function AdsPage() {
                     />
                 </div>
 
-                <p><strong>Vase informace:</strong></p>
+                <p><strong>Tvoje informace:</strong></p>
                 <div className="filter-row">
                     <div className="language-filter">
-                        <p>Mluvim:</p>
+                        <p>Mluvíš:</p>
                         {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
                             <label key={lang}>
                                 <input
@@ -123,14 +123,14 @@ function AdsPage() {
                         <option value="male">Muž</option>
                     </select>
                     <select name="smokingPreference" value={filters.smokingPreference} onChange={handleFilterChange}>
-                        <option value="">Kuractvi</option>
+                        <option value="">Kuřáctví</option>
                         <option value="smoker">Kuřák</option>
                         <option value="nonsmoker">Nekuřák</option>
                     </select>
                     <input
                         type="number"
                         name="userAge"
-                        placeholder="Muj věk"
+                        placeholder="Tvůj věk"
                         value={filters.userAge}
                         onChange={handleFilterChange}
                     />
@@ -152,13 +152,13 @@ function AdsPage() {
             {filteredAds.length != 0 && filteredAds.length < 5 ? (
                 <>
                     {filteredAds.length == 1 ? (
-                        <p className="ads-count">Zobrazen 1 inzerat</p>
+                        <p className="ads-count">Zobrazen 1 inzerát</p>
                     ) : (
-                        <p className="ads-count">Zobrazeny {filteredAds.length} inzeraty</p>
+                        <p className="ads-count">Zobrazeny {filteredAds.length} inzeráty</p>
                     )}
                 </>
                 ) : (
-                    (filteredAds.length != 0 && <p className="ads-count">Zobrazeno {filteredAds.length} inzeratu</p>)
+                    (filteredAds.length != 0 && <p className="ads-count">Zobrazeno {filteredAds.length} inzeratů</p>)
             )}
 
             <div className="ads-container">
@@ -178,7 +178,7 @@ function AdsPage() {
                         </div>
                     ))
                 ) : (
-                    <p>No ads available.</p>
+                    <p className='no-ads'>Nebyly nalezeny žádné inzeráty.</p>
                 )}
             </div>
         </>

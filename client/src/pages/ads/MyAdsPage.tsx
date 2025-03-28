@@ -31,11 +31,11 @@ function MyAds() {
 
   return (
     <>
-      <h1>Moje inzeraty</h1>
-      <p>Dohromady zverejneno inzeratu: {myAds.length}</p>
+      <h1>Tvoje inzeráty</h1>
+      <p>Dohromady zveřejněno inzeratů: {myAds.length}</p>
       <input
         type="text"
-        placeholder="Hledat inzerat.."
+        placeholder="Hledat mezi inzeráty.."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         className="p-2 border rounded mb-4 w-full"
@@ -66,10 +66,10 @@ function MyAds() {
             </div>
           ))
           ) : (
-            <p>No ads available.</p>
+            <p className='no-ads'>Nezveřejnil jsi žádné inzeráty.</p>
       )}
       </div>
-      <p><a href="/muj-ucet" className='back-link' >Zpět</a></p>
+      <p><a href="/muj-ucet" className='back-link' >Zpátky</a></p>
     </>
   )
 }

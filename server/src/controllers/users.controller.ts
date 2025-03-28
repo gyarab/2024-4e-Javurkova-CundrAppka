@@ -16,7 +16,7 @@ const calculateAge = (birthDateString: string): number => {
 // @route POST /api/users/register
 export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = async (req, res, next) => {    
     try {
-        const { username, first_name, middle_name, last_name, birthday, email  } = req.body
+        const { username, first_name, last_name, birthday, email  } = req.body
         const rawPassword = req.body.password
 
         const usernameExists = await User.findOne({username: username}).exec()
@@ -36,7 +36,6 @@ export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = as
         const newUser: IUser = await User.create({
             username: username,
             first_name: first_name,
-            middle_name: middle_name,
             last_name: last_name,
             birthday: birthday,
             email: email,

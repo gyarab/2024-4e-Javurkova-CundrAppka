@@ -91,6 +91,7 @@ function ForumPostingPage() {
           Zveřejnit
         </button>
       </form>
+      <p><a href="/komunitni-forum" className="back-link">Zpátky</a></p>
     </div>
   );
 }

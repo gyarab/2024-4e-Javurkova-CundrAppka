@@ -34,6 +34,10 @@
   text-decoration: none;
 }
 
+.vintage-brand:hover {
+  color: rgb(142, 121, 82) !important; /* Hover effect for links */
+}
+
 /* Styling for links in the navbar */
 .vintage-link {
   color: #f4f1e1 !important; /* Light and readable color */
@@ -41,7 +45,7 @@
 }
 
 .vintage-link:hover {
-  color: #e0d4b0 !important; /* Hover effect for links */
+  color: rgb(187, 163, 118) !important; /* Hover effect for links */
 }
 
 /* Styling for buttons */

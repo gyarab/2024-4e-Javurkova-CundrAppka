@@ -50,7 +50,7 @@ function ForumCityPage() {
           </p>
       ) : (
           <p className="forum-login-msg">
-              Pro tvorbu příspěvků se přihlaste <a href="/prihlaseni">zde</a>.
+              Pro tvorbu příspěvků se přihlaš <a href="/prihlaseni">ZDE</a>.
           </p>
       )}
 
@@ -91,6 +91,7 @@ function ForumCityPage() {
               <p className="forum-no-posts">Žádné příspěvky k dispozici.</p>
           )}
       </div>
+      <p><a href="/komunitni-forum" className='back-link'>Zpátky</a></p>
   </div>
   )
 }

@@ -100,7 +100,7 @@ function ViewPackagePage() {
                     </div>
                 ))}
             </div>
-            <p><a href="/cestovni-balicky">Zpět</a></p>
+            <p><a href="/cestovni-balicky">Zpátky</a></p>
         </div>
     </div>
     )

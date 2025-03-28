@@ -63,13 +63,13 @@ function CreateAdPage() {
   }
 
   const languageLabels: { [key: string]: string } = {
-    czech: "Cestina",
-    english: "Anglictina",
-    german: "Nemcina",
-    spanish: "Spanelstina",
-    russian: "Rustina",
-    italian: "Italstina",
-    french: "Francouzstina"
+    czech: "Čeština",
+    english: "Angličtina",
+    german: "Němčina",
+    spanish: "Španělština",
+    russian: "Ruština",
+    italian: "Italština",
+    french: "Francouzština"
   };
 
   return (
@@ -111,7 +111,7 @@ function CreateAdPage() {
 
          {/* Checkboxes for languages */}
          <div className="create-ad-languages">
-          <p>Jakými jazyky mluvíte?</p>
+          <p><strong>Jakými jazyky mluvíš?</strong></p>
           {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
             <label key={lang}>
               <input
@@ -124,7 +124,7 @@ function CreateAdPage() {
           ))}
         </div>
 
-        <p><strong>Preferovane vlastnosti zajemce:</strong></p>
+        <p><strong>Preferované vlastnosti kamaráda na cestování:</strong></p>
         {/* Gender Dropdown */}
         <select
           name="preferences.gender"
@@ -155,12 +155,12 @@ function CreateAdPage() {
           className="create-ad-select"
           onChange={(e) => setAdData({ ...adData, preferences: { ...adData.preferences, smokingPreference: e.target.value } })}
         >
-          <option value="">Kouření</option>
+          <option value="">Kuřáctví</option>
           <option value="smoker">Kuřák</option>
           <option value="nonsmoker">Nekuřák</option>
         </select>
 
-        <button type="submit" className="create-ad-submit">Vytvořit inzerát</button>
+        <button type="submit" className="create-ad-submit">Zveřejnit inzerát</button>
       </form>
       <a href="/inzeraty" className="back-link">Zpátky</a>
     </div>

@@ -41,16 +41,16 @@ const Navbar = ({ setShowLogoutModal }: { setShowLogoutModal: React.Dispatch<Rea
                   {user ? (
                     <>
                       <a className="nav-link vintage-link" href="/muj-ucet">
-                        My Account
+                        Tvůj účet
                       </a>
                       <button className="btn vintage-btn" onClick={() => setShowLogoutModal(true)}>
-                        Logout
+                        Odhlášení
                       </button>
                     </>
                   ) : (
                     <>
                       <a className="nav-link vintage-link" href="/prihlaseni">
-                        Login
+                        Přihlášení
                       </a>
                     </>
                   )}

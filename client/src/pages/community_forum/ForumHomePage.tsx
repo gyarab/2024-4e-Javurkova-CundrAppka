@@ -30,7 +30,7 @@ function ForumHomePage() {
         </p>
       ) : (
         <p className="forum-login-msg">
-          Pro tvorbu příspěvků se přihlaste <a href="/prihlaseni">zde</a>.
+          Pro tvorbu příspěvků se přihlaš <a href="/prihlaseni">ZDE</a>.
         </p>
       )}
 

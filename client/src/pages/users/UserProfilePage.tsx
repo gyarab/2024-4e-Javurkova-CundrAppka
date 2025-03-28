@@ -17,9 +17,9 @@ function UserProfilePage() {
                 <p><strong>Email:</strong> {user.email}</p>
             </div>
             <div className="profile-links">
-                <a href="/muj-ucet/moje-inzeraty" className='btn-primary'>Moje inzeráty</a>
+                <a href="/muj-ucet/moje-inzeraty" className='btn-primary'>Tvoje inzeráty</a>
                 <a href="/muj-ucet/ulozene-inzeraty" className='btn-secondary'>Uložené inzeráty</a>
-                <a href="/muj-ucet/moje-prispevky" className='btn-secondary'>Moje příspěvky</a>
+                <a href="/muj-ucet/moje-prispevky" className='btn-secondary'>Tvoje příspěvky</a>
             </div>
             <p className="home-link"><a href="/">Domů</a></p>
         </div>

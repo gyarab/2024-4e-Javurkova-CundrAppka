@@ -63,7 +63,7 @@ function LoginUserPage() {
         <button className="auth-button" type="submit">Přihlásit se</button>
       </form>
       <p className="auth-footer">
-        Nemáte účet? <a href="/registrace" className="auth-link">Registrace</a>
+        Nemáš u nás účet? <a href="/registrace" className="auth-link">Registruj se</a>
       </p>
       <p className="auth-footer">
         <a href="/" className="auth-link">Domů</a>

@@ -5,15 +5,15 @@ function DeleteConfirmComp({ message, show, onClose, onConfirm, }: { message:str
   return (
     <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Potvrďte Odhlaseni</Modal.Title>
+        <Modal.Title>Potvrď smazání</Modal.Title>
       </Modal.Header>
       <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
-        <Button variant="light" onClick={onClose}>
-          Zustat prihlasena
+        <Button variant="secondary" onClick={onClose}>
+          Zrušit
         </Button>
-        <Button variant="dark" onClick={onConfirm}>
-          Odhlasit
+        <Button variant="danger" onClick={onConfirm}>
+          Smazat
         </Button>
       </Modal.Footer>
     </Modal>

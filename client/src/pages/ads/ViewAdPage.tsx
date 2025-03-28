@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import useFetchSingleAd from 'hooks/ads/useFetchSingleAd'
 import { useNavigate } from 'react-router-dom'
 import useDeleteAd from 'hooks/ads/useDeleteAd'
-import DeleteConfirmComp from 'components/ads/DeleteConfirmComp'
+import DeleteConfirmComp from 'components/DeleteConfirmComp'
 import useSaveAd from 'hooks/ads/useSaveAd'
 import { useAuth } from 'context/AuthContext';
 import LoadingCircle from 'components/LoadingCircle';
@@ -65,7 +65,7 @@ function ViewAdPage() {
       german: "Němčina",
       russian: "Ruština",
       italian: "Italština",
-      french: "Francouština"
+      french: "Francouzština"
     };
 
     const czechMonths = [
@@ -95,7 +95,7 @@ function ViewAdPage() {
                 <p className="vintage-meta">Uživatel: {ad.full_name} ({ad.user_age} let)</p>
                 <p className="vintage-description">{ad.description}</p>
                 {ad.destination && <p><strong>Destinace:</strong> {ad.destination}</p>}
-                {ad.date && <p>Priblizne datum: {formatMonthYear(ad.date)}</p>}
+                {ad.date && <p>Přibližné datum: {formatMonthYear(ad.date)}</p>}
                 <h5>Kontaktní údaje:</h5>
                 <p>Email: {ad.email}{ad.phone && <> | Telefon: {ad.phone}</>}</p>
                 {ad.preferences && Object.entries(ad.preferences).some(([_, value]) => value !== '' && (Array.isArray(value) ? value.length > 0 : true)) && (
@@ -136,9 +136,9 @@ function ViewAdPage() {
                     </div>
                 )}
                 <br />
-                <p><a href="/inzeraty">Zpět</a></p>
+                <p><a href="/inzeraty" className='back-link'>Zpátky</a></p>
             </div>
-            <DeleteConfirmComp show={showConfirmModal} onClose={() => setShowConfirmModal(false)} onConfirm={handleDelete} message="Opravdu chcete inzerát smazat?" />
+            <DeleteConfirmComp show={showConfirmModal} onClose={() => setShowConfirmModal(false)} onConfirm={handleDelete} message="Opravdu chceš inzerát smazat?" />
         </div>
   )
 }

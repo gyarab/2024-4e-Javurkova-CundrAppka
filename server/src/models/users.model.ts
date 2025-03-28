@@ -4,7 +4,6 @@ import mongoose, { Schema, Document, ObjectId } from 'mongoose'
 export interface IUser extends Document {
   username: string
   first_name: string
-  middle_name?: string
   last_name: string
   birthday: Date,
   age: number
@@ -18,7 +17,6 @@ export interface IUser extends Document {
 const userSchema = new Schema<IUser>({
   username: { type: String, required: true, unique: true },
   first_name: { type: String, required: true },
-  middle_name: { type: String },
   last_name: { type: String, required: true },
   birthday: { type: Date, required: true },
   age: { type: Number, required: true },

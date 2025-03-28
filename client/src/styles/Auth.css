@@ -1,6 +1,6 @@
 .auth-container {
     width: 400px;
-    margin: 50px auto;
+    margin: 30px auto;
     padding: 20px;
     background-color: #fff8e7;
     border: 2px solid #b08968;
@@ -69,4 +69,30 @@
   
   .auth-link:hover {
     text-decoration: underline;
+  }
+
+  .date-input-container {
+    position: relative;
+  }
+  
+  .date-placeholder {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 12px;
+    color: #aaa;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+  
+  .date-input:focus + .date-placeholder,
+  .date-input:not(:empty) + .date-placeholder {
+    top: -10px;
+    left: 10px;
+    font-size: 10px;
+    color: #000;
+  }
+  
+  .date-input {
+    z-index: 10;
   }
