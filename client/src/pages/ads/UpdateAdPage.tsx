@@ -108,6 +108,22 @@ function UpdateAdPage() {
           className="create-ad-input"
         />
 
+         {/* Checkboxes for languages */}
+         <div className="create-ad-languages">
+          <p>Jakými jazyky mluvíte?</p>
+          {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
+            <label key={lang}>
+              <input
+                type="checkbox"
+                value={lang}
+                checked={formData.preferences?.languages?.includes(lang)}
+                onChange={handleLanguageChange}
+              />
+              {languageLabels[lang]}
+            </label>
+          ))}
+        </div>
+
         {/* Gender Dropdown */}
         <select
           name="preferences.gender"
@@ -134,22 +150,6 @@ function UpdateAdPage() {
           placeholder="Maximální věk"
           className="create-ad-input"
         />
-
-        {/* Checkboxes for languages */}
-        <div className="create-ad-languages">
-          <p>Jakými jazyky mluvíte?</p>
-          {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
-            <label key={lang}>
-              <input
-                type="checkbox"
-                value={lang}
-                checked={formData.preferences?.languages?.includes(lang)}
-                onChange={handleLanguageChange}
-              />
-              {languageLabels[lang]}
-            </label>
-          ))}
-        </div>
 
         {/* Smoking Preference Dropdown */}
         <select
