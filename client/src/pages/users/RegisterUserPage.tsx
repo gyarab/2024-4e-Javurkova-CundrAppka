@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useRegisterUser from 'hooks/users/useRegisterUser';
-import User from 'models/user';
-import 'styles/Auth.css';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useRegisterUser from 'hooks/users/useRegisterUser'
+import User from 'models/user'
+import 'styles/Auth.css'
 
 function RegisterUserPage() {
-  const [username, setUsername] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [birthday, setBirthday] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
-  const { registerUser } = useRegisterUser();
-  const navigate = useNavigate();
+  const { registerUser } = useRegisterUser()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const newUser: User = {
       username,
@@ -26,19 +26,19 @@ function RegisterUserPage() {
       birthday: new Date(birthday),
       email,
       password,
-    };
-
-    const { success, message } = await registerUser(newUser);
-    if (success) {
-      navigate('/prihlaseni');
-    } else {
-      alert(message);
     }
-  };
+
+    const { success, message } = await registerUser(newUser)
+    if (success) {
+      navigate('/prihlaseni')
+    } else {
+      alert(message)
+    }
+  }
 
   const toggleVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
   return (
     <div className="auth-container">
@@ -63,7 +63,7 @@ function RegisterUserPage() {
         <a href="/" className="auth-link">Domů</a>
       </p>
     </div>
-  );
+  )
 }
 
-export default RegisterUserPage;
+export default RegisterUserPage

@@ -1,12 +1,12 @@
-import LoadingCircle from 'components/LoadingCircle';
-import { useAuth } from 'context/AuthContext';
-import 'styles/User.css';
+import LoadingCircle from 'components/LoadingCircle'
+import { useAuth } from 'context/AuthContext'
+import 'styles/User.css'
 
 function UserProfilePage() {
-    const { user, loading } = useAuth();
+    const { user, loading } = useAuth()
     
     if (loading || !user) {
-        return <LoadingCircle />;
+        return <LoadingCircle />
     }
 
     return (
@@ -23,7 +23,7 @@ function UserProfilePage() {
             </div>
             <p className="home-link"><a href="/">Domů</a></p>
         </div>
-    );
+    )
 }
 
-export default UserProfilePage;
+export default UserProfilePage

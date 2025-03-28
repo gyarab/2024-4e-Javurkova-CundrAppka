@@ -12,10 +12,10 @@ const useLogoutUser = () => {
 
             if(data.success) {
               navigate('/')
-              window.location.reload();
+              window.location.reload()
             }
             else {
-              throw new Error();
+              throw new Error()
             }
           } catch (error) {
             alert('Nastala chyba pri odhlasovani')

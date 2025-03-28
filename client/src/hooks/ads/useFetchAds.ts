@@ -1,9 +1,9 @@
-import { Ad } from 'models/ad';
+import { Ad } from 'models/ad'
 import { useEffect, useState } from 'react'
 
 const useFetchAds = () => {
 
-    const [ads, setAds] = useState<Ad[]>([]);
+    const [ads, setAds] = useState<Ad[]>([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {

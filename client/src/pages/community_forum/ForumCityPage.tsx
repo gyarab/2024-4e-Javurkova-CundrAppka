@@ -1,36 +1,36 @@
-import LoadingCircle from "components/LoadingCircle";
-import { useAuth } from "context/AuthContext";
-import useFetchCityPosts from "hooks/forum/useFetchCityPosts";
-import { useState } from "react";
+import LoadingCircle from "components/LoadingCircle"
+import { useAuth } from "context/AuthContext"
+import useFetchCityPosts from "hooks/forum/useFetchCityPosts"
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 import 'styles/Forum.css'
 
 function ForumCityPage() {
-    const { user, loading: loadingUser } = useAuth();
+    const { user, loading: loadingUser } = useAuth()
     const { city } = useParams()
-    const { posts, loading: loadingPosts } = useFetchCityPosts(city as string);
+    const { posts, loading: loadingPosts } = useFetchCityPosts(city as string)
     const [sortOrder, setSortOrder] = useState('newest')
     const [searchQuery, setSearchQuery] = useState('')
 
     const myPostsIds = user?.posts || []
-    const shownPosts = posts.filter(post => !myPostsIds.includes(post._id));
+    const shownPosts = posts.filter(post => !myPostsIds.includes(post._id))
     shownPosts.sort((a, b) => {
-      const dateA = new Date(a.createdAt).getTime();
-      const dateB = new Date(b.createdAt).getTime();
-      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-    });
+      const dateA = new Date(a.createdAt).getTime()
+      const dateB = new Date(b.createdAt).getTime()
+      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB
+    })
 
     const filteredPosts = shownPosts?.filter(post =>
       post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.text.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
 
     const special_city_names: { [key: string]: string } = {
       "Plzen": "Plzeň",
       "Ceske-Budejovice": "České Budějovice",
       "Hradec-Kralove": "Hradec Králové",
       "Zlin": "Zlín"
-    };
+    }
 
     if (loadingUser || loadingPosts) {
       return <LoadingCircle/>

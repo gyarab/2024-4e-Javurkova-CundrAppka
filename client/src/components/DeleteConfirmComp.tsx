@@ -1,6 +1,6 @@
 import { Modal, Button } from 'react-bootstrap'
 
-function DeleteConfirmComp({ message, show, onClose, onConfirm, }: { message:string, show: boolean; onClose: () => void; onConfirm: () => void;}) {
+function DeleteConfirmComp({ message, show, onClose, onConfirm }: { message: string; show: boolean; onClose: () => void; onConfirm: () => void }) {
 
   return (
     <Modal show={show} onHide={onClose} centered>

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import "styles/Packages.css"; // Importing the CSS
+import { Link } from "react-router-dom"
+import "styles/Packages.css" // Importing the CSS
 import LocationPin from 'assets/images/location-pin.svg'
 
 function PackagesPage() {
@@ -14,7 +14,7 @@ function PackagesPage() {
     "Hradec-Kralove": "Hradec Králové",
     "Zlin": "Zlín",
     "Pardubice": "Pardubice"
-  };
+  }
 
   return (
     <div className="packages-page">
@@ -33,7 +33,7 @@ function PackagesPage() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default PackagesPage;
+export default PackagesPage

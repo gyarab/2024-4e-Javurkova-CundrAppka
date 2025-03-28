@@ -4,7 +4,7 @@ import useFetchSingleAd from 'hooks/ads/useFetchSingleAd'
 import useUpdateAd from 'hooks/ads/useUpdateAd'
 import { Ad } from 'models/ad'
 import LoadingCircle from 'components/LoadingCircle'
-import 'styles/Ads.css';
+import 'styles/Ads.css'
 
 function UpdateAdPage() {
   const { id } = useParams()

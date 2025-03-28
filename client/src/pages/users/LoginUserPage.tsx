@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useLoginUser from 'hooks/users/useLoginUser';
-import LoadingCircle from 'components/LoadingCircle';
-import 'styles/Auth.css';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useLoginUser from 'hooks/users/useLoginUser'
+import LoadingCircle from 'components/LoadingCircle'
+import 'styles/Auth.css'
 
 function LoginUserPage() {
-  const [userInfo, setUserInfo] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [userInfo, setUserInfo] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
-  const { loginUser } = useLoginUser();
-  const navigate = useNavigate();
+  const { loginUser } = useLoginUser()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const { success, message } = await loginUser(userInfo, password);
+    e.preventDefault()
+    const { success, message } = await loginUser(userInfo, password)
 
     if (success) {
-      navigate('/');
-      window.location.reload();
+      navigate('/')
+      window.location.reload()
     } else {
-      alert(message);
-      setPassword('');
+      alert(message)
+      setPassword('')
     }
-  };
+  }
 
   const toggleVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
   return (
     <div className="auth-container">
@@ -69,7 +69,7 @@ function LoginUserPage() {
         <a href="/" className="auth-link">Domů</a>
       </p>
     </div>
-  );
+  )
 }
 
-export default LoginUserPage;
+export default LoginUserPage

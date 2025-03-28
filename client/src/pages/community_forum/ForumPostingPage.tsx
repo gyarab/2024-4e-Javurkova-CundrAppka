@@ -1,41 +1,41 @@
-import LoadingCircle from "components/LoadingCircle";
-import useCreatePost from "hooks/forum/useCreatePost";
-import { Post } from "models/forum-post";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import LoadingCircle from "components/LoadingCircle"
+import useCreatePost from "hooks/forum/useCreatePost"
+import { Post } from "models/forum-post"
+import { useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import 'styles/Forum.css'
 
-type PostFormData = Partial<Omit<Post, "_id" | "createdAt" | "updatedAt">>;
+type PostFormData = Partial<Omit<Post, "_id" | "createdAt" | "updatedAt">>
 
 function ForumPostingPage() {
-  const { city } = useParams();
+  const { city } = useParams()
   const [postData, setPostData] = useState<PostFormData>({
     title: "",
     city: city || "Praha",
     text: "",
-  });
+  })
 
-  const { createPost } = useCreatePost();
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { createPost } = useCreatePost()
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!postData.city?.trim() || !postData.text?.trim()) {
-      alert("Vyplňte obsah příspěvku");
-      return;
+      alert("Vyplňte obsah příspěvku")
+      return
     }
-    setLoading(true);
+    setLoading(true)
 
-    const success = await createPost(postData as Post);
-    setLoading(false);
+    const success = await createPost(postData as Post)
+    setLoading(false)
 
     if (success) {
-      navigate(`/komunitni-forum/${postData.city}`);
+      navigate(`/komunitni-forum/${postData.city}`)
     } else {
-      alert("Nastal problém při vytváření příspěvku");
+      alert("Nastal problém při vytváření příspěvku")
     }
-  };
+  }
 
   const cities: { [key: string]: string } = {
     Praha: "Praha",
@@ -48,9 +48,9 @@ function ForumPostingPage() {
     "Hradec-Kralove": "Hradec Králové",
     Zlin: "Zlín",
     Pardubice: "Pardubice",
-  };
+  }
 
-  if (loading) return <LoadingCircle />;
+  if (loading) return <LoadingCircle />
 
   return (
     <div className="forum-posting-container">
@@ -93,7 +93,7 @@ function ForumPostingPage() {
       </form>
       <p><a href="/komunitni-forum" className="back-link">Zpátky</a></p>
     </div>
-  );
+  )
 }
 
-export default ForumPostingPage;
+export default ForumPostingPage

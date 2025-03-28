@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import useFetchSingleAd from 'hooks/ads/useFetchSingleAd'
 import { useNavigate } from 'react-router-dom'
 import useDeleteAd from 'hooks/ads/useDeleteAd'
 import DeleteConfirmComp from 'components/DeleteConfirmComp'
 import useSaveAd from 'hooks/ads/useSaveAd'
-import { useAuth } from 'context/AuthContext';
-import LoadingCircle from 'components/LoadingCircle';
+import { useAuth } from 'context/AuthContext'
+import LoadingCircle from 'components/LoadingCircle'
 import 'styles/ViewAd.css'
 
 
@@ -19,14 +19,14 @@ function ViewAdPage() {
     const { saveAd } = useSaveAd()
     const [saved, setSaved] = useState(false)
     
-    const { user, loading } = useAuth(); // Access user data from AuthContext
+    const { user, loading } = useAuth() // Access user data from AuthContext
 
-    const myAdsIds = user?.ads || [];
+    const myAdsIds = user?.ads || []
     const isMine = myAdsIds.includes(id as string)
     useEffect(() => {
-      const mySavedAdsIds = user?.saved_ads || [];
-      setSaved(mySavedAdsIds.includes(id as string)); // Update saved state based on whether the ad is in the user's saved ads.
-    }, [user, id]); // Add 'user' and 'id' as dependencies to run this effect only when they change.
+      const mySavedAdsIds = user?.saved_ads || []
+      setSaved(mySavedAdsIds.includes(id as string)) // Update saved state based on whether the ad is in the user's saved ads.
+    }, [user, id]) // Add 'user' and 'id' as dependencies to run this effect only when they change.
 
     if (loading || loadingAd) {
         return <LoadingCircle/>
@@ -66,24 +66,24 @@ function ViewAdPage() {
       russian: "Ruština",
       italian: "Italština",
       french: "Francouzština"
-    };
+    }
 
     const czechMonths = [
       'leden', 'únor', 'březen', 'duben', 'květen', 'červen',
       'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'
-    ];
+    ]
 
     const formatMonthYear = (monthYear: string) => {
-      if (!monthYear) return '';
+      if (!monthYear) return ''
       
-      const [year, month] = monthYear.split('-');
-      const monthName = czechMonths[Number(month) - 1]; // Adjust because months are 0-indexed
+      const [year, month] = monthYear.split('-')
+      const monthName = czechMonths[Number(month) - 1] // Adjust because months are 0-indexed
       
-      return `${monthName} ${year}`;
-    };
+      return `${monthName} ${year}`
+    }
 
     const handleSaveClick = async () => {
-      const newSavedState = await saveAd(user!._id!, ad!._id);
+      const newSavedState = await saveAd(user!._id!, ad!._id)
       setSaved(newSavedState)
     }
 

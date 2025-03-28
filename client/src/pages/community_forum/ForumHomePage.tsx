@@ -1,5 +1,5 @@
-import LoadingCircle from "components/LoadingCircle";
-import { useAuth } from "context/AuthContext";
+import LoadingCircle from "components/LoadingCircle"
+import { useAuth } from "context/AuthContext"
 import 'styles/Forum.css'
 
 function ForumHomePage() {
@@ -14,11 +14,11 @@ function ForumHomePage() {
     "Hradec-Kralove": "Hradec Králové",
     "Zlin": "Zlín",
     "Pardubice": "Pardubice"
-  };
+  }
 
-  const { user, loading } = useAuth();
+  const { user, loading } = useAuth()
 
-  if (loading) return <LoadingCircle/>;
+  if (loading) return <LoadingCircle/>
 
   return (
     <div className="forum-container">
@@ -40,7 +40,7 @@ function ForumHomePage() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default ForumHomePage;
+export default ForumHomePage

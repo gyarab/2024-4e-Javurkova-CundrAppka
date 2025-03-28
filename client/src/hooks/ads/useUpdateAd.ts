@@ -26,4 +26,4 @@ const useUpdateAd = () => {
   return { updateAd, loading }
 }
 
-export default useUpdateAd;
+export default useUpdateAd

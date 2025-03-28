@@ -13,7 +13,7 @@ function ViewPackagePage() {
         "Ceske-Budejovice": "České Budějovice",
         "Hradec-Kralove": "Hradec Králové",
         "Zlin": "Zlín"
-    };
+    }
 
     // Parsing the text into structured sections
     const parseText = (text: string) => {
@@ -25,57 +25,57 @@ function ViewPackagePage() {
             'Kultura',
             'Restaurace, doprava a ubytování',
             'Výlety v okolí'
-        ];
+        ]
 
-        const sectionData: any = {};
-        let currentSection = '';
-        let currentContent = '';
+        const sectionData: any = {}
+        let currentSection = ''
+        let currentContent = ''
 
         // Split by lines and then process each line
-        const lines = text.split('\n');
+        const lines = text.split('\n')
         lines.forEach(line => {
-            const matchedSection = sections.find(section => line.startsWith(section));
+            const matchedSection = sections.find(section => line.startsWith(section))
             if (matchedSection) {
                 // If we find a section, save the previous one and start new one
                 if (currentSection) {
-                    sectionData[currentSection] = currentContent.trim();
+                    sectionData[currentSection] = currentContent.trim()
                 }
-                currentSection = matchedSection;
-                currentContent = line.replace(matchedSection, '').trim();  // Clean up the section header
+                currentSection = matchedSection
+                currentContent = line.replace(matchedSection, '').trim()  // Clean up the section header
             } else {
-                currentContent += `\n${line}`;
+                currentContent += `\n${line}`
             }
-        });
+        })
 
         // Add the last section to the result
         if (currentSection) {
-            sectionData[currentSection] = currentContent.trim();
+            sectionData[currentSection] = currentContent.trim()
         }
 
-        return sectionData;
-    };
+        return sectionData
+    }
 
     useEffect(() => {
-        const path = `/cities_info/${city}.txt`;
+        const path = `/cities_info/${city}.txt`
         fetch(path)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("File not found");
+                    throw new Error("File not found")
                 }
-                return response.text();
+                return response.text()
             })
             .then(data => {
-                setText(data);
-                setLoading(false);
+                setText(data)
+                setLoading(false)
             })
-            .catch(error => console.error("Error loading text file:", error));
-    }, [city]);
+            .catch(error => console.error("Error loading text file:", error))
+    }, [city])
 
     if (loading) {
         return <LoadingCircle />
     }
 
-    const sections = parseText(text);
+    const sections = parseText(text)
 
     return (
         <div className="view-package-page">

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 
-// v package 'express-session' pridavam paramtry do typu promenne 'SessionData'
+// in the package express-session I'm expanding interface SessionData by an attribute userId
 declare module 'express-session' {
     interface SessionData {
-        userId: mongoose.Types.ObjectId;
+        userId: mongoose.Types.ObjectId
     }
 }

@@ -1,9 +1,9 @@
-import { Post } from 'models/forum-post';
+import { Post } from 'models/forum-post'
 import { useEffect, useState } from 'react'
 
 const useFetchAllPosts = () => {
 
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<Post[]>([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {

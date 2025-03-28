@@ -1,19 +1,19 @@
-import useFetchAds from 'hooks/ads/useFetchAds';
-import 'styles/Ads.css';
-import LoadingCircle from 'components/LoadingCircle';
-import { useState } from 'react';
-import { useAuth } from 'context/AuthContext';
+import useFetchAds from 'hooks/ads/useFetchAds'
+import 'styles/Ads.css'
+import LoadingCircle from 'components/LoadingCircle'
+import { useState } from 'react'
+import { useAuth } from 'context/AuthContext'
 
 function AdsPage() {
-    const { user, loading: loading1 } = useAuth();
-    const [sortOrder, setSortOrder] = useState('newest');
-    const { ads, loading } = useFetchAds();
+    const { user, loading: loading1 } = useAuth()
+    const [sortOrder, setSortOrder] = useState('newest')
+    const { ads, loading } = useFetchAds()
 
     ads.sort((a, b) => {
-        const dateA = new Date(a.updatedAt).getTime();
-        const dateB = new Date(b.updatedAt).getTime();
-        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-    });
+        const dateA = new Date(a.updatedAt).getTime()
+        const dateB = new Date(b.updatedAt).getTime()
+        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB
+    })
 
     const [filters, setFilters] = useState({
         destination: '',
@@ -22,26 +22,26 @@ function AdsPage() {
         gender: '',
         languages: [] as string[],
         smokingPreference: '',
-    });
+    })
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         if (name === 'languages') {
             setFilters(prevFilters => {
                 const selectedLanguages = prevFilters.languages.includes(value)
                     ? prevFilters.languages.filter(lang => lang !== value)
-                    : [...prevFilters.languages, value];
-                return { ...prevFilters, languages: selectedLanguages };
-            });
+                    : [...prevFilters.languages, value]
+                return { ...prevFilters, languages: selectedLanguages }
+            })
         } else {
-            setFilters({ ...filters, [name]: value });
+            setFilters({ ...filters, [name]: value })
         }
-    };
+    }
 
     const filteredAds = ads.filter(ad => {
-        const adMinAge = ad.preferences?.minAge ? Number(ad.preferences.minAge) : null;
-        const adMaxAge = ad.preferences?.maxAge ? Number(ad.preferences.maxAge) : null;
-        const userAge = filters.userAge ? Number(filters.userAge) : null;
+        const adMinAge = ad.preferences?.minAge ? Number(ad.preferences.minAge) : null
+        const adMaxAge = ad.preferences?.maxAge ? Number(ad.preferences.maxAge) : null
+        const userAge = filters.userAge ? Number(filters.userAge) : null
         return (
             (!userAge ||
               (adMinAge === null && adMaxAge === null) ||
@@ -54,8 +54,8 @@ function AdsPage() {
             (filters.gender ? (!ad.preferences?.gender || ad.preferences.gender === filters.gender) : true) &&
             (filters.languages.length > 0 ? (ad.preferences?.languages?.some((lang: string) => filters.languages.includes(lang))) : true) &&
             (filters.smokingPreference ? (!ad.preferences?.smokingPreference || ad.preferences.smokingPreference === filters.smokingPreference) : true)
-        );
-    });
+        )
+    })
 
     if (loading || loading1) {
         return <LoadingCircle/>
@@ -69,7 +69,7 @@ function AdsPage() {
         russian: "Rusky",
         italian: "Italsky",
         french: "Francouzsky"
-    };
+    }
 
     return (
         <>
@@ -182,7 +182,7 @@ function AdsPage() {
                 )}
             </div>
         </>
-    );
+    )
 }
 
-export default AdsPage;
+export default AdsPage

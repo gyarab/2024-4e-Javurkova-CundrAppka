@@ -6,6 +6,7 @@ import Ad from '../models/ads.model'
 import User from '../models/users.model'
 
 // fetches all ads in db
+// @route GET /api/ads
 export const getAds: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
   try {
     // gets all ads, since the condition {} is empty
@@ -22,6 +23,7 @@ export const getAds: RequestHandler = asyncHandler(async (req: Request, res: Res
 })
 
 // fetches a single ad
+// @route GET /api/ads/:id
 export const getAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
   try {
     // gets ID that is part of the url
@@ -48,6 +50,7 @@ export const getAd: RequestHandler = asyncHandler(async (req: Request, res: Resp
 })
 
 // creates an ad
+// @route POST /api/ads
 export const createAd = async (req: Request, res: Response): Promise<void> => {
     try {
         // request body constains ad info
@@ -84,19 +87,20 @@ export const createAd = async (req: Request, res: Response): Promise<void> => {
             user?._id, 
             { $push: { ads: newAd._id as string } }, 
             { new: true }
-        );
+        )
     
         // if succesful let frontend know
         if(savedAd){
           res.status(201).json({success: true, data: savedAd})
         }
       } catch (err) {
-        
+        // if unsuccesful let frontend know
         res.status(500).json({ success: false, message: 'Při vytváření inzerátů nastala chyba' })
       }
 }
 
 // updates an already existing ad
+// @route PUT /api/ads/:id
 export const updateAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
   try {
     // gets ID that is part of the url
@@ -125,6 +129,7 @@ export const updateAd: RequestHandler = asyncHandler(async (req: Request, res: R
 })
 
 // deletes an ad
+// @route DELETE /api/ads/:id
 export const deleteAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
   try {
     // gets ID that is part of the url
@@ -151,36 +156,37 @@ export const deleteAd: RequestHandler = asyncHandler(async (req: Request, res: R
 })
 
 // saves or unsaves an ad
+// @route POST /api/ads/:userId/save-ad/:adId
 export const saveAd: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
   try {
     // gets user, ad ID that are part of the url
-    const { userId, adId } = req.params;
+    const { userId, adId } = req.params
 
     // gets particular user
-    const user = await User.findById(userId);
+    const user = await User.findById(userId)
 
     // if user does not exist
     if (!user) {
-      res.status(404).json({ success: false, message: "User not found" });
-      return;
+      res.status(404).json({ success: false, message: "User not found" })
+      return
     }
 
     // since comparing database IDs I convert it to a proper format
-    const adObjectId = new mongoose.Types.ObjectId(adId);
+    const adObjectId = new mongoose.Types.ObjectId(adId)
 
     // compare saved_ads as string representations of ObjectIds
     const isAlreadySaved = user.saved_ads.some(savedAdId => savedAdId.toString() === adObjectId.toString())
 
     // if already saved, unsave it = remove from user's saved_ads
     if (isAlreadySaved) {
-      user.saved_ads = user.saved_ads.filter(savedAdId => savedAdId.toString() !== adObjectId.toString()); // Compare as strings
+      user.saved_ads = user.saved_ads.filter(savedAdId => savedAdId.toString() !== adObjectId.toString()) // Compare as strings
     } else {
       // adding to user's saved_ads
-      user.saved_ads.push(adObjectId as unknown as ObjectId); 
+      user.saved_ads.push(adObjectId as unknown as ObjectId) 
     }
 
     // save the updated user document
-    const saved_ad = await user.save();
+    const saved_ad = await user.save()
 
     // if succesful or unsuccesful, send that info to frontend
 
@@ -190,7 +196,7 @@ export const saveAd: RequestHandler = asyncHandler(async (req: Request, res: Res
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error", error })
   }
-});
+})
 
 
 

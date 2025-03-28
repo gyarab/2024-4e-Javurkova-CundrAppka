@@ -70,7 +70,7 @@ function App() {
       </Routes>
       <Footer />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

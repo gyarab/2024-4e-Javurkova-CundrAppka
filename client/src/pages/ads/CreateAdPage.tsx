@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useCreateAd from 'hooks/ads/useCreateAd'
-import { Ad } from 'models/ad';
-import LoadingCircle from 'components/LoadingCircle';
-import 'styles/Ads.css';
+import { Ad } from 'models/ad'
+import LoadingCircle from 'components/LoadingCircle'
+import 'styles/Ads.css'
 
-type AdFormData = Partial<Omit<Ad, '_id' | 'createdAt' | 'updatedAt'>>;
+type AdFormData = Partial<Omit<Ad, '_id' | 'createdAt' | 'updatedAt'>>
 
 function CreateAdPage() {
   const [adData, setAdData] = useState<AdFormData>({
@@ -21,32 +21,32 @@ function CreateAdPage() {
       languages: [] as string[],
       smokingPreference: ''
     }
-  });
+  })
 
   const { createAd } = useCreateAd()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!adData.title.trim() || !adData.description.trim()) {
-      alert('Vyplnte nazev a popis inzeratu');
-      return;
+      alert('Vyplnte nazev a popis inzeratu')
+      return
     }
-    setLoading(true);
+    setLoading(true)
     
-    const success = await createAd(adData as Ad);
-    setLoading(false);
+    const success = await createAd(adData as Ad)
+    setLoading(false)
     
     if (success) {
-      navigate('/inzeraty');
+      navigate('/inzeraty')
     } else {
-      alert('Nastal problém při vytváření inzerátu');
+      alert('Nastal problém při vytváření inzerátu')
     }
-  };
+  }
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value
     setAdData({
       ...adData,
       preferences: {
@@ -55,11 +55,11 @@ function CreateAdPage() {
           ? [...adData.preferences.languages, value]
           : adData.preferences.languages.filter((lang: string) => lang !== value),
       },
-    });
-  };
+    })
+  }
 
   if (loading) {
-    return <LoadingCircle />;
+    return <LoadingCircle />
   }
 
   const languageLabels: { [key: string]: string } = {
@@ -70,7 +70,7 @@ function CreateAdPage() {
     russian: "Ruština",
     italian: "Italština",
     french: "Francouzština"
-  };
+  }
 
   return (
     <div className="create-ad-container">
@@ -164,7 +164,7 @@ function CreateAdPage() {
       </form>
       <a href="/inzeraty" className="back-link">Zpátky</a>
     </div>
-  );
+  )
 }
 
-export default CreateAdPage;
+export default CreateAdPage

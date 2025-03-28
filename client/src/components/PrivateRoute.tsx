@@ -1,6 +1,6 @@
-import { useAuth } from "context/AuthContext";
-import { Navigate, useParams } from "react-router-dom";  // Use Navigate instead of Redirect
-import LoadingCircle from "./LoadingCircle";
+import { useAuth } from "context/AuthContext"
+import { Navigate, useParams } from "react-router-dom"  // Use Navigate instead of Redirect
+import LoadingCircle from "./LoadingCircle"
 
 interface PrivateRouteProps {
   children: React.ReactNode
@@ -8,7 +8,7 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute = ({ children, redirectTo }: PrivateRouteProps) => {
-  const { user, loading } = useAuth();
+  const { user, loading } = useAuth()
   const { id } = useParams()
 
   if(loading) {
@@ -18,13 +18,13 @@ const PrivateRoute = ({ children, redirectTo }: PrivateRouteProps) => {
   switch(redirectTo) { 
     case '/prihlaseni': { 
         if (!user) {
-            return <Navigate to='/prihlaseni' />;
+            return <Navigate to='/prihlaseni' />
         }
         break
     } 
     case '/muj-ucet': { 
         if (user) {
-            return <Navigate to='/muj-ucet' />;
+            return <Navigate to='/muj-ucet' />
         }
         break 
     } 
@@ -32,13 +32,13 @@ const PrivateRoute = ({ children, redirectTo }: PrivateRouteProps) => {
         const userAds = user?.ads || []
         const isMine = userAds.includes(id as string)
         if (!isMine) {
-            return <Navigate to={`/inzeraty/${id}`} />;
+            return <Navigate to={`/inzeraty/${id}`} />
         }
-        break; 
+        break 
      }
     } 
 
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
 
-export default PrivateRoute;
+export default PrivateRoute

@@ -1,23 +1,23 @@
-import LoadingCircle from 'components/LoadingCircle';
-import { useAuth } from 'context/AuthContext';
-import useFetchAds from 'hooks/ads/useFetchAds';
-import { useState } from 'react';
+import LoadingCircle from 'components/LoadingCircle'
+import { useAuth } from 'context/AuthContext'
+import useFetchAds from 'hooks/ads/useFetchAds'
+import { useState } from 'react'
 import 'styles/Ads.css'
 
 function MyAds() {
-  const { ads, loading: loading1 } = useFetchAds();
-  const [searchQuery, setSearchQuery] = useState('');
-  const { user, loading } = useAuth(); // Access user data from AuthContext
+  const { ads, loading: loading1 } = useFetchAds()
+  const [searchQuery, setSearchQuery] = useState('')
+  const { user, loading } = useAuth() // Access user data from AuthContext
   const [sortOrder, setSortOrder] = useState('newest')
 
-  const myAdsIds = user?.ads || [];
-  const myAds = ads.filter(ad => myAdsIds.includes(ad._id));
+  const myAdsIds = user?.ads || []
+  const myAds = ads.filter(ad => myAdsIds.includes(ad._id))
 
   myAds.sort((a, b) => {
-    const dateA = new Date(a.createdAt).getTime();
-    const dateB = new Date(b.createdAt).getTime();
-    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-  });
+    const dateA = new Date(a.createdAt).getTime()
+    const dateB = new Date(b.createdAt).getTime()
+    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB
+  })
 
   if (loading || loading1) {
     return <LoadingCircle/>
@@ -27,7 +27,7 @@ function MyAds() {
     ad.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     ad.description.toLowerCase().includes(searchQuery.toLowerCase())||
     ad.destination?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  )
 
   return (
     <>

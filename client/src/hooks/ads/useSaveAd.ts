@@ -6,10 +6,10 @@ const useSaveAd = () => {
             headers: { "Content-Type": "application/json", },
           })
           const data = await response.json()
-          return data.saved_ads.includes(adId);
+          return data.saved_ads.includes(adId)
       } catch{
-        alert("Při ukládání inzerátu nastala chyba.");
-        return false;
+        alert("Při ukládání inzerátu nastala chyba.")
+        return false
       }
   }
 

@@ -1,6 +1,6 @@
-import LoadingCircle from 'components/LoadingCircle';
-import { useAuth } from 'context/AuthContext';
-import useFetchAllPosts from 'hooks/forum/useFetchAllPosts';
+import LoadingCircle from 'components/LoadingCircle'
+import { useAuth } from 'context/AuthContext'
+import useFetchAllPosts from 'hooks/forum/useFetchAllPosts'
 import React, { useMemo, useState } from 'react'
 import useDeletePost from 'hooks/forum/useDeletePost'
 import DeleteConfirmComp from 'components/DeleteConfirmComp'
@@ -8,22 +8,22 @@ import { useNavigate } from 'react-router-dom'
 import 'styles/Forum.css'
 
 function MyPostsPage() {
-    const { posts, loading: loadingPosts } = useFetchAllPosts();
-    const { user, loading: loadingUser } = useAuth();
+    const { posts, loading: loadingPosts } = useFetchAllPosts()
+    const { user, loading: loadingUser } = useAuth()
     const navigate = useNavigate()
-    const [postToDelete, setPostToDelete] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
+    const [postToDelete, setPostToDelete] = useState('')
+    const [searchQuery, setSearchQuery] = useState('')
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const { deletePost } = useDeletePost()
     const [sortOrder, setSortOrder] = useState('newest')
 
-    const myPostsIds = user?.posts || [];
-    const myPosts = posts.filter(post => myPostsIds.includes(post._id));
+    const myPostsIds = user?.posts || []
+    const myPosts = posts.filter(post => myPostsIds.includes(post._id))
     myPosts.sort((a, b) => {
-      const dateA = new Date(a.createdAt).getTime();
-      const dateB = new Date(b.createdAt).getTime();
-      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-    });
+      const dateA = new Date(a.createdAt).getTime()
+      const dateB = new Date(b.createdAt).getTime()
+      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB
+    })
 
     if (loadingPosts || loadingUser) {
         return <LoadingCircle/>
@@ -32,12 +32,12 @@ function MyPostsPage() {
     const filteredPosts = myPosts?.filter(post =>
         post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.text.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
 
     async function handleDelete(postId: string){
         const response = await deletePost(postId)
         if (response!.success) {
-            window.location.reload();
+            window.location.reload()
         } else {
             alert('Nastal problém při mazání inzerátu')
         }
@@ -48,7 +48,7 @@ function MyPostsPage() {
       "Ceske-Budejovice": "České Budějovice",
       "Hradec-Kralove": "Hradec Králové",
       "Zlin": "Zlín"
-    };
+    }
 
   return (
     <div className="forum-city-container">
@@ -79,7 +79,7 @@ function MyPostsPage() {
               <p className="forum-post-text">{post.text}</p>
               <p className="forum-post-date">Vytvořeno: {new Date(post.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
               <p>
-                <button className="btn btn-danger" onClick={() => { setShowConfirmModal(true); setPostToDelete(post._id); }}>
+                <button className="btn btn-danger" onClick={() => { setShowConfirmModal(true); setPostToDelete(post._id) }}>
                   Smazat
                 </button>
               </p>
@@ -94,8 +94,8 @@ function MyPostsPage() {
         show={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         onConfirm={() => {
-          setShowConfirmModal(false);
-          handleDelete(postToDelete);
+          setShowConfirmModal(false)
+          handleDelete(postToDelete)
         }}
       />
     </div>
