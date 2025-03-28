@@ -2,6 +2,7 @@ import LoadingCircle from 'components/LoadingCircle';
 import { useAuth } from 'context/AuthContext';
 import useFetchAds from 'hooks/ads/useFetchAds';
 import { useState } from 'react';
+import 'styles/Ads.css'
 
 function SavedAdsPage() {
     const { ads, loading: loading1 } = useFetchAds();
@@ -30,6 +31,7 @@ function SavedAdsPage() {
     return (
         <>
             <h1>Ulozene inzeraty</h1>
+            <p>Dohromady uzloceno inzeratu: {savedAds.length}</p>
             <input
                 type="text"
                 placeholder="Hledat inzerat.."
@@ -53,18 +55,20 @@ function SavedAdsPage() {
                 filteredAds.map((ad, index) => (
                     <div key={index} className="vintage-paper-box">
                     <h2>{ad.title}</h2>
-                    <p>{ad.description}</p>
-                    <p className="text-gray-500 text-sm">Posledni uprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
+                    <p className="ad-description">{ad.description}</p>
+                    <div className="ad-footer">
+                        <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
                         Zobrazit
-                    </a>
+                        </a>
+                        <p className="ad-updated">Poslední úprava: {new Date(ad.updatedAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    </div>
                     </div>
                 ))
                 ) : (
                     <p>No ads available.</p>
             )}
             </div>
-            <p><a href="/muj-ucet">zpet</a></p>
+            <p><a href="/muj-ucet" className='back-link'>Zpět</a></p>
     </>
     )
 }

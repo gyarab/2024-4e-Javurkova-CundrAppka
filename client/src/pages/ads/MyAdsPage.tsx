@@ -2,6 +2,7 @@ import LoadingCircle from 'components/LoadingCircle';
 import { useAuth } from 'context/AuthContext';
 import useFetchAds from 'hooks/ads/useFetchAds';
 import { useState } from 'react';
+import 'styles/Ads.css'
 
 function MyAds() {
   const { ads, loading: loading1 } = useFetchAds();
@@ -55,18 +56,20 @@ function MyAds() {
           filteredAds.map((ad, index) => (
             <div key={index} className="vintage-paper-box">
               <h2>{ad.title}</h2>
-              <p>{ad.description}</p>
-              <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
-                Zobrazit
-              </a>
-              <p className="text-gray-500 text-sm">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              <p className="ad-description">{ad.description}</p>
+              <div className="ad-footer">
+                <a href={`/inzeraty/${ad._id}`} className="btn btn-dark">
+                  Zobrazit
+                </a>
+                <p className="ad-updated">Vytvořeno: {new Date(ad.createdAt).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              </div>
             </div>
           ))
           ) : (
             <p>No ads available.</p>
       )}
       </div>
-      <p><a href="/muj-ucet">zpet</a></p>
+      <p><a href="/muj-ucet" className='back-link' >Zpět</a></p>
     </>
   )
 }
