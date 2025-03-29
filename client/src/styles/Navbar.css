@@ -16,7 +16,7 @@
 }
 
 .custom-navbar {
-  background-color: #4b3f2f; 
+  background-color: #4b3f2f !important;
   border-bottom: 1px solid #d2c1a3;  
   color: #f4f1e1; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 

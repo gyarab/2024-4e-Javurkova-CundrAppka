@@ -1,5 +1,8 @@
+/* url: /inzeraty/upravit/:id */
+
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+
 import useFetchSingleAd from 'hooks/ads/useFetchSingleAd'
 import useUpdateAd from 'hooks/ads/useUpdateAd'
 import { Ad } from 'models/ad'
@@ -7,55 +10,73 @@ import LoadingCircle from 'components/LoadingCircle'
 import 'styles/Ads.css'
 
 function UpdateAdPage() {
+  // retrieve ads ID from url
   const { id } = useParams()
-  const navigate = useNavigate()
-  const { ad, loading: loadingAd } = useFetchSingleAd(id!)
-  const { updateAd, loading: updating } = useUpdateAd()
 
+  // import fetching and updating of an ad function from hook
+  const { ad, loading: loadingAd } = useFetchSingleAd(id!)
+  const { updateAd } = useUpdateAd()
+  const navigate = useNavigate()
+
+  // form data are of type Ad
   const [formData, setFormData] = useState<Ad>({} as Ad)
 
+  // pre-occupying form fields with ad's info
   useEffect(() => {
     if (ad) {
-      const newFormData: any = {}
+      const prefilledAdData: any = {}
 
-      // Filter out non-editable fields like _id, createdAt, updatedAt
+      // filter out non-editable fields like _id, createdAt, updatedAt etc
       Object.entries(ad).forEach(([key, value]) => {
         if (key !== '_id' && key !== 'createdAt' && key !== 'updatedAt' && key !== '__v' && key !== 'user_age' && value !== undefined) {
-          newFormData[key] = value
+          // save attribute of ad and its contents
+          prefilledAdData[key] = value
         }
       })
-
-      setFormData(newFormData)
+      // pre-occupy form data with ad's info
+      setFormData(prefilledAdData)
     }
-  }, [ad])
+  }, [ad]) // re-run only when new changes are saved
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setFormData({
-      ...formData,
-      preferences: {
-        ...formData.preferences,
-        languages: e.target.checked
-          ? [...(formData.preferences?.languages || []), value]
-          : formData.preferences?.languages?.filter((lang: string) => lang !== value),
-      },
-    })
-  }
+  // when loading, display a loading circle
+  if (loadingAd) return <LoadingCircle />
 
+  // function called once user submits
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (id) {
-      const success = await updateAd(id, formData)
-      if (success) {
+      // call function for updating ads with ads ID and new data
+      const response = await updateAd(id, formData)
+
+      // once updated and successful, redirect user to ad's viewing page
+      if (response && response.success) {
         navigate(`/inzeraty/${id}`)
       } else {
+        // if error occured send an alert
         alert('Nastal problém při úprave inzerátu')
       }
     }
   }
 
-  if (loadingAd || updating) return <LoadingCircle />
+  // speacial logic for language change
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // retrieve the un/checked language
+    const value = e.target.value
+    // form data will stay the same apart from the language
+    setFormData({
+      ...formData,
+      preferences: {
+        ...formData.preferences,
+        languages: e.target.checked
+          // if checked, add language to (possibly) already added languages
+          ? [...(formData.preferences?.languages || []), value]
+          // if unchecked, remove the language from already added languages
+          : formData.preferences?.languages?.filter((lang: string) => lang !== value),
+      },
+    })
+  }
 
+  // czech labels for languages
   const languageLabels: { [key: string]: string } = {
     czech: "Čeština",
     english: "Angličtina",
@@ -70,6 +91,9 @@ function UpdateAdPage() {
     <div className="create-ad-container">
       <h1 className="create-ad-title">Upravit inzerát</h1>
       <form onSubmit={handleSubmit} className="create-ad-form">
+        {/* pre-occupied fields that on change alter formData */}
+
+        {/* title */}
         <input
           name="title"
           value={formData.title}
@@ -78,6 +102,7 @@ function UpdateAdPage() {
           required
           className="create-ad-input"
         />
+        {/* description */}
         <textarea
           name="description"
           value={formData.description}
@@ -86,6 +111,7 @@ function UpdateAdPage() {
           required
           className="create-ad-textarea"
         />
+        {/* phone number */}
         <input
           name="phone"
           value={formData.phone}
@@ -93,6 +119,7 @@ function UpdateAdPage() {
           placeholder="Telefon"
           className="create-ad-input"
         />
+        {/* destination */}
         <input
           name="destination"
           value={formData.destination}
@@ -100,6 +127,7 @@ function UpdateAdPage() {
           placeholder="Destinace"
           className="create-ad-input"
         />
+        {/* month of travel */}
         <input
           type="month"
           name="date"
@@ -107,9 +135,8 @@ function UpdateAdPage() {
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
           className="create-ad-input"
         />
-
-         {/* Checkboxes for languages */}
-         <div className="create-ad-languages">
+        {/* spoken languages */}
+        <div className="create-ad-languages">
           <p>Jakými jazyky mluvíš?</p>
           {['czech', 'spanish', 'english', 'russian', 'italian', 'german', 'french'].map((lang) => (
             <label key={lang}>
@@ -124,7 +151,8 @@ function UpdateAdPage() {
           ))}
         </div>
 
-        {/* Gender Dropdown */}
+        <p><strong>Preferované vlastnosti kamaráda na cestování:</strong></p>
+        {/* gender preference */}
         <select
           name="preferences.gender"
           value={formData.preferences?.gender}
@@ -135,7 +163,7 @@ function UpdateAdPage() {
           <option value="female">Žena</option>
           <option value="male">Muž</option>
         </select>
-
+        {/* min age preference */}
         <input
           name="preferences.minAge"
           value={formData.preferences?.minAge}
@@ -143,6 +171,7 @@ function UpdateAdPage() {
           placeholder="Minimální věk"
           className="create-ad-input"
         />
+        {/* max age preference */}
         <input
           name="preferences.maxAge"
           value={formData.preferences?.maxAge}
@@ -150,8 +179,7 @@ function UpdateAdPage() {
           placeholder="Maximální věk"
           className="create-ad-input"
         />
-
-        {/* Smoking Preference Dropdown */}
+        {/* smoking preference */}
         <select
           name="preferences.smokingPreference"
           value={formData.preferences?.smokingPreference}
@@ -165,7 +193,7 @@ function UpdateAdPage() {
 
         <button type="submit" className="create-ad-submit">Uložit změny</button>
       </form>
-      <a href="/inzeraty" className="back-link">Zpátky</a>
+      <p><button onClick={() => navigate(-1)} className="back-button">Zpátky</button></p>
     </div>
   )
 }

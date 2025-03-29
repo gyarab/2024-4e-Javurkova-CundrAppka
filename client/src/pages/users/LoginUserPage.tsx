@@ -65,7 +65,6 @@ function LoginUserPage() {
             type="button"
             onClick={toggleVisibility}
             className="toggle-password"
-            aria-label="Toggle password visibility"
           >
             {showPassword ? '👁️' : '🔒'}
           </button>

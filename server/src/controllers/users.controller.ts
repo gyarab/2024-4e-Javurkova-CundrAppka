@@ -120,7 +120,7 @@ export const logoutUser: RequestHandler = async (req, res, next) => {
     })
 }
 
-// checks whether user is logged in or not
+// fetches current user checks whether user is logged in or not
 // @route GET /api/users
 export const getUser: RequestHandler = async (req, res) => {
     try {

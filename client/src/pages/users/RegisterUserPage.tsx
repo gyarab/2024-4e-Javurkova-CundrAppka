@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import useRegisterUser from 'hooks/users/useRegisterUser'
-import User from 'models/user'
+import { User } from 'models/user'
 import 'styles/Auth.css'
 
 // define a variable type which we'll be working with in the form
@@ -39,7 +39,7 @@ function RegisterUserPage() {
       // navigate to 'prihlaseni' so th euser can log-in
       navigate('/prihlaseni')
     } else {
-      // if anything went wrong there will be displayed error message
+      // if anything went wrong there will be displayed error message (for example 'username already taken')
       alert(message)
     }
   }

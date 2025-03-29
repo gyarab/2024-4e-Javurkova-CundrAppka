@@ -1,4 +1,3 @@
-import React from 'react'
 import 'styles/LoadingCircle.css'
 
 function LoadingCircle() {

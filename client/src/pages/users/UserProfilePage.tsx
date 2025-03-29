@@ -5,13 +5,11 @@ import { useAuth } from 'context/AuthContext'
 import 'styles/User.css'
 
 function UserProfilePage() {
-    // using authcontext we get user and loading state
+    // access user and loading state from auth context
     const { user, loading } = useAuth()
     
     // when loading, show loading circle
-    if (loading || !user) {
-        return <LoadingCircle />
-    }
+    if (loading || !user) return <LoadingCircle />
 
     return (
         <div className="profile-container">

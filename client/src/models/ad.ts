@@ -1,16 +1,18 @@
+// Ad model
+
 export interface Ad {
     _id: string
     title: string
     description: string
-    phone?: string
-    destination?: string
-    date?: string
-    preferences?: {
-      gender?: string
-      minAge?: string
-      maxAge?: string
-      languages?: string[]
-      smokingPreference?: string
+    phone?: string // optinal
+    destination?: string // optinal
+    date?: string // optinal
+    preferences?: { // optinal
+      gender?: string // optinal
+      minAge?: string // optinal
+      maxAge?: string // optinal
+      languages?: string[] // optinal
+      smokingPreference?: string // optinal
     }
     createdAt: string
     updatedAt: string
@@ -18,5 +20,4 @@ export interface Ad {
     full_name: string
     email: string
     user_age: number
-    [key: string]: any  // This allows any other property with any type
   }

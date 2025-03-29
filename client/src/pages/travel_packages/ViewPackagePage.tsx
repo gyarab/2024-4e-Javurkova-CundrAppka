@@ -28,7 +28,10 @@ function ViewPackagePage() {
                 setLoading(false)
             })
             .catch(error => console.error("Nastal error při načítání stránky: ", error))
-    }, [city])
+    }, [city]) // re-runs when city is changed
+
+    // while loading, show oading circle
+    if (loading) return <LoadingCircle />
 
     // array w names of the cities which name differ from what is written in url
     const special_city_names: { [key: string]: string } = {
@@ -77,12 +80,7 @@ function ViewPackagePage() {
         }
         return sectionData
     }
-
-    // while loading, show oading circle
-    if (loading) {
-        return <LoadingCircle />
-    }
-
+    
     // array w setions of the city text
     const sections = parseText(text)
 

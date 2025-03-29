@@ -1,6 +1,11 @@
 import { Modal, Button } from 'react-bootstrap'
 
-function DeleteConfirmComp({ message, show, onClose, onConfirm, }: { message:string, show: boolean; onClose: () => void; onConfirm: () => void;}) {
+// takes arguments:
+// message: what is shown
+// show: whether modal is opened or closed
+// onClose: what happens when canceling intended log-out or closing modal
+// onConfirm: log-out user
+function LogoutConfirmComp({ message, show, onClose, onConfirm, }: { message:string, show: boolean; onClose: () => void; onConfirm: () => void;}) {
 
   return (
     <Modal show={show} onHide={onClose} centered>
@@ -20,4 +25,4 @@ function DeleteConfirmComp({ message, show, onClose, onConfirm, }: { message:str
   )
 }
 
-export default DeleteConfirmComp
+export default LogoutConfirmComp

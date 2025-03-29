@@ -238,6 +238,20 @@ text-align: center;
 text-decoration: underline;
 }
 
+.back-button {
+  display: block;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #6d4c41;
+  text-decoration: none;
+  text-align: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+
 .no-ads {
 font-size: 1.1rem;
 color: #5a4634;

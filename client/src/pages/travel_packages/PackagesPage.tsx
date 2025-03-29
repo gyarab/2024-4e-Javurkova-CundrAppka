@@ -8,16 +8,16 @@ import "styles/Packages.css"
 function PackagesPage() {
   // array with all the available city packages
   const cities: { [key: string]: string } = {
-    "Praha": "Praha",
-    "Brno": "Brno",
-    "Ostrava": "Ostrava",
-    "Plzen": "Plzeň",
-    "Liberec": "Liberec",
-    "Olomouc": "Olomouc",
+    Praha: "Praha",
+    Brno: "Brno",
+    Ostrava: "Ostrava",
+    Plzen: "Plzeň",
+    Liberec: "Liberec",
+    Olomouc: "Olomouc",
     "Ceske-Budejovice": "České Budějovice",
     "Hradec-Kralove": "Hradec Králové",
-    "Zlin": "Zlín",
-    "Pardubice": "Pardubice"
+    Zlin: "Zlín",
+    Pardubice: "Pardubice"
   }
 
   return (
