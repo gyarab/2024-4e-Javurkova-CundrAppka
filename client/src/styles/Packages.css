@@ -17,13 +17,13 @@
 
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 equal-width columns */
-  gap: 15px; /* Horizontal gap between items */
-  grid-row-gap: 25px; /* Vertical gap between rows */
-  max-width: 1000px; /* Controls the width of the grid */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  grid-row-gap: 25px;
+  max-width: 1000px;
   width: 100%;
-  justify-content: center; /* Centers the entire grid */
-  margin: 0 auto; /* Centers the grid */
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .package-card {
@@ -34,13 +34,13 @@
   border: 2px solid #b08968;
   text-decoration: none;
   color: #6b4226;
-  font-size: 16px; /* Slightly smaller text size for consistency */
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center content vertically */
-  height: 150px; /* Fixed height for the boxes */
-  width: 225px; /* Fixed width for consistent box size */
+  justify-content: center;
+  height: 150px;
+  width: 225px;
   transition: transform 0.2s ease, background 0.3s ease;
 }
 
@@ -55,48 +55,45 @@
   margin-bottom: 5px;
 }
 
-/* Responsive Design */
 @media (max-width: 1200px) {
   .packages-grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 items per row on medium screens */
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (max-width: 900px) {
   .packages-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 items per row on smaller screens */
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 600px) {
   .packages-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 items per row on mobile */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* viewpackgepage css*/
-
 .view-package-page {
-  padding: 30px; /* Reduced padding */
+  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: left; /* Align text to the left for a more article-like feel */
+  text-align: left;
 }
 
 .view-package-page h1 {
-  font-size: 35px; /* Smaller title font */
+  font-size: 35px;
   font-weight: bold;
   color: #6b4226;
-  margin-bottom: 15px; /* Reduced margin */
+  margin-bottom: 15px; 
   text-transform: uppercase;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .view-package-page p {
-  font-size: 16px; /* Smaller text */
+  font-size: 16px; 
   color: #6b4226;
-  margin-bottom: 15px; /* Reduced margin */
+  margin-bottom: 15px; 
 }
 
 .view-package-page a {
@@ -110,55 +107,52 @@
   color: #8e7664;
 }
 
-/* Container box for the content */
 .view-package-page-container {
   background-color: #e3c7b3;
   padding: 20px;
   border-radius: 15px;
   border: 3px solid #b08968;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
-  max-width: 800px; /* Set a maximum width */
+  max-width: 800px; 
   width: 100%;
-  margin-top: 30px; /* Reduced margin */
-  margin-bottom: 30px; /* Reduced margin */
+  margin-top: 30px; 
+  margin-bottom: 30px; 
   font-size: 14px;
 }
 
-/* For the sections */
 .sections-container {
-  margin-top: 30px; /* Reduced margin */
-  margin-bottom: 30px; /* Reduced margin */
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .section {
-  margin-bottom: 30px; /* Reduced spacing between sections */
+  margin-bottom: 30px; 
 }
 
 .section h3 {
-  font-size: 24px; /* Smaller title for each section */
+  font-size: 24px;
   font-weight: bold;
   color: #6b4226;
-  margin-bottom: 10px; /* Reduced margin */
-  text-transform: uppercase; /* Capitalize section titles */
+  margin-bottom: 10px; 
+  text-transform: uppercase; 
 }
 
 .section p {
-  font-size: 14px; /* Smaller text in sections */
+  font-size: 14px; 
   color: #6b4226;
   line-height: 1.6;
 }
 
-/* Responsive Design */
 @media (max-width: 900px) {
   .view-package-page h1 {
-    font-size: 24px; /* Smaller title on medium screens */
+    font-size: 24px; 
   }
 
   .section h3 {
-    font-size: 22px; /* Smaller section titles */
+    font-size: 22px; 
   }
 
   .view-package-page p {
-    font-size: 14px; /* Adjust paragraph size */
+    font-size: 14px;
   }
 }

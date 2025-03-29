@@ -1,8 +1,12 @@
+/* url: /cestovni-balicky */
+
 import { Link } from "react-router-dom"
-import "styles/Packages.css" // Importing the CSS
+
 import LocationPin from 'assets/images/location-pin.svg'
+import "styles/Packages.css"
 
 function PackagesPage() {
+  // array with all the available city packages
   const cities: { [key: string]: string } = {
     "Praha": "Praha",
     "Brno": "Brno",

@@ -1,30 +1,40 @@
+/* url: /prihlaseni */
+
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import useLoginUser from 'hooks/users/useLoginUser'
-import LoadingCircle from 'components/LoadingCircle'
 import 'styles/Auth.css'
 
 function LoginUserPage() {
+  // states containing login info (username/email, password)
   const [userInfo, setUserInfo] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
+  // import login function from hook
   const { loginUser } = useLoginUser()
   const navigate = useNavigate()
 
+  // executed after submiting
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    // retrieve info from backend about how the login went
     const { success, message } = await loginUser(userInfo, password)
 
     if (success) {
+      // user is logged in so just window reload
       navigate('/')
       window.location.reload()
     } else {
+      // if something went wrong, error message is displayed and password is cleared
       alert(message)
       setPassword('')
     }
   }
 
+  // takes care of the password visibility
+  // once called it changes it's boolean value to the opposite
   const toggleVisibility = () => {
     setShowPassword(!showPassword)
   }

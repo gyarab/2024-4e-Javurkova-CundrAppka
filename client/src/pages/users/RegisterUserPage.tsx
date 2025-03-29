@@ -1,10 +1,15 @@
+/* url: /registrace */
+
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import useRegisterUser from 'hooks/users/useRegisterUser'
 import User from 'models/user'
 import 'styles/Auth.css'
 
 function RegisterUserPage() {
+  // states containing new user info
+  // their contents are read out of the registration form
   const [username, setUsername] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -13,12 +18,15 @@ function RegisterUserPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
+  // import register function from hook
   const { registerUser } = useRegisterUser()
   const navigate = useNavigate()
 
+  // executed after submiting
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    // create a new User instance with provided data
     const newUser: User = {
       username,
       first_name: firstName,
@@ -28,14 +36,19 @@ function RegisterUserPage() {
       password,
     }
 
+    // retrieve success and message from backend
     const { success, message } = await registerUser(newUser)
     if (success) {
+      // navigate to 'prihlaseni' so th euser can log-in
       navigate('/prihlaseni')
     } else {
+      // if anything went wrong there will be displayed error message
       alert(message)
     }
   }
 
+  // takes care of the password visibility
+  // once called it changes it's boolean value to the opposite
   const toggleVisibility = () => {
     setShowPassword(!showPassword)
   }

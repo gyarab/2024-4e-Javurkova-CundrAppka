@@ -1,13 +1,17 @@
+/* url: /mapa */
+
 import { GoogleMap, LoadScript } from "@react-google-maps/api"
 import LoadingCircle from 'components/LoadingCircle'
-import "styles/MapPage.css" // Importing the CSS
+import "styles/MapPage.css" 
 
 function MapPage() {
+  // centering map on the Czeh Republic
   const center = {
-    lat: 49.8175, // Latitude of the Czech Republic
-    lng: 15.473,  // Longitude of the Czech Republic
+    lat: 49.8175, 
+    lng: 15.473,  
   }
 
+  // read api key from .env
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""
 
   return (

@@ -1,5 +1,5 @@
 .forum-container {
-    background: #fffaf0; /* Soft beige background */
+    background: #fffaf0; 
     padding: 20px;
     border-radius: 12px;
     border: 2px dashed #c8b99d;
@@ -67,7 +67,7 @@
 
 
 .forum-city-container {
-    background: #fdf6e3; /* Soft cream background */
+    background: #fdf6e3; 
     padding: 20px;
     border-radius: 12px;
     border: 2px solid #c8b99d;
@@ -167,13 +167,13 @@
     margin: 10px 0;
     color: #5a4634;
     overflow: hidden;
-    flex-grow: 1; /* Allows the text area to take space */
+    flex-grow: 1; 
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     word-wrap: break-word;
-    white-space: pre-wrap; /* Keeps line breaks */
+    white-space: pre-wrap; 
 }
 
 .forum-post-date {

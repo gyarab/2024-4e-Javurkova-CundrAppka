@@ -1,3 +1,5 @@
+/* url: / */
+
 import CompassIcon from 'assets/images/compass-icon.png'
 
 function HomePage() {

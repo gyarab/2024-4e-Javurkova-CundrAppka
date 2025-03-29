@@ -7,7 +7,7 @@ import DeleteConfirmComp from 'components/DeleteConfirmComp'
 import useSaveAd from 'hooks/ads/useSaveAd'
 import { useAuth } from 'context/AuthContext'
 import LoadingCircle from 'components/LoadingCircle'
-import 'styles/ViewAd.css'
+import 'styles/Ads.css'
 
 
 function ViewAdPage() {

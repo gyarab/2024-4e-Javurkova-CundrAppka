@@ -1,10 +1,14 @@
+/* url: /muj-ucet */
+
 import LoadingCircle from 'components/LoadingCircle'
 import { useAuth } from 'context/AuthContext'
 import 'styles/User.css'
 
 function UserProfilePage() {
+    // using authcontext we get user and loading state
     const { user, loading } = useAuth()
     
+    // when loading, show loading circle
     if (loading || !user) {
         return <LoadingCircle />
     }

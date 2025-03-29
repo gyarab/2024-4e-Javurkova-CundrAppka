@@ -1,26 +1,23 @@
-/* Home.css */
-
 .page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: 'Dancing Script', cursive; /* Handwritten style */
+  font-family: 'Dancing Script', cursive; 
 }
 
 body {
-  background-image: url('../assets/images/vintage-paper.jpg');  /* Vintage paper as full background */
-  background-size: cover;  /* Ensures the background covers the entire page */
-  background-position: center center;  /* Centers the background image */
-  background-repeat: repeat;  /* Makes the background repeat */
-  background-attachment: fixed;  /* Keeps the background in place while scrolling */
+  background-image: url('../assets/images/vintage-paper.jpg'); 
+  background-size: cover;  
+  background-position: center center;  
+  background-repeat: repeat;  
+  background-attachment: fixed;  
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;  /* Makes sure the content takes at least the full height of the viewport */
+  min-height: 100vh;
 }
 
-/* Root Colors */
 :root {
   --beige: #f5f5dc;
   --dark-brown: #6b4226;
@@ -28,7 +25,6 @@ body {
   --muted-green: #a8bfa1;
 }
 
-/* Global Styles */
 body {
   background-color: var(--beige);
   color: #4b3a2e;
@@ -45,7 +41,6 @@ a:hover {
   color: var(--accent-red);
 }
 
-/* Navbar */
 .navbar {
   background-color: var(--beige);
   border-bottom: 2px solid var(--dark-brown);
@@ -66,7 +61,6 @@ a:hover {
   color: var(--accent-red);
 }
 
-/* Hero Section */
 .hero-section {
   height: 75vh;
   background-image: url('../assets/images/vintage-paper.jpg'); /* Beige paper texture */
@@ -120,7 +114,6 @@ a:hover {
   color: var(--beige);
 }
 
-/* Footer */
 footer {
   background-color: var(--beige);
   text-align: center;
@@ -134,37 +127,32 @@ footer p {
   font-size: 1rem;
 }
 
-/* Ensure that html and body take up full height and have no extra padding/margin */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Use flexbox for the body layout */
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures the body fills the viewport */
+  min-height: 100vh;
 }
 
-/* Main content area, ensuring it takes available space */
 main {
   flex: 1;
 }
 
-/* Footer Styles */
 footer {
-  background-color: var(--beige);  /* Beige background */
-  color: #333;  /* Dark text */
+  background-color: var(--beige); 
+  color: #333; 
   text-align: center;
-  padding: 12px 20px;  /* Reduced padding to avoid extra white space */
+  padding: 12px 20px; 
   border-top: 2px solid var(--dark-brown);
   width: 100%;
-  margin-top: auto; /* Pushes footer to the bottom */
+  margin-top: auto; 
 }
 
-/* Ensure no body overflow or unwanted space */
 * {
-  box-sizing: border-box; /* Ensure padding doesn't add to element size */
+  box-sizing: border-box; 
 }

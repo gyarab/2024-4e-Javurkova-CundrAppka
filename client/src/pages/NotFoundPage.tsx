@@ -1,3 +1,5 @@
+/* url: * (to co neni zaregistrovane v App.tsx) */
+
 function NotFoundPage() {
   return (
     <div>
