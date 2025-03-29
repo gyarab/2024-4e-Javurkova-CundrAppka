@@ -7,37 +7,34 @@ import useRegisterUser from 'hooks/users/useRegisterUser'
 import User from 'models/user'
 import 'styles/Auth.css'
 
-function RegisterUserPage() {
-  // states containing new user info
-  // their contents are read out of the registration form
-  const [username, setUsername] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [birthday, setBirthday] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
+// define a variable type which we'll be working with in the form
+// it is of type User but without the attribute id since users don't define that for themselves
+type UserFormData = Partial<Omit<User, '_id'>>
 
+function RegisterUserPage() {
   // import register function from hook
   const { registerUser } = useRegisterUser()
   const navigate = useNavigate()
+
+  // state for password visility
+  const [showPassword, setShowPassword] = useState(false)
+
+  // default data for the form
+  const [userData, setUserData] = useState<UserFormData>({
+    username: '',
+    first_name: '',
+    last_name: '',
+    birthday: undefined,
+    email: '',
+    password: ''
+  })
 
   // executed after submiting
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // create a new User instance with provided data
-    const newUser: User = {
-      username,
-      first_name: firstName,
-      last_name: lastName,
-      birthday: new Date(birthday),
-      email,
-      password,
-    }
-
     // retrieve success and message from backend
-    const { success, message } = await registerUser(newUser)
+    const { success, message } = await registerUser(userData as User)
     if (success) {
       // navigate to 'prihlaseni' so th euser can log-in
       navigate('/prihlaseni')
@@ -57,16 +54,58 @@ function RegisterUserPage() {
     <div className="auth-container">
       <h1 className="auth-title">Registrace</h1>
       <form className="auth-form" onSubmit={handleSubmit}>
-        <input className="auth-input" type="text" onChange={(e) => setFirstName(e.target.value)} required placeholder="Křestní jméno" />
-        <input className="auth-input" type="text" onChange={(e) => setLastName(e.target.value)} required placeholder="Příjmení" />
-        <label htmlFor="date">Tvoje narozeniny</label>
-        <input className="auth-input" type="date" onChange={(e) => setBirthday(e.target.value)} required/>
+        <input 
+          className="auth-input" 
+          type="text" 
+          onChange={(e) => setUserData((prev) => ({ ...prev, first_name: e.target.value }))}
+          required 
+          placeholder="Křestní jméno" 
+        />
+        <input 
+          className="auth-input" 
+          type="text" 
+          onChange={(e) => setUserData({ ...userData, last_name: e.target.value })}
+          required 
+          placeholder="Příjmení" 
+        />
+        <label htmlFor="date">
+          Tvoje narozeniny
+        </label>
+        <input 
+          className="auth-input" 
+          type="date" 
+          onChange={(e) => setUserData({ ...userData, birthday: e.target.value as unknown as Date })}
+          required
+        />
         <br />
-        <input className="auth-input" type="text" onChange={(e) => setUsername(e.target.value)} required placeholder="Uživatelské jméno" />
-        <input className="auth-input" type="email" onChange={(e) => setEmail(e.target.value)} required placeholder="Email" />
+        <input 
+          className="auth-input" 
+          type="text" 
+          onChange={(e) => setUserData({ ...userData, username: e.target.value })}
+          required 
+          placeholder="Uživatelské jméno" 
+        />
+        <input 
+          className="auth-input" 
+          type="email" 
+          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+          required 
+          placeholder="Email" 
+        />
         <div className="password-container">
-          <input className="auth-input" type={showPassword ? 'text' : 'password'} onChange={(e) => setPassword(e.target.value)} required placeholder="Heslo" />
-          <button type="button" onClick={toggleVisibility} className="toggle-password" aria-label="Toggle password visibility">
+          {/* change type of the field from password to text (in/visible) according to user */}
+          <input 
+            className="auth-input" 
+            type={showPassword ? 'text' : 'password'} 
+            onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+            required 
+            placeholder="Heslo" 
+          />
+          <button 
+            type="button" 
+            onClick={toggleVisibility} 
+            className="toggle-password"
+          >
             {showPassword ? '👁️' : '🔒'}
           </button>
         </div>
