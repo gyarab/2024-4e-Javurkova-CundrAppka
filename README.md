@@ -1,5 +1,6 @@
 # ✈️ ČundrAppka – Your Guide to the Czech Wilderness
 www.cundrappka.cz
+
 *A vintage-inspired travel companion for explorers of the Czech Republic.*
 
 ## 🗺 About ČundrAppka

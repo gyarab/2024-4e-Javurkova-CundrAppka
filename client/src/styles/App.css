@@ -156,3 +156,9 @@ footer {
 * {
   box-sizing: border-box; 
 }
+
+@media (max-width: 768px) {
+  .page-wrapper {
+    font-family: 'Merriweather', serif; /* You can choose any vintage font here */
+  }
+}
